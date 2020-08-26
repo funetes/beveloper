@@ -1,0 +1,22 @@
+.lectureCard {
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  opacity: 1;
+  transition: opacity 100ms;
+}
+
+.lectureCard:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.lectureCard___image {
+  object-fit: contain;
+  height: 200px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.lectureCard__container {
+}

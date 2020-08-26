@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './components/Home/Home';
 
 import Nav from './components/Nav/Nav';
 function App() {
@@ -10,8 +11,9 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path='/'>
-            main - course
+            <Home />
           </Route>
+          <Route path='/cart'>장바구니</Route>
           <Route path='/:id'>user Page</Route>
         </Switch>
       </Router>

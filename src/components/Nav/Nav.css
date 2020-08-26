@@ -3,14 +3,31 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 20px;
 }
 .nav__logo {
   object-fit: contain;
-  width: 150px;
+  width: 130px;
 }
 
 .nav__linkContainer {
   display: flex;
-  width: 30%;
   justify-content: space-around;
+}
+
+.nav__link {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.nav__link .MuiSvgIcon-root {
+  width: 30px;
+  height: 30px;
 }
