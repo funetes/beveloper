@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
+import db from '../../firebase/db';
 import thumbnail from '../../assets/img/thumbnail.001.png';
 import thumbnail1 from '../../assets/img/thumbnail.002.png';
 import thumbnail2 from '../../assets/img/thumbnail.003.png';
@@ -36,15 +37,24 @@ const datas = [
 ];
 
 function Home() {
+  const [lectures, setLectures] = useState([]);
+  useEffect(() => {
+    db.collection('lectures').onSnapshot(snapshot => {
+      setLectures(
+        snapshot.docs.map(doc => ({ id: doc.id, lecture: doc.data() }))
+      );
+    });
+  }, []);
   return (
     <div className='home'>
-      {datas.map(data => (
+      {lectures.map(({ id, lecture }) => (
         <LectureCard
-          key={data.id}
-          img={data.img}
-          title={data.title}
-          instructor={data.instructor}
-          price={data.price}
+          key={id}
+          id={id}
+          thumbnail={lecture.thumbnail}
+          title={lecture.title}
+          instructor={lecture.instructor}
+          price={lecture.price}
         />
       ))}
     </div>
