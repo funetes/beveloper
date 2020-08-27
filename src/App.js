@@ -6,7 +6,7 @@ import Lecture from './components/Lecture/Lecture';
 import Nav from './components/Nav/Nav';
 function App() {
   return (
-    <div className='App'>
+    <div className='app'>
       <Router>
         <Nav />
         <Switch>

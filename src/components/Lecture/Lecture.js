@@ -5,6 +5,7 @@ import db from '../../firebase/db';
 import SidebarContent from '../SidebarContent/SidebarContent';
 import Video from '../Video/Video';
 import Comment from '../Comment/Comment';
+import CommentAdder from '../CommentAdder/CommentAdder';
 function Lecture() {
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
@@ -13,7 +14,8 @@ function Lecture() {
   const onClick = id => setVideoId(id);
 
   useEffect(() => {
-    db.collection('lectures')
+    const unsubscribe = db
+      .collection('lectures')
       .doc(id)
       .collection('videos')
       .orderBy('serverTimestamp', 'asc')
@@ -25,6 +27,7 @@ function Lecture() {
           }))
         );
       });
+    return () => unsubscribe();
   }, [id]);
   return (
     <div className='lecture'>
@@ -39,10 +42,10 @@ function Lecture() {
         ))}
       </div>
       <div className='lecture__videoAndComment'>
-        <Video videoId={videoId} lectureId={id} />
-        {videoId ? <Comment /> : null}
+        {videoId ? <Video videoId={videoId} lectureId={id} /> : 'logo'}
+        {videoId && <CommentAdder videoId={videoId} lectureId={id} />}
+        {videoId && <Comment videoId={videoId} lectureId={id} />}
       </div>
-      {/* comment */}
     </div>
   );
 }

@@ -1,18 +1,23 @@
 .lecture {
-  height: 89vh;
   display: flex;
+  height: 88.4vh;
 }
 
 .lecture__sidebar {
-  flex: 0.2;
+  flex: 0.2 1;
   min-width: 220px;
-  border-right: 1px solid lightgray;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: scroll;
 }
 
 .lecture__videoAndComment {
-  flex: 0.8;
+  flex: 1 1;
+  border-left: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding-bottom: 150px;
 }
