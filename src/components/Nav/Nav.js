@@ -27,7 +27,6 @@ function Nav() {
               <TransitionsModal
                 open={open}
                 setOpen={setOpen}
-                Icon={RedeemIcon}
               />
             </div>
           </>
