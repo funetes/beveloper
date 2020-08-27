@@ -1,0 +1,12 @@
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.modal__formLogin {
+  margin: 0 0 30px;
+  padding: 0;
+  /* color: #fff; */
+  text-align: center;
+}

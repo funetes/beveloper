@@ -6,6 +6,7 @@ import SidebarContent from '../SidebarContent/SidebarContent';
 import Video from '../Video/Video';
 import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
+import Logo from '../Logo/Logo';
 function Lecture() {
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
@@ -42,7 +43,7 @@ function Lecture() {
         ))}
       </div>
       <div className='lecture__videoAndComment'>
-        {videoId ? <Video videoId={videoId} lectureId={id} /> : 'logo'}
+        {videoId ? <Video videoId={videoId} lectureId={id} /> : <Logo />}
         {videoId && <CommentAdder videoId={videoId} lectureId={id} />}
         {videoId && <Comment videoId={videoId} lectureId={id} />}
       </div>

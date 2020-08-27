@@ -13,11 +13,12 @@ function App() {
           <Route exact path='/'>
             <Home />
           </Route>
-          <Route path='/cart'>장바구니</Route>
+          <Route path='/donetion'>후원</Route>
           <Route path='/lecture/:id'>
             <Lecture />
           </Route>
-          <Route path='/:id'>user Page</Route>
+          <Route path='/admin'>admin Page</Route>
+          <Route path='/user'></Route>
         </Switch>
       </Router>
     </div>
