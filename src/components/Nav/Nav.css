@@ -15,7 +15,8 @@
   justify-content: space-around;
 }
 
-.nav__linkContainer > div {
+.nav__linkContainer button {
+  background-color: transparent;
   cursor: pointer;
 }
 

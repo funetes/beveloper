@@ -1,0 +1,22 @@
+.admin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin__title {
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+
+.admin__conainer {
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* height: 50%; */
+}

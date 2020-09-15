@@ -7,7 +7,7 @@ import Video from '../Video/Video';
 import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
 import Logo from '../Logo/Logo';
-function Lecture() {
+function Lecture({ user }) {
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
   const [videoId, setVideoId] = useState('');
@@ -44,7 +44,9 @@ function Lecture() {
       </div>
       <div className='lecture__videoAndComment'>
         {videoId ? <Video videoId={videoId} lectureId={id} /> : <Logo />}
-        {videoId && <CommentAdder videoId={videoId} lectureId={id} />}
+        {videoId && (
+          <CommentAdder videoId={videoId} lectureId={id} user={user} />
+        )}
         {videoId && <Comment videoId={videoId} lectureId={id} />}
       </div>
     </div>

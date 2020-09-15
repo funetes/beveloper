@@ -10,3 +10,16 @@
   /* color: #fff; */
   text-align: center;
 }
+
+.modal__button {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  background-color: transparent;
+  cursor: pointer;
+}

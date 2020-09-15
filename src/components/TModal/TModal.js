@@ -22,19 +22,33 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export default function TransitionsModal({ open, setOpen }) {
+function TransitionsModal({ open, setOpen, isSignUp, signIn, signUp }) {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
   const onSubmit = e => {
     e.preventDefault();
-    console.log(email, password);
+    if (isSignUp) {
+      if (password !== password2) {
+        setError('비밀번호를 확인해주세요.');
+        setTimeout(() => {
+          setError('');
+        }, 3000);
+      } else {
+        signUp(email, password, username);
+      }
+    } else {
+      signIn(email, password);
+    }
   };
-
   return (
     <>
-      <Button onClick={() => setOpen(true)}>login</Button>
+      <button onClick={() => setOpen(true)} className='modal__button'>
+        {isSignUp ? 'signUp' : 'login'}
+      </button>
       <Modal
         aria-labelledby='login'
         aria-describedby='transition-modal-description'
@@ -44,8 +58,16 @@ export default function TransitionsModal({ open, setOpen }) {
         <div className={classes.paper}>
           <form onSubmit={onSubmit} className='modal__form'>
             <h2 className='modal__formLogin' id='login'>
-              Login
+              Beveloper
             </h2>
+            {isSignUp && (
+              <Input
+                type='text'
+                value={username}
+                placeholder='username'
+                onChange={e => setUsername(e.target.value)}
+              />
+            )}
             <Input
               type='email'
               value={email}
@@ -58,8 +80,17 @@ export default function TransitionsModal({ open, setOpen }) {
               placeholder='password'
               onChange={e => setPassword(e.target.value)}
             />
+            {isSignUp && (
+              <Input
+                type='password'
+                value={password2}
+                placeholder='password2'
+                onChange={e => setPassword2(e.target.value)}
+              />
+            )}
+            {error.length !== 0 && error}
             <Button type='submit' id='simple-modal-description'>
-              Sign In
+              {isSignUp ? 'signUp' : 'login'}
             </Button>
           </form>
         </div>
@@ -67,3 +98,5 @@ export default function TransitionsModal({ open, setOpen }) {
     </>
   );
 }
+
+export default TransitionsModal;

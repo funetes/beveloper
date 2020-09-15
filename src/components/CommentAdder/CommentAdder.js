@@ -3,7 +3,7 @@ import './CommentAdder.css';
 import db from '../../firebase/db';
 import firebase from 'firebase';
 import Button from '@material-ui/core/Button';
-function CommentAdder({ videoId, lectureId }) {
+function CommentAdder({ videoId, lectureId, user }) {
   const [text, setText] = useState('');
 
   const onSubmit = e => {
@@ -14,7 +14,7 @@ function CommentAdder({ videoId, lectureId }) {
       .doc(videoId)
       .collection('comments')
       .add({
-        username: 'kim',
+        username: user.displayName,
         text: text,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
@@ -29,9 +29,18 @@ function CommentAdder({ videoId, lectureId }) {
           value={text}
           cols='90'
           rows='5'
-          onChange={e => setText(e.target.value)}></textarea>
-        <Button type='submit' variant='contained' color='primary'>
-          submit
+          disabled={user ? false : true}
+          placeholder={
+            user ? '댓글달기' : '로그인하시면 댓글을 달 수 있습니다.'
+          }
+          onChange={e => setText(e.target.value)}
+        />
+        <Button
+          type='submit'
+          variant='contained'
+          color='primary'
+          disabled={user ? false : true}>
+          add
         </Button>
       </form>
     </div>
