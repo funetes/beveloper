@@ -1,0 +1,4 @@
+.lectureCreator__uplodeContainer {
+  display: flex;
+  flex-direction: column;
+}

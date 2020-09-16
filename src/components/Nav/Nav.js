@@ -12,37 +12,25 @@ function Nav({ user, setUser }) {
 
   useEffect(() => {
     // user login, logout, create user, etc..
-    const unsubscribe = auth.onAuthStateChanged(authUser => {
-      console.log('onAuthStateChanged');
-      if (authUser) {
-        // logged in
-        console.log('login');
-        setUser(authUser);
-      } else {
-        // logged out
-        console.log('logout');
-        setUser(null);
-      }
-    });
+    const unsubscribe = auth.onAuthStateChanged(authUser =>
+      authUser ? setUser(authUser) : setUser(null)
+    );
     return () => {
       unsubscribe();
     };
-  }, []);
+  });
 
   const signUp = (email, password, username) => {
-    console.log(email, password, username);
-
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-        return authUser.user.updateProfile({
+      .then(authUser =>
+        authUser.user.updateProfile({
           displayName: username,
-        });
-      })
+        })
+      )
       .catch(error => alert(error.message)); // 모달로 보내서 표현하기
   };
   const signIn = (email, password) => {
-    console.log(email, password);
     auth
       .signInWithEmailAndPassword(email, password)
       .catch(error => alert(error.message));
