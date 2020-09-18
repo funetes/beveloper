@@ -1,3 +1,8 @@
 .upload {
   display: flex;
 }
+
+.upload__lectureList {
+  display: flex;
+  flex-direction: column;
+}

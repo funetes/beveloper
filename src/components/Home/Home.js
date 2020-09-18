@@ -3,18 +3,7 @@ import './Home.css';
 import db from '../../firebase/db';
 import LectureCard from '../LectureCard/LectureCard';
 
-function Home() {
-  const [lectures, setLectures] = useState([]);
-  useEffect(() => {
-    const unsubscription = db.collection('lectures').onSnapshot(snapshot => {
-      setLectures(
-        snapshot.docs.map(doc => ({ id: doc.id, lecture: doc.data() }))
-      );
-    });
-    return () => {
-      unsubscription();
-    };
-  }, [lectures]);
+function Home({ lectures }) {
   return (
     <>
       <h1>web을 공부한것들을 영상으로 제작하여 정리하였습니다.</h1>

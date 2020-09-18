@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Upload.css';
-import db from '../../firebase/db';
 import LectureCreator from '../LectureCreator/LectureCreator';
-function Upload() {
-  // get lectures
-  const [lectures, setLectures] = useState([]);
-  useEffect(() => {
-    const unsubscription = db.collection('lectures').onSnapshot(snapshot => {
-      setLectures(
-        snapshot.docs.map(doc => ({ id: doc.id, lecture: doc.data() }))
-      );
-    });
-    return () => unsubscription();
-  }, []);
-
+import { Link } from 'react-router-dom';
+function Upload({ lectures }) {
   return (
     <div className='upload'>
       <LectureCreator />
-      <ul>
+      <ul className='upload__lectureList'>
         {lectures.map(({ id, lecture }) => (
-          <li key={id}>{lecture.title}</li>
+          <Link to={`/admin/upload/${id}`} key={id}>
+            {lecture.title}
+          </Link>
           // title을 클릭하면 해당 컴포넌트로 이동해야함
         ))}
       </ul>

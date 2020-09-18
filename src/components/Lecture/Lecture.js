@@ -21,12 +21,13 @@ function Lecture({ user }) {
       .collection('videos')
       .orderBy('serverTimestamp', 'asc')
       .onSnapshot(snapshot => {
-        setLecture(
-          snapshot.docs.map(doc => ({
-            id: doc.id,
-            caption: doc.data().caption,
-          }))
-        );
+        snapshot.docs.length !== 0 &&
+          setLecture(
+            snapshot.docs.map(doc => ({
+              id: doc.id,
+              caption: doc.data().caption,
+            }))
+          );
       });
     return () => unsubscribe();
   }, [id]);
@@ -47,7 +48,7 @@ function Lecture({ user }) {
         {videoId && (
           <CommentAdder videoId={videoId} lectureId={id} user={user} />
         )}
-        {videoId && <Comment videoId={videoId} lectureId={id} />}
+        {videoId && <Comment videoId={videoId} lectureId={id} user={user} />}
       </div>
     </div>
   );

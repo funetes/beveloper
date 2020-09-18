@@ -1,43 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Nav.css';
-import auth from '../../firebase/auth';
 import Logo from '../../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import TransitionsModal from '../TModal/TModal';
-function Nav({ user, setUser }) {
-  const [open, setOpen] = useState(false);
-  const [signUpOpen, setSignUpOpen] = useState(false);
-
-  useEffect(() => {
-    // user login, logout, create user, etc..
-    const unsubscribe = auth.onAuthStateChanged(authUser =>
-      authUser ? setUser(authUser) : setUser(null)
-    );
-    return () => {
-      unsubscribe();
-    };
-  });
-
-  const signUp = (email, password, username) => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(authUser =>
-        authUser.user.updateProfile({
-          displayName: username,
-        })
-      )
-      .catch(error => alert(error.message)); // 모달로 보내서 표현하기
-  };
-  const signIn = (email, password) => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .catch(error => alert(error.message));
-    setOpen(false);
-  };
-
-  const logOut = () => auth.signOut();
+function Nav({
+  user,
+  signUp,
+  signIn,
+  logOut,
+  signInOpen,
+  signUpOpen,
+  setSignUpOpen,
+  setsignInOpen,
+}) {
   return (
     <nav className='nav'>
       <Link to='/'>
@@ -50,7 +27,11 @@ function Nav({ user, setUser }) {
           </button>
         ) : (
           <>
-            <TransitionsModal open={open} setOpen={setOpen} signIn={signIn} />
+            <TransitionsModal
+              open={signInOpen}
+              setOpen={setsignInOpen}
+              signIn={signIn}
+            />
             <TransitionsModal
               open={signUpOpen}
               setOpen={setSignUpOpen}

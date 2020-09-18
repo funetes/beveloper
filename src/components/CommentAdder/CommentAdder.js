@@ -17,6 +17,7 @@ function CommentAdder({ videoId, lectureId, user }) {
         username: user.displayName,
         text: text,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        creator: user.uid,
       })
       .then(_ => setText(''))
       .catch(error => console.log(error.message));
