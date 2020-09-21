@@ -15,6 +15,9 @@ function LectureCreator() {
 
   const createLecture = () => {
     //thumbnail upload to storage
+    if (!thumbnail) {
+      return;
+    }
     const uploadTask = storage
       .ref(`thumbnails/${thumbnail.name}`)
       .put(thumbnail);
@@ -47,26 +50,30 @@ function LectureCreator() {
         <Input
           onChange={e => setTitle(e.target.value)}
           placeholder='title'
+          required
           value={title}
         />
         <Input
           onChange={e => setDescription(e.target.value)}
           placeholder='description'
+          required
           value={description}
         />
         <Input
           onChange={e => setInstructor(e.target.value)}
           placeholder='instructor'
+          required
           value={instructor}
         />
         <Input
           type='number'
           onChange={e => setPrice(e.target.value)}
           placeholder='price'
+          required
           value={price}
         />
         <p>upload Thumbnail only .png</p>
-        <Input type='file' onChange={handleChange} />
+        <Input type='file' onChange={handleChange} required />
       </div>
       <Button variant='contained' color='primary' onClick={createLecture}>
         강의 만들기

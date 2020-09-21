@@ -1,7 +1,7 @@
 import React from 'react';
 import './LectureCard.css';
 import { Link } from 'react-router-dom';
-function LectureCard({ id, thumbnail, title, instructor, price }) {
+function LectureCard({ id, thumbnail, title, instructor }) {
   return (
     <div className='lectureCard'>
       <Link
@@ -15,7 +15,6 @@ function LectureCard({ id, thumbnail, title, instructor, price }) {
         <div className='lectureCard__container'>
           <h3>{title}</h3>
           <div>{instructor}</div>
-          <span>{price}</span>
         </div>
       </Link>
     </div>

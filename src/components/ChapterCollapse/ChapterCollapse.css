@@ -1,0 +1,16 @@
+.chaperCollapse {
+  width: 100%;
+  display: flex;
+}
+
+.chaperCollapse button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 0.5rem;
+}
+
+.chaperCollapse__itemCollapse {
+  opacity: 1;
+  transition: all 0.5s;
+}

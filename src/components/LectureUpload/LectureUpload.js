@@ -8,6 +8,7 @@ import db from '../../firebase/db';
 
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import ChapterCollapse from '../ChapterCollapse/ChapterCollapse';
 const LectureUpload = ({
   location: {
     state: { title },
@@ -67,7 +68,14 @@ const LectureUpload = ({
       }
     );
   };
-
+  const onClick = chapterId => {
+    db.collection('lectures')
+      .doc(id)
+      .collection('videos')
+      .doc(chapterId)
+      .delete()
+      .then(_ => console.log('deleted'));
+  };
   const onSubmit = e => {
     e.preventDefault();
     uploadLecture();
@@ -83,17 +91,24 @@ const LectureUpload = ({
         />
         <form className='lectureUpload__input' onSubmit={onSubmit}>
           <p>확장자는 .mp4만 | 파일명은 (subject / chapter) 형식으로.</p>
-          <Input type='file' onChange={handleChange} accept='video/*' />
+          <Input
+            type='file'
+            onChange={handleChange}
+            accept='video/*'
+            required
+          />
           <Input
             type='text'
             placeholder='caption'
             value={caption}
+            required
             onChange={e => setCaption(e.target.value)}
           />
           <Input
             type='text'
             placeholder='description'
             value={description}
+            required
             onChange={e => setDescription(e.target.value)}
           />
           <Button type='submit' variant='contained' color='primary'>
@@ -104,9 +119,34 @@ const LectureUpload = ({
       <div className='lectureUpload__columns'>
         {title && <h2 className='lectureUpload__title'>{title}</h2>}
         <ul className='lectureUpload__list'>
-          {chapters.map(chapter => (
-            <li key={chapter.id}>{chapter.caption}</li>
-          ))}
+          {chapters.length === 0 ? (
+            <div>
+              chatper가 없습니다{' '}
+              <span role='img' aria-labelledby='emoji'>
+                😭
+              </span>
+            </div>
+          ) : (
+            chapters.map(({ id, caption, description, serverTimestamp }) => (
+              <li key={id} className='lectureUpload__item'>
+                <div className='lectureUpload__itemColumn'>
+                  <div>{caption}</div>
+                  <Button
+                    color='secondary'
+                    onClick={() => {
+                      onClick(id);
+                    }}>
+                    del
+                  </Button>
+                </div>
+
+                <ChapterCollapse
+                  description={description}
+                  serverTimestamp={serverTimestamp}
+                />
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </div>

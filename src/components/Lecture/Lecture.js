@@ -41,14 +41,23 @@ const Lecture = ({
   return (
     <div className='lecture'>
       <div className='lecture__sidebar'>
-        {lecture.map(({ caption, id }) => (
-          <SidebarContent
-            key={id}
-            id={id}
-            caption={caption}
-            onclick={onClick}
-          />
-        ))}
+        {lecture.length === 0 ? (
+          <div>
+            chapter가 없습니다.
+            <span role='img' aria-labelledby='emoji'>
+              😭
+            </span>
+          </div>
+        ) : (
+          lecture.map(({ caption, id }) => (
+            <SidebarContent
+              key={id}
+              id={id}
+              caption={caption}
+              onclick={onClick}
+            />
+          ))
+        )}
       </div>
       <div className='lecture__videoAndComment'>
         {videoId ? (

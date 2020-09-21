@@ -22,9 +22,11 @@
 .upload__lecture {
   background-color: lightgray;
   border-radius: 5px;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .upload__lecture:hover {
   background: #748ffc;
+  transition: all 0.5s;
 }

@@ -12,7 +12,7 @@ const Upload = ({ lectures, user, history }) => {
       <div className='upload__container'>
         <h2>강의 list</h2>
         <ul className='upload__lectureList'>
-          {lectures.map(({ id, lecture }) => (
+          {lectures.reverse().map(({ id, lecture }, index) => (
             <Link
               to={{
                 pathname: `/upload/${id}`,
@@ -22,7 +22,7 @@ const Upload = ({ lectures, user, history }) => {
               }}
               className='upload__lecture'
               key={id}>
-              {`${lecture.title}`}
+              {`${index + 1}. ${lecture.title}`}
             </Link>
           ))}
         </ul>

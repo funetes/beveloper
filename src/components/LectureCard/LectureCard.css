@@ -19,4 +19,9 @@
 }
 
 .lectureCard__container {
+  padding: 0.5rem;
+}
+
+.lectureCard__container div {
+  text-align: right;
 }

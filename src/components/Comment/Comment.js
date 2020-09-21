@@ -32,12 +32,9 @@ const Comment = ({ videoId, lectureId, user }) => {
       .delete();
   };
   const toDate = ({ timestamp }) => {
-    // console.log(timestamp?.seconds);
     const date = new Date(0);
-    date.setSeconds(timestamp?.seconds); // specify value for SECONDS here
-    // const timeString = date.toISOString().substr(11, 8);
-    const timeString = date.toLocaleString().substr(0, 11).trim();
-    return timeString;
+    date.setSeconds(timestamp?.seconds);
+    return date.toLocaleString().substr(0, 11).trim();
   };
 
   return (
