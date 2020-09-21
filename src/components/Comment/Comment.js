@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Comment.css';
 import db from '../../firebase/db';
 import Button from '@material-ui/core/Button';
-function Comment({ videoId, lectureId, user }) {
+const Comment = ({ videoId, lectureId, user }) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     console.log('comments');
@@ -31,20 +31,34 @@ function Comment({ videoId, lectureId, user }) {
       .doc(id)
       .delete();
   };
+  const toDate = ({ timestamp }) => {
+    // console.log(timestamp?.seconds);
+    const date = new Date(0);
+    date.setSeconds(timestamp?.seconds); // specify value for SECONDS here
+    // const timeString = date.toISOString().substr(11, 8);
+    const timeString = date.toLocaleString().substr(0, 11).trim();
+    return timeString;
+  };
 
   return (
     <div className='comment'>
       {comments.map(({ id, comment }) => (
         <div className='comment__container' key={id}>
           <span className='comment__username'>{comment.username}</span>
-          <p className='comment_text'>{comment.text}</p>
+          <p className='comment__text'>{comment.text}</p>
+          <p className='comment__time'>{toDate(comment)}</p>
           {user?.uid === comment.creator && (
-            <Button onClick={() => onDeleteClick(id)}>delete</Button>
+            <Button
+              className='comment_button'
+              onClick={() => onDeleteClick(id)}
+              color='secondary'>
+              del
+            </Button>
           )}
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default Comment;

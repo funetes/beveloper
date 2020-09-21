@@ -1,8 +1,30 @@
 .upload {
   display: flex;
+  padding: 10px;
+  justify-content: space-evenly;
+}
+.upload__container {
+  width: 40%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.upload__container h2 {
+  margin-bottom: 5px;
 }
 
 .upload__lectureList {
   display: flex;
   flex-direction: column;
+}
+
+.upload__lecture {
+  background-color: lightgray;
+  border-radius: 5px;
+  padding: 0 0.5rem;
+}
+
+.upload__lecture:hover {
+  background: #748ffc;
 }

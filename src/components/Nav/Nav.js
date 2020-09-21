@@ -5,16 +5,7 @@ import { Link } from 'react-router-dom';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import TransitionsModal from '../TModal/TModal';
-function Nav({
-  user,
-  signUp,
-  signIn,
-  logOut,
-  signInOpen,
-  signUpOpen,
-  setSignUpOpen,
-  setsignInOpen,
-}) {
+const Nav = ({ user, logOut, sign }) => {
   return (
     <nav className='nav'>
       <Link to='/'>
@@ -28,27 +19,29 @@ function Nav({
         ) : (
           <>
             <TransitionsModal
-              open={signInOpen}
-              setOpen={setsignInOpen}
-              signIn={signIn}
+              open={sign.signInOpen}
+              setOpen={sign.setsignInOpen}
+              signIn={sign.signIn}
             />
             <TransitionsModal
-              open={signUpOpen}
-              setOpen={setSignUpOpen}
+              open={sign.signUpOpen}
+              setOpen={sign.setSignUpOpen}
               isSignUp
-              signUp={signUp}
+              signUp={sign.signUp}
             />
           </>
         )}
         <Link to='/donetion' className='nav__link'>
           <RedeemIcon />
         </Link>
-        <Link to='/admin' className='nav__link'>
-          <SupervisorAccountIcon />
-        </Link>
+        {user?.uid === process.env.REACT_APP_ADMIN && (
+          <Link to='/upload' className='nav__link'>
+            <SupervisorAccountIcon />
+          </Link>
+        )}
       </div>
     </nav>
   );
-}
+};
 
 export default Nav;

@@ -25,15 +25,14 @@ function LectureCreator() {
         console.error(error);
       },
       () => {
-        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+        uploadTask.snapshot.ref.getDownloadURL().then(thumbnail => {
           // store to database
-          console.log('File available at', downloadURL);
           db.collection('lectures')
             .add({
               description,
               instructor,
               price,
-              thumbnail: downloadURL,
+              thumbnail,
               title,
             })
             .then(_ => console.log('created'));
@@ -69,7 +68,9 @@ function LectureCreator() {
         <p>upload Thumbnail only .png</p>
         <Input type='file' onChange={handleChange} />
       </div>
-      <Button onClick={createLecture}>강의 만들기</Button>
+      <Button variant='contained' color='primary' onClick={createLecture}>
+        강의 만들기
+      </Button>
     </div>
   );
 }

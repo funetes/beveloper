@@ -3,7 +3,7 @@ import './CommentAdder.css';
 import db from '../../firebase/db';
 import firebase from 'firebase';
 import Button from '@material-ui/core/Button';
-function CommentAdder({ videoId, lectureId, user }) {
+const CommentAdder = ({ videoId, lectureId, user }) => {
   const [text, setText] = useState('');
 
   const onSubmit = e => {
@@ -46,6 +46,6 @@ function CommentAdder({ videoId, lectureId, user }) {
       </form>
     </div>
   );
-}
+};
 
 export default CommentAdder;

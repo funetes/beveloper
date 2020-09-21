@@ -19,5 +19,19 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  padding-bottom: 150px;
+  padding-bottom: 100px;
+}
+
+.lecture__intro {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lecture img {
+  width: 80%;
+  object-fit: contain;
+  border-radius: 12px;
 }

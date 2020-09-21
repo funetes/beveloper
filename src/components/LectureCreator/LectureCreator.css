@@ -2,3 +2,12 @@
   display: flex;
   flex-direction: column;
 }
+
+.lectureCreator__uplodeContainer input {
+  margin-bottom: 5px;
+}
+
+.lectureCreator .MuiButton-root {
+  width: 100%;
+  margin-top: 5px;
+}

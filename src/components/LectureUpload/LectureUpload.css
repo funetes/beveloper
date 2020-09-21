@@ -1,0 +1,38 @@
+.lectureUpload {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.lectureUpload__columns {
+  width: 40%;
+}
+
+.lectureUpload__columns:last-child {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.lectureUpload__title {
+  margin-bottom: 5px;
+}
+
+.lectureUpload__columns input {
+  margin-bottom: 10px;
+}
+
+.lectureUpload__progress {
+  width: 100%;
+}
+.lectureUpload__input {
+  display: flex;
+  flex-direction: column;
+}
+.lectureUpload__list {
+  list-style: none;
+}
+
+.lectureUpload__item {
+  padding: 0 0.5rem;
+}

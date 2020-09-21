@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './LectureUpload.css';
+import { useParams, withRouter } from 'react-router-dom';
+
 import storage from '../../firebase/storage';
 import firebase from 'firebase';
 import db from '../../firebase/db';
+
 import Input from '@material-ui/core/Input';
-import { useParams } from 'react-router-dom';
-const LectureUpload = () => {
+import Button from '@material-ui/core/Button';
+const LectureUpload = ({
+  location: {
+    state: { title },
+  },
+}) => {
   const { id } = useParams();
   const [caption, setCaption] = useState('');
   const [description, setDescription] = useState('');
   const [progress, setProgress] = useState(0);
   const [video, setVideo] = useState(null);
-
   const [chapters, setChapters] = useState([]);
 
   useEffect(() => {
@@ -19,6 +25,7 @@ const LectureUpload = () => {
       .collection('lectures')
       .doc(id)
       .collection('videos')
+      .orderBy('serverTimestamp', 'asc')
       .onSnapshot(sanpshot => {
         setChapters(sanpshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       });
@@ -32,8 +39,6 @@ const LectureUpload = () => {
       return;
     }
     const videoName = video.name.split(':');
-    console.log(video);
-    console.log(videoName);
     const subject = videoName[0];
     const chapter = videoName[1];
     //video upload to storage
@@ -69,35 +74,43 @@ const LectureUpload = () => {
   };
 
   return (
-    <>
-      <progress
-        value={progress}
-        max='100'
-        className='lectureUpload__progress'
-      />
-      <form className='LectureUpload' onSubmit={onSubmit}>
-        <Input type='file' onChange={handleChange} />
-        <Input
-          type='text'
-          placeholder='caption'
-          value={caption}
-          onChange={e => setCaption(e.target.value)}
+    <div className='lectureUpload'>
+      <div className='lectureUpload__columns'>
+        <progress
+          value={progress}
+          max='100'
+          className='lectureUpload__progress'
         />
-        <Input
-          type='text'
-          placeholder='description'
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
-        <Input type='submit' />
-      </form>
-      <ul>
-        {chapters.map(chapter => (
-          <li key={chapter.id}>{chapter.caption}</li>
-        ))}
-      </ul>
-    </>
+        <form className='lectureUpload__input' onSubmit={onSubmit}>
+          <p>확장자는 .mp4만 | 파일명은 (subject / chapter) 형식으로.</p>
+          <Input type='file' onChange={handleChange} accept='video/*' />
+          <Input
+            type='text'
+            placeholder='caption'
+            value={caption}
+            onChange={e => setCaption(e.target.value)}
+          />
+          <Input
+            type='text'
+            placeholder='description'
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+          <Button type='submit' variant='contained' color='primary'>
+            chapter upload
+          </Button>
+        </form>
+      </div>
+      <div className='lectureUpload__columns'>
+        {title && <h2 className='lectureUpload__title'>{title}</h2>}
+        <ul className='lectureUpload__list'>
+          {chapters.map(chapter => (
+            <li key={chapter.id}>{chapter.caption}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 
-export default LectureUpload;
+export default withRouter(LectureUpload);

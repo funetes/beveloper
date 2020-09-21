@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-function TransitionsModal({ open, setOpen, isSignUp, signIn, signUp }) {
+const TransitionsModal = ({ open, setOpen, isSignUp, signIn, signUp }) => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -97,6 +97,6 @@ function TransitionsModal({ open, setOpen, isSignUp, signIn, signUp }) {
       </Modal>
     </>
   );
-}
+};
 
 export default TransitionsModal;

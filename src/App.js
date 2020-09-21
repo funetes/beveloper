@@ -8,10 +8,10 @@ import auth from './firebase/auth';
 import Nav from './components/Nav/Nav';
 import Home from './components/Home/Home';
 import Lecture from './components/Lecture/Lecture';
-import Admin from './components/Admin/Admin';
 import Upload from './components/Upload/Upload';
 import LectureUpload from './components/LectureUpload/LectureUpload';
-function App() {
+
+const App = () => {
   const [user, setUser] = useState(null);
   const [lectures, setLectures] = useState([]);
   const [signInOpen, setsignInOpen] = useState(false);
@@ -52,19 +52,23 @@ function App() {
       .catch(error => alert(error.message));
     setsignInOpen(false);
   };
-  const logOut = () => auth.signOut();
+  const logOut = () => {
+    auth.signOut().then(_ => setUser(null));
+  };
   return (
     <div className='app'>
       <Router>
         <Nav
           user={user}
-          signUp={signUp}
-          signIn={signIn}
           logOut={logOut}
-          signInOpen={signInOpen}
-          signUpOpen={signUpOpen}
-          setSignUpOpen={setSignUpOpen}
-          setsignInOpen={setsignInOpen}
+          sign={{
+            signUp,
+            signIn,
+            signInOpen,
+            signUpOpen,
+            setSignUpOpen,
+            setsignInOpen,
+          }}
         />
         <Switch>
           <Route exact path='/'>
@@ -76,20 +80,19 @@ function App() {
           <Route path='/lecture/:id'>
             <Lecture user={user} />
           </Route>
-          <Route exact path='/admin'>
-            <Admin />
+          <Route exact path='/upload'>
+            <Upload lectures={lectures} user={user} />
           </Route>
-          <Route exact path='/admin/upload'>
-            <Upload lectures={lectures} />
-          </Route>
-          <Route exact path='/admin/upload/:id'>
+          <Route exact path='/upload/:id'>
             <LectureUpload />
           </Route>
-          <Route exact path='/user'></Route>
+          <Route exact path='/user'>
+            {/* user component */}
+          </Route>
         </Switch>
       </Router>
     </div>
   );
-}
+};
 
 export default App;

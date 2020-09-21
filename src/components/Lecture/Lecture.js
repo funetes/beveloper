@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './Lecture.css';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
+
 import db from '../../firebase/db';
+
 import SidebarContent from '../SidebarContent/SidebarContent';
 import Video from '../Video/Video';
 import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
-import Logo from '../Logo/Logo';
-function Lecture({ user }) {
+
+const Lecture = ({
+  user,
+  location: {
+    state: { thumbnail },
+  },
+}) => {
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
   const [videoId, setVideoId] = useState('');
@@ -44,7 +51,13 @@ function Lecture({ user }) {
         ))}
       </div>
       <div className='lecture__videoAndComment'>
-        {videoId ? <Video videoId={videoId} lectureId={id} /> : <Logo />}
+        {videoId ? (
+          <Video videoId={videoId} lectureId={id} />
+        ) : (
+          <div className='lecture__intro'>
+            <img src={thumbnail} alt='thumbnail' />
+          </div>
+        )}
         {videoId && (
           <CommentAdder videoId={videoId} lectureId={id} user={user} />
         )}
@@ -52,6 +65,6 @@ function Lecture({ user }) {
       </div>
     </div>
   );
-}
+};
 
-export default Lecture;
+export default withRouter(Lecture);
