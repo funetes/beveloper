@@ -7,6 +7,9 @@ const CommentAdder = ({ videoId, lectureId, user }) => {
   const [text, setText] = useState('');
 
   const onSubmit = e => {
+    if (text === '') {
+      return;
+    }
     e.preventDefault();
     db.collection('lectures')
       .doc(lectureId)
@@ -30,6 +33,7 @@ const CommentAdder = ({ videoId, lectureId, user }) => {
           value={text}
           cols='90'
           rows='5'
+          required
           disabled={user ? false : true}
           placeholder={
             user ? '댓글달기' : '로그인하시면 댓글을 달 수 있습니다.'

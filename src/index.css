@@ -12,7 +12,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-a {
+
+body.light-mode {
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+body.dark-mode {
+  background-color: #333333;
+  color: #999;
+}
+
+a,
+button,
+input {
   text-decoration: none;
   color: inherit;
 }

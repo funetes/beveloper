@@ -1,0 +1,15 @@
+.editInput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.editInput input {
+  padding: 0.5rem;
+  height: 2rem;
+}
+
+.editInput__btn {
+  margin-top: 1rem !important;
+}

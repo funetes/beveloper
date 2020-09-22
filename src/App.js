@@ -11,12 +11,14 @@ import Lecture from './components/Lecture/Lecture';
 import Upload from './components/Upload/Upload';
 import LectureUpload from './components/LectureUpload/LectureUpload';
 
+const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 const App = () => {
   const [user, setUser] = useState(null);
   const [lectures, setLectures] = useState([]);
   const [signInOpen, setsignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
-
+  const [checked, setChecked] = useState(darkOS);
   useEffect(() => {
     // user login, logout, create user, etc..
     const unsubscribe = auth.onAuthStateChanged(authUser =>
@@ -34,6 +36,16 @@ const App = () => {
     });
     return () => unsubscription();
   }, []);
+
+  useEffect(() => {
+    if (checked) {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
+    }
+  }, [checked]);
 
   const signUp = (email, password, username) => {
     auth
@@ -55,6 +67,9 @@ const App = () => {
   const logOut = () => {
     auth.signOut().then(_ => setUser(null));
   };
+  const toggleChecked = () => {
+    setChecked(prev => !prev);
+  };
   return (
     <div className='app'>
       <Router>
@@ -69,6 +84,8 @@ const App = () => {
             setSignUpOpen,
             setsignInOpen,
           }}
+          checked={checked}
+          toggleChecked={toggleChecked}
         />
         <Switch>
           <Route exact path='/'>

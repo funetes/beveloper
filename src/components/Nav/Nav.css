@@ -9,15 +9,23 @@
   object-fit: contain;
   width: 130px;
 }
-
+.nav__search {
+  flex: 1;
+  margin-right: 0.5rem;
+}
 .nav__linkContainer {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .nav__linkContainer button {
   background-color: transparent;
   cursor: pointer;
+}
+
+.nav__linkContainer span {
+  border: none;
 }
 
 .nav__link {

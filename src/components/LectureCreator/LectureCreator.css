@@ -1,10 +1,17 @@
 .lectureCreator__uplodeContainer {
   display: flex;
   flex-direction: column;
+  background-color: lightgray;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .lectureCreator__uplodeContainer input {
   margin-bottom: 5px;
+}
+
+.lectureCreator__uplodeContainer input::placeholder {
+  color: red;
 }
 
 .lectureCreator .MuiButton-root {
