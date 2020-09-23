@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Comment.css';
 import db from '../../firebase/db';
 import Button from '@material-ui/core/Button';
+import Reply from '../Reply/Reply';
 const Comment = ({ videoId, lectureId, user }) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -42,16 +43,21 @@ const Comment = ({ videoId, lectureId, user }) => {
       {comments.map(({ id, comment }) => (
         <div className='comment__container' key={id}>
           <span className='comment__username'>{comment.username}</span>
-          <p className='comment__text'>{comment.text}</p>
+          <pre className='comment__text'>{comment.text}</pre>
           <p className='comment__time'>{toDate(comment)}</p>
-          {user?.uid === comment.creator && (
+          {user?.uid === comment.creator ? (
             <Button
               className='comment_button'
               onClick={() => onDeleteClick(id)}
               color='secondary'>
               del
             </Button>
+          ) : (
+            <Button className='comment_button' disabled>
+              del
+            </Button>
           )}
+          <Reply user={user} id={id} videoId={videoId} lectureId={lectureId} />
         </div>
       ))}
     </div>

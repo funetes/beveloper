@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './ChapterCollapse.css';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+
+import ArrowRight from '@material-ui/icons/ArrowRight';
 const ChapterCollapse = ({ description, serverTimestamp }) => {
   const [open, setOpen] = useState(false);
   const onClick = () => {
@@ -18,7 +19,7 @@ const ChapterCollapse = ({ description, serverTimestamp }) => {
       className='chaperCollapse'
       style={{ justifyContent: open ? 'space-between' : 'flex-start' }}>
       <button onClick={onClick}>
-        {open ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+        {open ? <ArrowDropUpIcon /> : <ArrowRight />}
       </button>
       {open && (
         <div className='chaperCollapse__itemCollapse'>

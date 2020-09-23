@@ -17,3 +17,12 @@
   object-fit: contain;
   align-self: center;
 }
+
+.video__title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.video__description {
+  margin: 1rem;
+}

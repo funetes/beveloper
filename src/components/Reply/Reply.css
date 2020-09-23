@@ -1,0 +1,41 @@
+.reply {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.reply__input {
+  width: 100%;
+  resize: none;
+  padding: 1rem;
+}
+.reply__inputBtnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.reply__commentsCount {
+  width: 100%;
+  cursor: pointer;
+  color: dodgerblue;
+}
+
+.reply__container {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.reply__comment {
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.reply__commentUsername {
+  margin-right: 1rem;
+}
+
+.reply__date {
+  margin-left: auto;
+}

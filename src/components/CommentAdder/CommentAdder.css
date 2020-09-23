@@ -13,4 +13,10 @@
 .commentAdder__textarea {
   resize: none;
   padding: 0.5rem;
+  flex: 0.95;
+  margin-right: 0.5rem;
+}
+
+.commentAdder button {
+  flex: 0.05;
 }

@@ -15,7 +15,7 @@ const LectureCollcapse = ({ lectureId }) => {
         variant='contained'
         color='primary'
         onClick={onClick}>
-        {open ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+        {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </button>
       {open && <EditInput lectureId={lectureId} />}
     </>

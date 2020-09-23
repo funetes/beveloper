@@ -9,17 +9,33 @@
 .comment__container {
   width: 80%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid;
 }
 
 .comment__username {
   flex: 0.1;
+  font-size: 1.3rem;
 }
 
 .comment__text {
-  flex: 0.8;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  resize: none;
 }
 
 .comment_button {
   flex: 0.1;
+}
+
+.comment__reply {
+  margin: 0 0.5rem;
+}
+
+.comment__time {
+  width: 90px;
+  margin-left: auto;
 }
