@@ -23,6 +23,7 @@ const EditInput = ({ lectureId }) => {
       });
   }, [lectureId]);
   const onClick = () => {
+    setDisbale(true);
     db.collection('lectures')
       .doc(lectureId)
       .update({
@@ -31,7 +32,11 @@ const EditInput = ({ lectureId }) => {
         instructor,
         price,
       })
-      .then(_ => console.log('updated'));
+      .then(_ => console.log('updated'))
+      .catch(error => {
+        console.error(error);
+        setDisbale(false);
+      });
   };
   const onEditBtnClick = () => setDisbale(prev => !prev);
 

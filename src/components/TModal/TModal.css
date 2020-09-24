@@ -22,4 +22,9 @@
   margin-right: 20px;
   background-color: transparent;
   cursor: pointer;
+  transition: all 0.5s;
+}
+
+.modal__button:hover {
+  background-color: rgba(200, 200, 200, 0.3);
 }

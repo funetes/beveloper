@@ -8,11 +8,12 @@
 }
 .nav__logo {
   object-fit: contain;
-  width: 130px;
+  height: 80px;
+  margin-left: 1rem;
+  transition: all 0.5s;
 }
-.nav__search {
-  flex: 1;
-  margin-right: 0.5rem;
+.nav__logo:hover {
+  background-color: rgba(200, 200, 200, 0.3);
 }
 .nav__linkContainer {
   display: flex;
@@ -38,6 +39,11 @@
   justify-content: center;
   align-items: center;
   margin-right: 20px;
+  transition: all 0.5s;
+}
+
+.nav__link:hover {
+  background-color: rgba(200, 200, 200, 0.3);
 }
 
 .nav__link .MuiSvgIcon-root {

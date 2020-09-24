@@ -10,6 +10,8 @@ import Home from './components/Home/Home';
 import Lecture from './components/Lecture/Lecture';
 import Upload from './components/Upload/Upload';
 import LectureUpload from './components/LectureUpload/LectureUpload';
+import Board from './components/Board/Board';
+import Contact from './components/Contact/Contact';
 
 const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -94,8 +96,11 @@ const App = () => {
           <Route exact path='/'>
             <Home lectures={lectures} />
           </Route>
-          <Route exact path='/donetion'>
-            후원
+          <Route exact path='/board'>
+            <Board />
+          </Route>
+          <Route exact path='/contact'>
+            <Contact />
           </Route>
           <Route path='/lecture/:id'>
             <Lecture user={user} />

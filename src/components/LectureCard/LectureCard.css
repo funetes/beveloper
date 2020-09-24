@@ -3,12 +3,15 @@
   border: 1px solid lightgray;
   border-radius: 3px;
   opacity: 1;
-  transition: opacity 100ms;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.5s;
 }
 
 .lectureCard:hover {
-  opacity: 0.9;
-  cursor: pointer;
+  transform: scale(1.03);
+  background-color: rgba(200, 200, 200, 0.8);
+  color: black;
 }
 
 .lectureCard___image {
