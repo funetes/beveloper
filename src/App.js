@@ -28,12 +28,15 @@ const App = () => {
   });
 
   useEffect(() => {
-    const unsubscription = db.collection('lectures').onSnapshot(snapshot => {
-      console.log('app/lectures');
-      setLectures(
-        snapshot.docs.map(doc => ({ id: doc.id, lecture: doc.data() }))
-      );
-    });
+    const unsubscription = db
+      .collection('lectures')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(snapshot => {
+        console.log('app/lectures');
+        setLectures(
+          snapshot.docs.map(doc => ({ id: doc.id, lecture: doc.data() }))
+        );
+      });
     return () => unsubscription();
   }, []);
 

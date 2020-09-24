@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './LectureCreator.css';
 import db from '../../firebase/db';
 import storage from '../../firebase/storage';
+import firebase from 'firebase';
 import { Input, Button } from '@material-ui/core';
 function LectureCreator() {
   const [thumbnail, setThumbnail] = useState(null);
@@ -9,15 +10,17 @@ function LectureCreator() {
   const [description, setDescription] = useState('');
   const [instructor, setInstructor] = useState('');
   const [price, setPrice] = useState('');
+  const [disable, setDisbale] = useState(false);
 
   const handleChange = e =>
     e.target.files[0] && setThumbnail(e.target.files[0]);
 
   const createLecture = () => {
     //thumbnail upload to storage
-    if (!thumbnail) {
+    if (!thumbnail || !title || !description || !instructor || !price) {
       return;
     }
+    setDisbale(true);
     const uploadTask = storage
       .ref(`thumbnails/${thumbnail.name}`)
       .put(thumbnail);
@@ -37,8 +40,16 @@ function LectureCreator() {
               price,
               thumbnail,
               title,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             })
-            .then(_ => console.log('created'));
+            .then(_ => {
+              setThumbnail(null);
+              setTitle('');
+              setDescription('');
+              setInstructor('');
+              setPrice('');
+              setDisbale(false);
+            });
         });
       }
     );
@@ -51,18 +62,21 @@ function LectureCreator() {
           onChange={e => setTitle(e.target.value)}
           placeholder='title'
           required
+          disabled={disable ? true : false}
           value={title}
         />
         <Input
           onChange={e => setDescription(e.target.value)}
           placeholder='description'
           required
+          disabled={disable ? true : false}
           value={description}
         />
         <Input
           onChange={e => setInstructor(e.target.value)}
           placeholder='instructor'
           required
+          disabled={disable ? true : false}
           value={instructor}
         />
         <Input
@@ -70,12 +84,22 @@ function LectureCreator() {
           onChange={e => setPrice(e.target.value)}
           placeholder='price'
           required
+          disabled={disable ? true : false}
           value={price}
         />
         <p>upload Thumbnail only .png</p>
-        <Input type='file' onChange={handleChange} required />
+        <Input
+          type='file'
+          onChange={handleChange}
+          required
+          disabled={disable ? true : false}
+        />
       </div>
-      <Button variant='contained' color='primary' onClick={createLecture}>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={createLecture}
+        disabled={disable ? true : false}>
         강의 만들기
       </Button>
     </div>

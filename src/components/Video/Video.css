@@ -5,6 +5,7 @@
   justify-content: center;
   padding: 20px;
   border-bottom: 1px solid lightgray;
+  min-height: -webkit-fit-content;
 }
 
 .video__container {

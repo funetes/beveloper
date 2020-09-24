@@ -20,6 +20,7 @@ const LectureUpload = ({
   const [progress, setProgress] = useState(0);
   const [video, setVideo] = useState(null);
   const [chapters, setChapters] = useState([]);
+  const [disbale, setDisbale] = useState(false);
 
   useEffect(() => {
     const unsubscribe = db
@@ -36,7 +37,7 @@ const LectureUpload = ({
   const handleChange = e => e.target.files[0] && setVideo(e.target.files[0]);
 
   const uploadLecture = () => {
-    if (!video) {
+    if (!video && !videoName.includs(':')) {
       return;
     }
     const videoName = video.name.split(':');
@@ -44,7 +45,8 @@ const LectureUpload = ({
     const chapter = videoName[1];
     //video upload to storage
     const uploadTask = storage.ref(`videos/${subject}/${chapter}`).put(video);
-    uploadTask.on(
+    setDisbale(true);
+    const unsubscribe = uploadTask.on(
       'state_changed',
       snapShot => {
         const progress = Math.round(
@@ -64,6 +66,10 @@ const LectureUpload = ({
             serverTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
           setProgress(0);
+          setCaption('');
+          setDescription('');
+          setVideo(null);
+          setDisbale(false);
         });
       }
     );
@@ -95,23 +101,30 @@ const LectureUpload = ({
             type='file'
             onChange={handleChange}
             accept='video/*'
+            disabled={disbale ? true : false}
             required
           />
           <Input
             type='text'
+            onChange={e => setCaption(e.target.value)}
             placeholder='caption'
             value={caption}
+            disabled={disbale ? true : false}
             required
-            onChange={e => setCaption(e.target.value)}
           />
           <Input
             type='text'
+            onChange={e => setDescription(e.target.value)}
             placeholder='description'
             value={description}
+            disabled={disbale ? true : false}
             required
-            onChange={e => setDescription(e.target.value)}
           />
-          <Button type='submit' variant='contained' color='primary'>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            disabled={disbale ? true : false}>
             chapter upload
           </Button>
         </form>

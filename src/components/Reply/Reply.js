@@ -10,9 +10,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [replyComment, setReplyComment] = useState('');
   const [replyComments, setReplyComments] = useState([]);
-  const onClick = () => {
-    setOpen(prev => !prev);
-  };
+
   useEffect(() => {
     db.collection('lectures')
       .doc(lectureId)
@@ -21,70 +19,78 @@ const Reply = ({ user, id, videoId, lectureId }) => {
       .collection('comments')
       .doc(id)
       .collection('replys')
+      .orderBy('timestamp', 'desc')
       .onSnapshot(snapshot =>
         setReplyComments(
           snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         )
       );
   }, [lectureId, videoId, id]);
-  const onKeyPress = e => {
-    if (e.key === 'Enter') {
-      // add to comment in firebase
-      db.collection('lectures')
-        .doc(lectureId)
-        .collection('videos')
-        .doc(videoId)
-        .collection('comments')
-        .doc(id)
-        .collection('replys')
-        .add({
-          username: user?.displayName,
-          text: replyComment,
-          creator: user?.uid,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        })
-        .then(_ => {
-          setReplyComment('');
-          setOpen(false);
-        })
-        .catch(error => console.log(error));
-    }
+  const onAddReplyClick = () => setOpen(prev => !prev);
+  const onReplyCountsClick = () => setCommentsOpen(prev => !prev);
+  const onReplySendClick = () => {
+    // add to comment in firebase
+    db.collection('lectures')
+      .doc(lectureId)
+      .collection('videos')
+      .doc(videoId)
+      .collection('comments')
+      .doc(id)
+      .collection('replys')
+      .add({
+        username: user?.displayName,
+        text: replyComment,
+        creator: user?.uid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(_ => {
+        setReplyComment('');
+        setOpen(false);
+      })
+      .catch(error => console.log(error));
   };
-  const onReplyCommentsClick = () => {
-    setCommentsOpen(prev => !prev);
+  const onReplysendCancelClick = () => {
+    setReplyComment('');
+    setOpen(false);
+  };
+  const toDate = ({ timestamp }) => {
+    const date = new Date(0);
+    date.setSeconds(timestamp?.seconds);
+    return date.toLocaleString().substr(0, 11).trim();
   };
   return (
     <>
-      <div className='reply'>
-        <button className='reply__button' onClick={onClick}>
-          답글
-        </button>
-      </div>
+      {user && (
+        <div className='reply'>
+          <button className='reply__button' onClick={onAddReplyClick}>
+            답글
+          </button>
+        </div>
+      )}
       {open && (
         <>
           <textarea
             className='reply__input'
             type='text'
-            placeholder='reply...'
+            placeholder='댓글을 입력하세요.'
             value={replyComment}
             cols='80'
             rows='3'
             required
             onChange={e => setReplyComment(e.target.value)}
-            // onKeyPress={onKeyPress}
           />
           <div className='reply__inputBtnContainer'>
-            <Button color='secondary' variant='contained'>
+            <Button color='secondary' onClick={onReplysendCancelClick}>
               취소
             </Button>
-            <Button color='primary' variant='contained'>
+            <Button color='primary' onClick={onReplySendClick}>
               답글
             </Button>
           </div>
         </>
       )}
       {replyComments.length !== 0 && (
-        <div className='reply__commentsCount' onClick={onReplyCommentsClick}>
+        <div className='reply__commentsCount' onClick={onReplyCountsClick}>
           {replyComments.length}개의 답글
         </div>
       )}
@@ -98,7 +104,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
                   {replyComment.username}
                 </div>
                 <pre>{replyComment.text}</pre>
-                <div className='reply__date'>2020.09.17</div>
+                <div className='reply__date'>{toDate(replyComment)}</div>
               </div>
             ))}
           </div>

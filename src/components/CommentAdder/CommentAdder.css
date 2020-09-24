@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   padding: 1.5rem;
+  min-height: -webkit-fit-content;
 }
 .commentAdder__form {
   display: flex;

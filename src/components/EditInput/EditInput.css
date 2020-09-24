@@ -9,9 +9,11 @@
   padding: 0.5rem;
   height: 2rem;
 }
-
+.editInput__btnContainer {
+  display: flex;
+}
 .editInput__btn {
   margin-top: 1rem !important;
   width: 50%;
-  align-self: flex-end;
+  /* align-self: flex-end; */
 }

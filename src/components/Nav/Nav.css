@@ -4,6 +4,7 @@
   align-items: center;
   width: 100%;
   border-bottom: 1px solid lightgray;
+  height: 12vh;
 }
 .nav__logo {
   object-fit: contain;

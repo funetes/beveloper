@@ -1,12 +1,12 @@
 .home {
   display: grid;
-  gap: 20px;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 300px;
   justify-items: center;
   align-items: center;
   width: 90%;
   margin: 0 auto;
-  height: 90vh;
+  height: 88vh;
   overflow-y: scroll;
 }
 

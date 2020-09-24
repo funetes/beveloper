@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: -webkit-fit-content;
 }
 
 .comment__container {
@@ -22,9 +23,11 @@
 
 .comment__text {
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(200, 200, 200, 0.2);
   padding: 1rem;
   resize: none;
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .comment_button {
@@ -38,4 +41,5 @@
 .comment__time {
   width: 90px;
   margin-left: auto;
+  margin-bottom: 0.3rem;
 }

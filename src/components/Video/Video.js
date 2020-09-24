@@ -21,6 +21,7 @@ const Video = ({ videoId, lectureId }) => {
           className='video__display'
           controls
           autoPlay
+          playsInline
           src={video?.videoUrl}
           type='video/mp4'
         />

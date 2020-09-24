@@ -9,7 +9,7 @@ const EditInput = ({ lectureId }) => {
   const [description, setDescription] = useState('');
   const [instructor, setInstructor] = useState('');
   const [price, setPrice] = useState(0);
-
+  const [disable, setDisbale] = useState(true);
   useEffect(() => {
     db.collection('lectures')
       .doc(lectureId)
@@ -33,39 +33,55 @@ const EditInput = ({ lectureId }) => {
       })
       .then(_ => console.log('updated'));
   };
+  const onEditBtnClick = () => setDisbale(prev => !prev);
+
   return (
     <div className='editInput'>
+      {/*  */}
       <Input
         type='text'
         value={title}
         placeholder='title'
+        disabled={disable}
         onChange={e => setTitle(e.target.value)}
       />
       <Input
         type='text'
         value={description}
         placeholder='description'
+        disabled={disable}
         onChange={e => setDescription(e.target.value)}
       />
       <Input
         type='text'
         value={instructor}
         placeholder='instructor'
+        disabled={disable}
         onChange={e => setInstructor(e.target.value)}
       />
       <Input
         type='number'
         value={price}
         placeholder='price'
+        disabled={disable}
         onChange={e => setPrice(e.target.value)}
       />
-      <Button
-        className='editInput__btn'
-        variant='contained'
-        color='primary'
-        onClick={onClick}>
-        변경
-      </Button>
+      <div className='editInput__btnContainer'>
+        <Button
+          className='editInput__btn'
+          color='secondary'
+          onClick={onEditBtnClick}>
+          Edit
+        </Button>
+        <Button
+          className='editInput__btn'
+          variant='contained'
+          color='primary'
+          disabled={disable}
+          onClick={onClick}>
+          변경
+        </Button>
+      </div>
     </div>
   );
 };

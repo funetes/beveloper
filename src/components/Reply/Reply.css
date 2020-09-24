@@ -3,10 +3,24 @@
   flex-wrap: wrap;
 }
 
+.reply__button {
+  background-color: rgba(200, 200, 200, 0.1);
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.reply__button:hover {
+  background-color: rgba(200, 200, 200, 0.2);
+  transition: all 0.5s;
+}
+
 .reply__input {
   width: 100%;
   resize: none;
   padding: 1rem;
+  margin-top: 0.3rem;
 }
 .reply__inputBtnContainer {
   width: 100%;
@@ -20,16 +34,18 @@
 }
 
 .reply__container {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(200, 200, 200, 0.2);
   padding: 1rem;
   width: 100%;
   border-radius: 5px;
+  margin-bottom: 0.3rem;
 }
 
 .reply__comment {
   padding-left: 1rem;
   margin-bottom: 1rem;
   display: flex;
+  align-items: center;
 }
 
 .reply__commentUsername {
@@ -38,4 +54,5 @@
 
 .reply__date {
   margin-left: auto;
+  font-size: 0.9rem;
 }

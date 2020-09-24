@@ -45,15 +45,11 @@ const Comment = ({ videoId, lectureId, user }) => {
           <span className='comment__username'>{comment.username}</span>
           <pre className='comment__text'>{comment.text}</pre>
           <p className='comment__time'>{toDate(comment)}</p>
-          {user?.uid === comment.creator ? (
+          {user?.uid === comment.creator && (
             <Button
               className='comment_button'
               onClick={() => onDeleteClick(id)}
               color='secondary'>
-              del
-            </Button>
-          ) : (
-            <Button className='comment_button' disabled>
               del
             </Button>
           )}

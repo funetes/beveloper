@@ -11,6 +11,7 @@
   flex-direction: column;
   align-items: flex-start;
   overflow-y: scroll;
+  height: 88vh;
 }
 
 .lecture__videoAndComment {
@@ -20,6 +21,7 @@
   flex-direction: column;
   overflow-y: scroll;
   padding-bottom: 100px;
+  height: 88vh;
 }
 
 .lecture__intro {
