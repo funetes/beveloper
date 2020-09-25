@@ -28,3 +28,15 @@
 .modal__button:hover {
   background-color: rgba(200, 200, 200, 0.3);
 }
+
+.nav__buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid;
+  padding-top: 0.5rem;
+}
+
+.nav__buttonContainer button span svg {
+  margin-right: 0.5rem;
+}

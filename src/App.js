@@ -19,7 +19,7 @@ const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 const App = () => {
   const [user, setUser] = useState(null);
   const [lectures, setLectures] = useState([]);
-  const [signInOpen, setsignInOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [checked, setChecked] = useState(darkOS);
   useEffect(() => {
@@ -72,22 +72,27 @@ const App = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .catch(error => alert(error.message));
-    setsignInOpen(false);
+    setSignInOpen(false);
   };
-  const onGoogleLoginBtnClick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
+  const onProviderLoginBtnClick = provider => {
+    let authProvider;
+    if (provider === 'google') {
+      authProvider = new firebase.auth.GoogleAuthProvider();
+    } else if (provider === 'github') {
+      authProvider = new firebase.auth.GithubAuthProvider();
+    }
     firebase
       .auth()
-      .signInWithPopup(provider)
+      .signInWithPopup(authProvider)
       .then(result => {
         const user = result.user;
         setUser(user);
-        setsignInOpen(false);
+        setSignInOpen(false);
         setSignUpOpen(false);
       })
       .catch(error => {
-        console.error(error);
-        setsignInOpen(false);
+        alert(error.message);
+        setSignInOpen(false);
         setSignUpOpen(false);
       });
   };
@@ -109,10 +114,10 @@ const App = () => {
             signInOpen,
             signUpOpen,
             setSignUpOpen,
-            setsignInOpen,
+            setSignInOpen,
           }}
           checked={checked}
-          onGoogleLoginBtnClick={onGoogleLoginBtnClick}
+          onProviderLoginBtnClick={onProviderLoginBtnClick}
           toggleChecked={toggleChecked}
         />
         <Switch>

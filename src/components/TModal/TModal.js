@@ -4,6 +4,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Input from '@material-ui/core/Input';
 import { Button } from '@material-ui/core';
+import { FaGoogle, FaGithub } from 'react-icons/fa';
 import './TModal.css';
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme =>
       padding: theme.spacing(2, 4, 3),
       borderRadius: '10px',
       width: '25%',
+      minWidth: '250px',
     },
   })
 );
@@ -29,7 +31,7 @@ const TransitionsModal = ({
   isSignUp,
   signIn,
   signUp,
-  onGoogleLoginBtnClick,
+  onProviderLoginBtnClick,
 }) => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
@@ -104,7 +106,15 @@ const TransitionsModal = ({
               {isSignUp ? 'signUp' : 'login'}
             </Button>
           </form>
-          <Button onClick={onGoogleLoginBtnClick}>google</Button>
+          <div className='nav__buttonContainer'>
+            <Button onClick={() => onProviderLoginBtnClick('google')}>
+              <FaGoogle />
+              google
+            </Button>
+            <Button onClick={() => onProviderLoginBtnClick('github')}>
+              <FaGithub /> github
+            </Button>
+          </div>
         </div>
       </Modal>
     </>

@@ -17,7 +17,7 @@ const Nav = ({
   sign,
   checked,
   toggleChecked,
-  onGoogleLoginBtnClick,
+  onProviderLoginBtnClick,
 }) => {
   return (
     <nav className='nav'>
@@ -49,15 +49,16 @@ const Nav = ({
           <>
             <TransitionsModal
               open={sign.signInOpen}
-              setOpen={sign.setsignInOpen}
+              setOpen={sign.setSignInOpen}
               signIn={sign.signIn}
-              onGoogleLoginBtnClick={onGoogleLoginBtnClick}
+              onProviderLoginBtnClick={onProviderLoginBtnClick}
             />
             <TransitionsModal
               open={sign.signUpOpen}
               setOpen={sign.setSignUpOpen}
               isSignUp
               signUp={sign.signUp}
+              onProviderLoginBtnClick={onProviderLoginBtnClick}
             />
           </>
         )}
