@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Input from '@material-ui/core/Input';
@@ -22,13 +23,21 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const TransitionsModal = ({ open, setOpen, isSignUp, signIn, signUp }) => {
+const TransitionsModal = ({
+  open,
+  setOpen,
+  isSignUp,
+  signIn,
+  signUp,
+  onGoogleLoginBtnClick,
+}) => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+
   const onSubmit = e => {
     e.preventDefault();
     if (isSignUp) {
@@ -62,6 +71,7 @@ const TransitionsModal = ({ open, setOpen, isSignUp, signIn, signUp }) => {
             </h2>
             {isSignUp && (
               <Input
+                autoFocus
                 type='text'
                 value={username}
                 placeholder='username'
@@ -69,6 +79,7 @@ const TransitionsModal = ({ open, setOpen, isSignUp, signIn, signUp }) => {
               />
             )}
             <Input
+              autoFocus={isSignUp ? false : true}
               type='email'
               value={email}
               placeholder='email'
@@ -93,6 +104,7 @@ const TransitionsModal = ({ open, setOpen, isSignUp, signIn, signUp }) => {
               {isSignUp ? 'signUp' : 'login'}
             </Button>
           </form>
+          <Button onClick={onGoogleLoginBtnClick}>google</Button>
         </div>
       </Modal>
     </>

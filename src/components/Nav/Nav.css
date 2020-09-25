@@ -21,6 +21,15 @@
   align-items: center;
 }
 
+.nav__displayName {
+  margin-right: 20px;
+}
+
+.nav__displayName span {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
 .nav__linkContainer button {
   background-color: transparent;
   cursor: pointer;

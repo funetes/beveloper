@@ -4,7 +4,7 @@ import './App.css';
 
 import db from './firebase/db';
 import auth from './firebase/auth';
-
+import firebase from 'firebase';
 import Nav from './components/Nav/Nav';
 import Home from './components/Home/Home';
 import Lecture from './components/Lecture/Lecture';
@@ -12,6 +12,7 @@ import Upload from './components/Upload/Upload';
 import LectureUpload from './components/LectureUpload/LectureUpload';
 import Board from './components/Board/Board';
 import Contact from './components/Contact/Contact';
+import User from './components/User/User';
 
 const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -23,9 +24,13 @@ const App = () => {
   const [checked, setChecked] = useState(darkOS);
   useEffect(() => {
     // user login, logout, create user, etc..
-    const unsubscribe = auth.onAuthStateChanged(authUser =>
-      authUser ? setUser(authUser) : setUser(null)
-    );
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        return setUser(authUser.providerData[0]);
+      } else {
+        return setUser(null);
+      }
+    });
     return () => unsubscribe();
   });
 
@@ -69,6 +74,23 @@ const App = () => {
       .catch(error => alert(error.message));
     setsignInOpen(false);
   };
+  const onGoogleLoginBtnClick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        const user = result.user;
+        setUser(user);
+        setsignInOpen(false);
+        setSignUpOpen(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setsignInOpen(false);
+        setSignUpOpen(false);
+      });
+  };
   const logOut = () => {
     auth.signOut().then(_ => setUser(null));
   };
@@ -90,6 +112,7 @@ const App = () => {
             setsignInOpen,
           }}
           checked={checked}
+          onGoogleLoginBtnClick={onGoogleLoginBtnClick}
           toggleChecked={toggleChecked}
         />
         <Switch>
@@ -112,7 +135,7 @@ const App = () => {
             <LectureUpload />
           </Route>
           <Route exact path='/user'>
-            {/* user component */}
+            <User user={user} />
           </Route>
         </Switch>
       </Router>

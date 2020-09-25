@@ -37,7 +37,7 @@ const LectureUpload = ({
   const handleChange = e => e.target.files[0] && setVideo(e.target.files[0]);
 
   const uploadLecture = () => {
-    if (!video && !videoName.includs(':')) {
+    if (!video && !video.name.includs(':')) {
       return;
     }
     const videoName = video.name.split(':');
@@ -46,7 +46,7 @@ const LectureUpload = ({
     //video upload to storage
     const uploadTask = storage.ref(`videos/${subject}/${chapter}`).put(video);
     setDisbale(true);
-    const unsubscribe = uploadTask.on(
+    uploadTask.on(
       'state_changed',
       snapShot => {
         const progress = Math.round(

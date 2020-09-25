@@ -4,6 +4,8 @@ import firebase from 'firebase';
 import db from '../../firebase/db';
 
 import Button from '@material-ui/core/Button';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const Reply = ({ user, id, videoId, lectureId }) => {
   const [open, setOpen] = useState(false);
@@ -91,6 +93,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
       )}
       {replyComments.length !== 0 && (
         <div className='reply__commentsCount' onClick={onReplyCountsClick}>
+          {commentsOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           {replyComments.length}개의 답글
         </div>
       )}
