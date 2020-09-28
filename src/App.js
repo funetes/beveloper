@@ -26,7 +26,7 @@ const App = () => {
     // user login, logout, create user, etc..
     const unsubscribe = auth.onAuthStateChanged(authUser => {
       if (authUser) {
-        return setUser(authUser.providerData[0]);
+        return setUser(authUser);
       } else {
         return setUser(null);
       }
@@ -57,50 +57,69 @@ const App = () => {
     }
   }, [checked]);
 
-  const signUp = (email, password, username) => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(authUser =>
-        authUser.user.updateProfile({
-          displayName: username,
-        })
-      )
-      .catch(error => alert(error.message)); // 모달로 보내서 표현하기
-    setSignUpOpen(false);
+  const signUp = async (email, password, username) => {
+    try {
+      const authUser = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      authUser.user.updateProfile({
+        displayName: username,
+      });
+      // store to firestore
+      storeToFirestore(authUser.user.uid);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setSignUpOpen(false);
+    }
   };
-  const signIn = (email, password) => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .catch(error => alert(error.message));
-    setSignInOpen(false);
+
+  const signIn = async (email, password) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setSignInOpen(false);
+    }
   };
-  const onProviderLoginBtnClick = provider => {
+
+  const onProviderLoginBtnClick = async provider => {
     let authProvider;
     if (provider === 'google') {
       authProvider = new firebase.auth.GoogleAuthProvider();
     } else if (provider === 'github') {
       authProvider = new firebase.auth.GithubAuthProvider();
     }
-    firebase
-      .auth()
-      .signInWithPopup(authProvider)
-      .then(result => {
-        const user = result.user;
-        setUser(user);
-        setSignInOpen(false);
-        setSignUpOpen(false);
-      })
-      .catch(error => {
-        alert(error.message);
-        setSignInOpen(false);
-        setSignUpOpen(false);
+    try {
+      const result = await firebase.auth().signInWithPopup(authProvider);
+      const user = result.user;
+      // console.log(user);
+      // setUser(user);
+      const isInFireStore = await db.collection('users').doc(user.uid).get();
+      !isInFireStore.data() && storeToFirestore(user.uid);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setSignInOpen(false);
+      setSignUpOpen(false);
+    }
+  };
+
+  const logOut = async () => {
+    await auth.signOut();
+    setUser(null);
+  };
+
+  const storeToFirestore = async uid => {
+    try {
+      await db.collection('users').doc(uid).set({
+        faborites: [],
       });
-  };
-  const logOut = () => {
-    auth.signOut().then(_ => setUser(null));
-  };
-  const toggleChecked = () => {
-    setChecked(prev => !prev);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
   return (
     <div className='app'>
@@ -118,7 +137,7 @@ const App = () => {
           }}
           checked={checked}
           onProviderLoginBtnClick={onProviderLoginBtnClick}
-          toggleChecked={toggleChecked}
+          toggleChecked={() => setChecked(prev => !prev)}
         />
         <Switch>
           <Route exact path='/'>

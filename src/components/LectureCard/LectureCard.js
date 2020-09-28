@@ -1,7 +1,7 @@
 import React from 'react';
 import './LectureCard.css';
 import { Link } from 'react-router-dom';
-function LectureCard({ id, thumbnail, title, instructor }) {
+function LectureCard({ id, thumbnail, title, instructor, description }) {
   return (
     <div className='lectureCard'>
       <Link
@@ -9,6 +9,9 @@ function LectureCard({ id, thumbnail, title, instructor }) {
           pathname: `/lecture/${id}`,
           state: {
             thumbnail,
+            title,
+            instructor,
+            description,
           },
         }}>
         <img className='lectureCard___image' src={thumbnail} alt='' />

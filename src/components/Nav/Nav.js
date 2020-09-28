@@ -40,8 +40,16 @@ const Nav = ({
               반갑습니다. <span>{user.displayName}</span> 님!
             </div>
             {user && (
-              <Link to='/user' className='nav__link'>
-                <PersonIcon />
+              <Link
+                to='/user'
+                className='nav__link'
+                style={{
+                  backgroundImage: user.photoURL
+                    ? `url(${user.photoURL})`
+                    : 'transparnt',
+                  backgroundSize: 'cover',
+                }}>
+                {!user.photoURL && <PersonIcon />}
               </Link>
             )}
           </>

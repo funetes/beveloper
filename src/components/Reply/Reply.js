@@ -101,11 +101,11 @@ const Reply = ({ user, id, videoId, lectureId }) => {
         // show replys...
         commentsOpen && (
           <div className='reply__container'>
-            {replyComments.map(({ id, username, text }) => (
+            {replyComments.map(({ id, username, text, timestamp }) => (
               <div key={id} className='reply__comment'>
                 <div className='reply__commentUsername'>{username}</div>
                 <pre>{text}</pre>
-                <div className='reply__date'>{toDate(replyComment)}</div>
+                <div className='reply__date'>{toDate(timestamp.seconds)}</div>
               </div>
             ))}
           </div>

@@ -49,7 +49,7 @@ const Comment = ({ videoId, lectureId, user }) => {
           <div className='comment__container' key={id}>
             <span className='comment__username'>{username}</span>
             <pre className='comment__text'>{text}</pre>
-            <p className='comment__time'>{toDate(timestamp.seconds)}</p>
+            <p className='comment__time'>{toDate(timestamp?.seconds)}</p>
             {user?.uid === creator && (
               <Button
                 className='comment_button'

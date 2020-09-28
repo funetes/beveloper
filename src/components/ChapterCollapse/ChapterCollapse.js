@@ -10,9 +10,7 @@ const ChapterCollapse = ({ description, serverTimestamp }) => {
   const onClick = () => setOpen(prev => !prev);
 
   return (
-    <div
-      className='chaperCollapse'
-      style={{ justifyContent: open ? 'space-between' : 'flex-start' }}>
+    <div className='chaperCollapse'>
       <button onClick={onClick}>
         {open ? <ArrowDropUpIcon /> : <ArrowRight />}
       </button>
