@@ -57,30 +57,38 @@ const LectureUpload = ({
       error => {
         console.error(error);
       },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-          db.collection('lectures').doc(id).collection('videos').add({
+      async () => {
+        try {
+          const videoUrl = await uploadTask.snapshot.ref.getDownloadURL();
+          await db.collection('lectures').doc(id).collection('videos').add({
             caption,
             description,
-            videoUrl: downloadURL,
+            videoUrl,
             serverTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
+        } catch (error) {
+          console.error(error.message);
+        } finally {
           setProgress(0);
           setCaption('');
           setDescription('');
           setVideo(null);
           setDisbale(false);
-        });
+        }
       }
     );
   };
-  const onClick = chapterId => {
-    db.collection('lectures')
-      .doc(id)
-      .collection('videos')
-      .doc(chapterId)
-      .delete()
-      .then(_ => console.log('deleted'));
+  const onClick = async chapterId => {
+    try {
+      await db
+        .collection('lectures')
+        .doc(id)
+        .collection('videos')
+        .doc(chapterId)
+        .delete();
+    } catch (error) {
+      console.log('deleted');
+    }
   };
   const onSubmit = e => {
     e.preventDefault();

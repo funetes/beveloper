@@ -26,7 +26,7 @@ const Upload = ({ lectures, user, history }) => {
                   },
                 }}
                 className='upload__link'>
-                {`${index + 1}. ${lecture.title}`}
+                {`${index + 1}. ${lecture?.title}`}
               </Link>
               <LectureCollcapse lectureId={id} />
             </div>

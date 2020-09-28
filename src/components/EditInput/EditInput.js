@@ -11,35 +11,40 @@ const EditInput = ({ lectureId }) => {
   const [price, setPrice] = useState(0);
   const [disable, setDisbale] = useState(true);
   useEffect(() => {
-    db.collection('lectures')
-      .doc(lectureId)
-      .get()
-      .then(res => {
+    const getLectureInfo = async () => {
+      try {
+        const res = await db.collection('lectures').doc(lectureId).get();
         const { title, description, instructor, price } = res.data();
         setTitle(title);
         setDescription(description);
         setInstructor(instructor);
         setPrice(price);
-      });
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+    getLectureInfo();
   }, [lectureId]);
-  const onClick = () => {
-    setDisbale(true);
-    db.collection('lectures')
-      .doc(lectureId)
-      .update({
-        title,
-        description,
-        instructor,
-        price,
-      })
-      .then(_ => console.log('updated'))
-      .catch(error => {
-        console.error(error);
-        setDisbale(false);
-      });
+  const onClick = async () => {
+    try {
+      setDisbale(true);
+      await db
+        .collection('lectures')
+        .doc(lectureId)
+        .update(updateInput(title, description, instructor, price));
+      console.log('updated');
+    } catch (error) {
+      console.error(error);
+      setDisbale(false);
+    }
   };
   const onEditBtnClick = () => setDisbale(prev => !prev);
-
+  const updateInput = (title, description, instructor, price) => ({
+    title,
+    description,
+    instructor,
+    price,
+  });
   return (
     <div className='editInput'>
       {/*  */}

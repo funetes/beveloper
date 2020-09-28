@@ -1,29 +1,11 @@
 import React, { useState } from 'react';
+import './TModal.css';
 
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Input from '@material-ui/core/Input';
 import { Button } from '@material-ui/core';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
-import './TModal.css';
-const useStyles = makeStyles(theme =>
-  createStyles({
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '1px solid lightgray',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-      borderRadius: '10px',
-      width: '25%',
-      minWidth: '250px',
-    },
-  })
-);
+import { useStyles } from './style';
 
 const TransitionsModal = ({
   open,
@@ -33,7 +15,7 @@ const TransitionsModal = ({
   signUp,
   onProviderLoginBtnClick,
 }) => {
-  const classes = useStyles();
+  const { modal, paper } = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -47,7 +29,7 @@ const TransitionsModal = ({
         setError('비밀번호를 확인해주세요.');
         setTimeout(() => {
           setError('');
-        }, 3000);
+        }, 2500);
       } else {
         signUp(email, password, username);
       }
@@ -63,10 +45,10 @@ const TransitionsModal = ({
       <Modal
         aria-labelledby='login'
         aria-describedby='transition-modal-description'
-        className={classes.modal}
+        className={modal}
         open={open}
         onClose={() => setOpen(false)}>
-        <div className={classes.paper}>
+        <div className={paper}>
           <form onSubmit={onSubmit} className='modal__form'>
             <h2 className='modal__formLogin' id='login'>
               Beveloper
@@ -91,6 +73,7 @@ const TransitionsModal = ({
               type='password'
               value={password}
               placeholder='password'
+              autoComplete='off'
               onChange={e => setPassword(e.target.value)}
             />
             {isSignUp && (

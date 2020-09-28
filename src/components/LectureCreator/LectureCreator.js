@@ -30,27 +30,27 @@ function LectureCreator() {
       error => {
         console.error(error);
       },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then(thumbnail => {
-          // store to database
-          db.collection('lectures')
-            .add({
-              description,
-              instructor,
-              price,
-              thumbnail,
-              title,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            })
-            .then(_ => {
-              setThumbnail(null);
-              setTitle('');
-              setDescription('');
-              setInstructor('');
-              setPrice('');
-              setDisbale(false);
-            });
-        });
+      async () => {
+        try {
+          const thumbnail = await uploadTask.snapshot.ref.getDownloadURL();
+          await db.collection('lectures').add({
+            description,
+            instructor,
+            price,
+            thumbnail,
+            title,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        } catch (error) {
+          console.error(error.message);
+        } finally {
+          setThumbnail(null);
+          setTitle('');
+          setDescription('');
+          setInstructor('');
+          setPrice('');
+          setDisbale(false);
+        }
       }
     );
   };

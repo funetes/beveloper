@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Comment.css';
+
 import db from '../../firebase/db';
+
+import toDate from '../../utils/toDate';
+
 import Button from '@material-ui/core/Button';
 import Reply from '../Reply/Reply';
+
 const Comment = ({ videoId, lectureId, user }) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -23,39 +28,45 @@ const Comment = ({ videoId, lectureId, user }) => {
   }, [videoId, lectureId]);
 
   const onDeleteClick = async id => {
-    await db
-      .collection('lectures')
-      .doc(lectureId)
-      .collection('videos')
-      .doc(videoId)
-      .collection('comments')
-      .doc(id)
-      .delete();
-  };
-  const toDate = ({ timestamp }) => {
-    const date = new Date(0);
-    date.setSeconds(timestamp?.seconds);
-    return date.toLocaleString().substr(0, 11).trim();
+    try {
+      await db
+        .collection('lectures')
+        .doc(lectureId)
+        .collection('videos')
+        .doc(videoId)
+        .collection('comments')
+        .doc(id)
+        .delete();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
     <div className='comment'>
-      {comments.map(({ id, comment }) => (
-        <div className='comment__container' key={id}>
-          <span className='comment__username'>{comment.username}</span>
-          <pre className='comment__text'>{comment.text}</pre>
-          <p className='comment__time'>{toDate(comment)}</p>
-          {user?.uid === comment.creator && (
-            <Button
-              className='comment_button'
-              onClick={() => onDeleteClick(id)}
-              color='secondary'>
-              del
-            </Button>
-          )}
-          <Reply user={user} id={id} videoId={videoId} lectureId={lectureId} />
-        </div>
-      ))}
+      {comments.map(
+        ({ id, comment: { username, text, timestamp, creator } }) => (
+          <div className='comment__container' key={id}>
+            <span className='comment__username'>{username}</span>
+            <pre className='comment__text'>{text}</pre>
+            <p className='comment__time'>{toDate(timestamp.seconds)}</p>
+            {user?.uid === creator && (
+              <Button
+                className='comment_button'
+                onClick={() => onDeleteClick(id)}
+                color='secondary'>
+                del
+              </Button>
+            )}
+            <Reply
+              user={user}
+              id={id}
+              videoId={videoId}
+              lectureId={lectureId}
+            />
+          </div>
+        )
+      )}
     </div>
   );
 };

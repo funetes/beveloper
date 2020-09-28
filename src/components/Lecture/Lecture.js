@@ -63,14 +63,18 @@ const Lecture = ({
         {videoId ? (
           <Video videoId={videoId} lectureId={id} />
         ) : (
+          // 즐겨찻기 버튼을 만들자
+          // 좀 더 의미있는 화면이 들어와야함
           <div className='lecture__intro'>
             <img src={thumbnail} alt='thumbnail' />
           </div>
         )}
         {videoId && (
-          <CommentAdder videoId={videoId} lectureId={id} user={user} />
+          <>
+            <CommentAdder videoId={videoId} lectureId={id} user={user} />
+            <Comment videoId={videoId} lectureId={id} user={user} />
+          </>
         )}
-        {videoId && <Comment videoId={videoId} lectureId={id} user={user} />}
       </div>
     </div>
   );

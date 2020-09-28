@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Reply.css';
+
 import firebase from 'firebase';
 import db from '../../firebase/db';
+
+import toDate from '../../utils/toDate';
 
 import Button from '@material-ui/core/Button';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -30,35 +33,32 @@ const Reply = ({ user, id, videoId, lectureId }) => {
   }, [lectureId, videoId, id]);
   const onAddReplyClick = () => setOpen(prev => !prev);
   const onReplyCountsClick = () => setCommentsOpen(prev => !prev);
-  const onReplySendClick = () => {
+  const onReplySendClick = async () => {
     // add to comment in firebase
-    db.collection('lectures')
-      .doc(lectureId)
-      .collection('videos')
-      .doc(videoId)
-      .collection('comments')
-      .doc(id)
-      .collection('replys')
-      .add({
-        username: user?.displayName,
-        text: replyComment,
-        creator: user?.uid,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(_ => {
-        setReplyComment('');
-        setOpen(false);
-      })
-      .catch(error => console.log(error));
+    try {
+      await db
+        .collection('lectures')
+        .doc(lectureId)
+        .collection('videos')
+        .doc(videoId)
+        .collection('comments')
+        .doc(id)
+        .collection('replys')
+        .add({
+          username: user?.displayName,
+          text: replyComment,
+          creator: user?.uid,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      setReplyComment('');
+      setOpen(false);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
-  const onReplysendCancelClick = () => {
+  const onReplySendCancelClick = () => {
     setReplyComment('');
     setOpen(false);
-  };
-  const toDate = ({ timestamp }) => {
-    const date = new Date(0);
-    date.setSeconds(timestamp?.seconds);
-    return date.toLocaleString().substr(0, 11).trim();
   };
   return (
     <>
@@ -82,7 +82,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
             onChange={e => setReplyComment(e.target.value)}
           />
           <div className='reply__inputBtnContainer'>
-            <Button color='secondary' onClick={onReplysendCancelClick}>
+            <Button color='secondary' onClick={onReplySendCancelClick}>
               취소
             </Button>
             <Button color='primary' onClick={onReplySendClick}>
@@ -101,12 +101,10 @@ const Reply = ({ user, id, videoId, lectureId }) => {
         // show replys...
         commentsOpen && (
           <div className='reply__container'>
-            {replyComments.map(replyComment => (
-              <div key={replyComment.id} className='reply__comment'>
-                <div className='reply__commentUsername'>
-                  {replyComment.username}
-                </div>
-                <pre>{replyComment.text}</pre>
+            {replyComments.map(({ id, username, text }) => (
+              <div key={id} className='reply__comment'>
+                <div className='reply__commentUsername'>{username}</div>
+                <pre>{text}</pre>
                 <div className='reply__date'>{toDate(replyComment)}</div>
               </div>
             ))}

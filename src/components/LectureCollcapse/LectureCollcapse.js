@@ -5,9 +5,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 const LectureCollcapse = ({ lectureId }) => {
   const [open, setOpen] = useState(false);
-  const onClick = () => {
-    setOpen(prevs => !prevs);
-  };
+  const onClick = () => setOpen(prevs => !prevs);
   return (
     <>
       <button
