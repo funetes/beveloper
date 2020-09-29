@@ -6,33 +6,50 @@
   border-bottom: 1px solid lightgray;
   height: 12vh;
 }
+
+.nav__linkContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.nav__linkContainer:last-child {
+  flex: 0.5 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav__linkContainer a {
+  height: 90%;
+}
+
 .nav__logo {
   object-fit: contain;
-  height: 80px;
+  height: 100%;
   margin-left: 1rem;
   transition: all 0.5s;
 }
 .nav__logo:hover {
   background-color: rgba(200, 200, 200, 0.3);
 }
-.nav__linkContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 
 .nav__displayName {
   margin-right: 20px;
+  width: 20%;
 }
 
 .nav__displayName span {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .nav__linkContainer button {
   background-color: transparent;
   cursor: pointer;
+  border: none;
+  height: 90%;
+  width: 42px;
 }
 
 .nav__linkContainer span {
@@ -40,22 +57,35 @@
 }
 
 .nav__link {
-  width: 60px;
-  height: 60px;
-  border-radius: 999px;
-  border: 1px solid lightgray;
+  width: 42px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20px;
   transition: all 0.5s;
 }
 
-.nav__link:hover {
-  background-color: rgba(200, 200, 200, 0.3);
+.nav__link img {
+  object-fit: contain;
+  height: 50%;
+  border-radius: 999px;
 }
 
 .nav__link .MuiSvgIcon-root {
-  width: 30px;
-  height: 30px;
+  width: 80%;
+  height: 80%;
+}
+
+@media screen and (max-width: 576px) {
+  .nav__displayName {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .nav__displayName {
+    font-size: 0.7rem;
+  }
+  .nav__displayName span {
+    font-size: 0.7rem;
+  }
 }

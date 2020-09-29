@@ -16,7 +16,7 @@ const Nav = ({
   logOut,
   sign,
   checked,
-  toggleChecked,
+  toggleDarkmodeChecked,
   onProviderLoginBtnClick,
 }) => {
   return (
@@ -26,10 +26,9 @@ const Nav = ({
           <img className='nav__logo' src={Logo} alt='logo' />
         </Link>
         <Switch
-          className='nav__link'
           color='primary'
           checked={checked}
-          onChange={toggleChecked}>
+          onChange={toggleDarkmodeChecked}>
           darkmode
         </Switch>
       </div>
@@ -40,16 +39,12 @@ const Nav = ({
               반갑습니다. <span>{user.displayName}</span> 님!
             </div>
             {user && (
-              <Link
-                to='/user'
-                className='nav__link'
-                style={{
-                  backgroundImage: user.photoURL
-                    ? `url(${user.photoURL})`
-                    : 'transparnt',
-                  backgroundSize: 'cover',
-                }}>
-                {!user.photoURL && <PersonIcon />}
+              <Link to='/user' className='nav__link'>
+                {!user.photoURL ? (
+                  <PersonIcon />
+                ) : (
+                  <img src={`${user.photoURL}`} alt='photoURL' />
+                )}
               </Link>
             )}
           </>

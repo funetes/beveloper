@@ -3,7 +3,7 @@ import './Lecture.css';
 import { useParams, withRouter } from 'react-router-dom';
 
 import db from '../../firebase/db';
-import firebase from 'firebase';
+import { firestore } from 'firebase';
 
 import SidebarContent from '../SidebarContent/SidebarContent';
 import Video from '../Video/Video';
@@ -21,18 +21,18 @@ const Lecture = ({
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
   const [videoId, setVideoId] = useState('');
-  const [isFaborite, setIsFaborite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const onClick = id => setVideoId(id);
 
   useEffect(() => {
-    const userFaboriteInfo = async () => {
+    const userFavoriteInfo = async () => {
       if (user) {
         const result = await db.collection('users').doc(user?.uid).get();
-        const { faborites } = result.data();
-        setIsFaborite(faborites.some(faborite => faborite === id));
+        const { favorites } = result.data();
+        setIsFavorite(favorites.some(favorite => favorite === id));
       }
     };
-    userFaboriteInfo();
+    userFavoriteInfo();
   }, [user, id]);
 
   useEffect(() => {
@@ -52,19 +52,19 @@ const Lecture = ({
       });
     return () => unsubscribe();
   }, [id]);
-  const onFaboriteBtnClick = async () => {
+  const onFavoriteBtnClick = async () => {
     try {
-      const faboriteRef = db.collection('users').doc(user?.uid);
-      if (isFaborite) {
-        await faboriteRef.update({
-          faborites: firebase.firestore.FieldValue.arrayRemove(id),
+      const favoriteRef = db.collection('users').doc(user?.uid);
+      if (isFavorite) {
+        await favoriteRef.update({
+          favorites: firestore.FieldValue.arrayRemove(id),
         });
-        setIsFaborite(false);
+        setIsFavorite(false);
       } else {
-        await faboriteRef.update({
-          faborites: firebase.firestore.FieldValue.arrayUnion(id),
+        await favoriteRef.update({
+          favorites: firestore.FieldValue.arrayUnion(id),
         });
-        setIsFaborite(true);
+        setIsFavorite(true);
       }
     } catch (error) {
       alert(error.message);
@@ -101,8 +101,8 @@ const Lecture = ({
           <div className='lecture__intro'>
             <img src={thumbnail} alt='thumbnail' />
             <div className='lecture__buttonContainer'>
-              <button onClick={onFaboriteBtnClick}>
-                {isFaborite ? <FaStar /> : <FaRegStar />}
+              <button onClick={onFavoriteBtnClick}>
+                {isFavorite ? <FaStar /> : <FaRegStar />}
               </button>
               <button onClick={onDonateBtnClick}>
                 <FaDonate />

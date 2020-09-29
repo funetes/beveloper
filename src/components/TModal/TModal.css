@@ -7,26 +7,13 @@
 .modal__formLogin {
   margin: 0 0 30px;
   padding: 0;
-  /* color: #fff; */
   text-align: center;
 }
 
 .modal__button {
-  width: 60px;
-  height: 60px;
-  border-radius: 999px;
-  border: 1px solid lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20px;
-  background-color: transparent;
-  cursor: pointer;
-  transition: all 0.5s;
-}
-
-.modal__button:hover {
-  background-color: rgba(200, 200, 200, 0.3);
 }
 
 .nav__buttonContainer {

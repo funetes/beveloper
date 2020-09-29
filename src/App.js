@@ -5,6 +5,7 @@ import './App.css';
 import db from './firebase/db';
 import auth from './firebase/auth';
 import firebase from 'firebase';
+
 import Nav from './components/Nav/Nav';
 import Home from './components/Home/Home';
 import Lecture from './components/Lecture/Lecture';
@@ -94,9 +95,7 @@ const App = () => {
     }
     try {
       const result = await firebase.auth().signInWithPopup(authProvider);
-      const user = result.user;
-      // console.log(user);
-      // setUser(user);
+      const { user } = result;
       const isInFireStore = await db.collection('users').doc(user.uid).get();
       !isInFireStore.data() && storeToFirestore(user.uid);
     } catch (error) {
@@ -115,7 +114,7 @@ const App = () => {
   const storeToFirestore = async uid => {
     try {
       await db.collection('users').doc(uid).set({
-        faborites: [],
+        favorites: [],
       });
     } catch (error) {
       console.error(error.message);
@@ -137,7 +136,7 @@ const App = () => {
           }}
           checked={checked}
           onProviderLoginBtnClick={onProviderLoginBtnClick}
-          toggleChecked={() => setChecked(prev => !prev)}
+          toggleDarkmodeChecked={() => setChecked(prev => !prev)}
         />
         <Switch>
           <Route exact path='/'>
