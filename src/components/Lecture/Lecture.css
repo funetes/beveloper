@@ -30,23 +30,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 73vh;
+}
+
+.lecture__introContainer {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
 }
 
 .lecture img {
-  width: 50%;
+  width: 100%;
   object-fit: contain;
   border-radius: 12px;
 }
 
 .lecture__buttonContainer {
   padding: 1rem;
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   position: absolute;
   top: 0;
-  left: 25%;
 }
 
 .lecture__buttonContainer button {
@@ -66,7 +73,7 @@
 }
 
 .lecture__info {
-  width: 50%;
+  width: 100%;
 }
 
 .lecture__info div {
@@ -78,4 +85,10 @@
   border: 1px solid;
   border-radius: 5px;
   padding: 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .lecture__introContainer {
+    width: 90% !important;
+  }
 }

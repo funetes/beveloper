@@ -89,7 +89,7 @@ const TransitionsModal = ({
               {isSignUp ? 'signUp' : 'login'}
             </Button>
           </form>
-          <div className='nav__buttonContainer'>
+          <div className='modal__buttonContainer'>
             <Button onClick={() => onProviderLoginBtnClick('google')}>
               <FaGoogle />
               google

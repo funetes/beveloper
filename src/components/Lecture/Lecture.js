@@ -26,10 +26,14 @@ const Lecture = ({
 
   useEffect(() => {
     const userFavoriteInfo = async () => {
-      if (user) {
-        const result = await db.collection('users').doc(user?.uid).get();
-        const { favorites } = result.data();
-        setIsFavorite(favorites.some(favorite => favorite === id));
+      try {
+        if (user) {
+          const result = await db.collection('users').doc(user?.uid).get();
+          const { favorites } = result.data();
+          setIsFavorite(favorites.some(favorite => favorite === id));
+        }
+      } catch (error) {
+        console.error(error.message);
       }
     };
     userFavoriteInfo();
@@ -99,18 +103,20 @@ const Lecture = ({
           <Video videoId={videoId} lectureId={id} />
         ) : (
           <div className='lecture__intro'>
-            <img src={thumbnail} alt='thumbnail' />
-            <div className='lecture__buttonContainer'>
-              <button onClick={onFavoriteBtnClick}>
-                {isFavorite ? <FaStar /> : <FaRegStar />}
-              </button>
-              <button onClick={onDonateBtnClick}>
-                <FaDonate />
-              </button>
-            </div>
-            <div className='lecture__info'>
-              <h1>{title}</h1>
-              <p>{description}</p>
+            <div className='lecture__introContainer'>
+              <img src={thumbnail} alt='thumbnail' />
+              <div className='lecture__buttonContainer'>
+                <button onClick={onFavoriteBtnClick}>
+                  {user && (isFavorite ? <FaStar /> : <FaRegStar />)}
+                </button>
+                <button onClick={onDonateBtnClick}>
+                  <FaDonate />
+                </button>
+              </div>
+              <div className='lecture__info'>
+                <h1>{title}</h1>
+                <p>{description}</p>
+              </div>
             </div>
           </div>
         )}

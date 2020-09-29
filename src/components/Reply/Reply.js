@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+import { CSSTransition } from 'react-transition-group';
+
 const Reply = ({ user, id, videoId, lectureId }) => {
   const [open, setOpen] = useState(false);
   const [commentsOpen, setCommentsOpen] = useState(false);
@@ -69,8 +71,12 @@ const Reply = ({ user, id, videoId, lectureId }) => {
           </button>
         </div>
       )}
-      {open && (
-        <>
+      <CSSTransition
+        in={open}
+        timeout={{ enter: 300, exit: 100 }}
+        classNames='reply__transition'
+        unmountOnExit>
+        <div className='reply__commentContainer'>
           <textarea
             className='reply__input'
             type='text'
@@ -89,28 +95,30 @@ const Reply = ({ user, id, videoId, lectureId }) => {
               답글
             </Button>
           </div>
-        </>
-      )}
+        </div>
+      </CSSTransition>
+
       {replyComments.length !== 0 && (
         <div className='reply__commentsCount' onClick={onReplyCountsClick}>
           {commentsOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           {replyComments.length}개의 답글
         </div>
       )}
-      {
-        // show replys...
-        commentsOpen && (
-          <div className='reply__container'>
-            {replyComments.map(({ id, username, text, timestamp }) => (
-              <div key={id} className='reply__comment'>
-                <div className='reply__commentUsername'>{username}</div>
-                <pre>{text}</pre>
-                <div className='reply__date'>{toDate(timestamp.seconds)}</div>
-              </div>
-            ))}
-          </div>
-        )
-      }
+      <CSSTransition
+        in={commentsOpen}
+        timeout={{ enter: 300, exit: 100 }}
+        classNames='reply__CommentTransition'
+        unmountOnExit>
+        <div className='reply__container'>
+          {replyComments.map(({ id, username, text, timestamp }) => (
+            <div key={id} className='reply__comment'>
+              <div className='reply__commentUsername'>{username}</div>
+              <pre>{text}</pre>
+              <div className='reply__date'>{toDate(timestamp.seconds)}</div>
+            </div>
+          ))}
+        </div>
+      </CSSTransition>
     </>
   );
 };

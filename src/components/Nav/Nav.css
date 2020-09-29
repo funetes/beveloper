@@ -5,6 +5,7 @@
   width: 100%;
   border-bottom: 1px solid lightgray;
   height: 12vh;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .nav__linkContainer {
@@ -44,14 +45,6 @@
   font-size: 1rem;
 }
 
-.nav__linkContainer button {
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-  height: 90%;
-  width: 42px;
-}
-
 .nav__linkContainer span {
   border: none;
 }
@@ -61,7 +54,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.5s;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  transition: filter 0.5s;
 }
 
 .nav__link img {
@@ -73,6 +69,10 @@
 .nav__link .MuiSvgIcon-root {
   width: 80%;
   height: 80%;
+}
+
+.nav__link:hover {
+  filter: brightness(1.5);
 }
 
 @media screen and (max-width: 576px) {

@@ -14,16 +14,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  height: 90%;
+  width: 42px;
+  transition: filter 0.5s;
 }
 
-.nav__buttonContainer {
+.modal__button:hover {
+  filter: brightness(1.5);
+}
+
+.modal__buttonContainer {
   display: flex;
+  width: 100%;
   justify-content: space-around;
   align-items: center;
   border-top: 1px solid;
   padding-top: 0.5rem;
 }
 
-.nav__buttonContainer button span svg {
+.modal__buttonContainer button span svg {
   margin-right: 0.5rem;
 }

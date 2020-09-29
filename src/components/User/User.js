@@ -17,9 +17,13 @@ const User = ({ user, history }) => {
   useEffect(() => {
     if (user) {
       const favoriteFromFB = async () => {
-        const result = await db.collection('users').doc(user?.uid).get();
-        const { favorites } = result.data();
-        setFavorites(favorites);
+        try {
+          const result = await db.collection('users').doc(user?.uid).get();
+          const { favorites } = result.data();
+          setFavorites(favorites);
+        } catch (error) {
+          console.error(error.message);
+        }
       };
       favoriteFromFB();
     }
