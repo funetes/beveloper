@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Lecture.css';
 import { useParams, withRouter } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
 import db from '../../firebase/db';
 import { firestore } from 'firebase';
 
@@ -85,58 +85,63 @@ const Lecture = ({
     console.log('onDonateBtnClick ==> moveto donate link');
   };
   return (
-    <div className='lecture'>
-      <div className='lecture__sidebar'>
-        {loading ? (
-          <Loading />
-        ) : lecture.length === 0 ? (
-          <div>
-            chapter가 없습니다.
-            <span role='img' aria-labelledby='emoji'>
-              😭
-            </span>
-          </div>
-        ) : (
-          lecture.map(({ caption, id }) => (
-            <SidebarContent
-              key={id}
-              id={id}
-              caption={caption}
-              onclick={onClick}
-            />
-          ))
-        )}
-      </div>
-      <div className='lecture__videoAndComment'>
-        {videoId ? (
-          <Video videoId={videoId} lectureId={id} />
-        ) : (
-          <div className='lecture__intro'>
-            <div className='lecture__introContainer'>
-              <img src={thumbnail} alt='thumbnail' />
-              <div className='lecture__buttonContainer'>
-                <button onClick={onFavoriteBtnClick}>
-                  {user && (isFavorite ? <FaStar /> : <FaRegStar />)}
-                </button>
-                <button onClick={onDonateBtnClick}>
-                  <FaDonate />
-                </button>
-              </div>
-              <div className='lecture__info'>
-                <h1>{title}</h1>
-                <p>{description}</p>
+    <>
+      <Helmet>
+        <title>{`beveloper |${title}`}</title>
+      </Helmet>
+      <div className='lecture'>
+        <div className='lecture__sidebar'>
+          {loading ? (
+            <Loading />
+          ) : lecture.length === 0 ? (
+            <div>
+              chapter가 없습니다.
+              <span role='img' aria-labelledby='emoji'>
+                😭
+              </span>
+            </div>
+          ) : (
+            lecture.map(({ caption, id }) => (
+              <SidebarContent
+                key={id}
+                id={id}
+                caption={caption}
+                onclick={onClick}
+              />
+            ))
+          )}
+        </div>
+        <div className='lecture__videoAndComment'>
+          {videoId ? (
+            <Video videoId={videoId} lectureId={id} />
+          ) : (
+            <div className='lecture__intro'>
+              <div className='lecture__introContainer'>
+                <img src={thumbnail} alt='thumbnail' />
+                <div className='lecture__buttonContainer'>
+                  <button onClick={onFavoriteBtnClick}>
+                    {user && (isFavorite ? <FaStar /> : <FaRegStar />)}
+                  </button>
+                  <button onClick={onDonateBtnClick}>
+                    <FaDonate />
+                  </button>
+                </div>
+                <div className='lecture__info'>
+                  <h1>{title}</h1>
+                  <p>{description}</p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        {videoId && (
-          <>
-            <CommentAdder videoId={videoId} lectureId={id} user={user} />
-            <Comment videoId={videoId} lectureId={id} user={user} />
-          </>
-        )}
+          )}
+          {videoId && (
+            <div>
+              <CommentAdder videoId={videoId} lectureId={id} user={user} />
+              <Comment videoId={videoId} lectureId={id} user={user} />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

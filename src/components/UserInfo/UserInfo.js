@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserInfo.css';
 
-import auth from '../../firebase/auth';
+// import auth from '../../firebase/auth';
 import PersonIcon from '@material-ui/icons/Person';
 
 const UserInfo = ({ user }) => {

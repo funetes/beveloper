@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import './User.css';
-
+import { Helmet } from 'react-helmet';
 import db from '../../firebase/db';
 
 import UserInfo from '../UserInfo/UserInfo';
@@ -32,7 +32,6 @@ const User = ({ user, history }) => {
               ...favorite,
             }))
           );
-          // setFavorites(favorites);
         } catch (error) {
           console.error(error.message);
         } finally {
@@ -44,10 +43,15 @@ const User = ({ user, history }) => {
   }, [user]);
 
   return (
-    <div className='User'>
-      <UserInfo user={user} />
-      <FavoriteLectures favorites={favorites} loading={loading} />
-    </div>
+    <>
+      <Helmet>
+        <title>{`beveloper - user`}</title>
+      </Helmet>
+      <div className='User'>
+        <UserInfo user={user} />
+        <FavoriteLectures favorites={favorites} loading={loading} />
+      </div>
+    </>
   );
 };
 

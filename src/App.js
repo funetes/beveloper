@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-
+import { Helmet } from 'react-helmet';
 import db from './firebase/db';
 import auth from './firebase/auth';
 import firebase from 'firebase';
@@ -131,48 +131,55 @@ const App = () => {
     }
   };
   return (
-    <div className='app'>
-      <Router>
-        <Nav
-          user={user}
-          logOut={logOut}
-          sign={{
-            signUp,
-            signIn,
-            signInOpen,
-            signUpOpen,
-            setSignUpOpen,
-            setSignInOpen,
-          }}
-          checked={checked}
-          onProviderLoginBtnClick={onProviderLoginBtnClick}
-          toggleDarkmodeChecked={() => setChecked(prev => !prev)}
-        />
-        <Switch>
-          <Route exact path='/'>
-            <Home lectures={lectures} loading={loading} />
-          </Route>
-          <Route exact path='/board'>
-            <Board />
-          </Route>
-          <Route exact path='/contact'>
-            <Contact />
-          </Route>
-          <Route path='/lecture/:id'>
-            <Lecture user={user} />
-          </Route>
-          <Route exact path='/upload'>
-            <Upload lectures={lectures} user={user} />
-          </Route>
-          <Route exact path='/upload/:id'>
-            <LectureUpload />
-          </Route>
-          <Route exact path='/user'>
-            <User user={user} />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <>
+      <Helmet>
+        <meta charSet='utf-8' />
+        <title>beveloper</title>
+        <link rel='canonical' href='https://beveloper.web.app' />
+      </Helmet>
+      <div className='app'>
+        <Router>
+          <Nav
+            user={user}
+            logOut={logOut}
+            sign={{
+              signUp,
+              signIn,
+              signInOpen,
+              signUpOpen,
+              setSignUpOpen,
+              setSignInOpen,
+            }}
+            checked={checked}
+            onProviderLoginBtnClick={onProviderLoginBtnClick}
+            toggleDarkmodeChecked={() => setChecked(prev => !prev)}
+          />
+          <Switch>
+            <Route exact path='/'>
+              <Home lectures={lectures} loading={loading} />
+            </Route>
+            <Route exact path='/board'>
+              <Board />
+            </Route>
+            <Route exact path='/contact'>
+              <Contact />
+            </Route>
+            <Route path='/lecture/:id'>
+              <Lecture user={user} />
+            </Route>
+            <Route exact path='/upload'>
+              <Upload lectures={lectures} user={user} />
+            </Route>
+            <Route exact path='/upload/:id'>
+              <LectureUpload />
+            </Route>
+            <Route exact path='/user'>
+              <User user={user} />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </>
   );
 };
 
