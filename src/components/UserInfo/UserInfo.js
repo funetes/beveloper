@@ -3,6 +3,7 @@ import './UserInfo.css';
 
 import auth from '../../firebase/auth';
 import { Button, Input } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/Person';
 
 const UserInfo = ({ user }) => {
   const [open, setOpen] = useState(false);
@@ -17,6 +18,17 @@ const UserInfo = ({ user }) => {
 
   return (
     <div className='userInfo'>
+      {user?.photoURL ? (
+        <img src={user?.photoURL} alt='avatar' />
+      ) : (
+        <PersonIcon
+          style={{
+            fontSize: '10rem',
+            border: '1px solid',
+            borderRadius: '50',
+          }}
+        />
+      )}
       <p>
         username: <span>{user?.displayName}</span>
         <Button

@@ -1,3 +1,10 @@
 .userInfo {
   flex: 0.5;
+  padding: 1rem;
+}
+
+.userInfo img {
+  object-fit: contain;
+  width: 40%;
+  border-radius: 50%;
 }

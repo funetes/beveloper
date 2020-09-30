@@ -23,6 +23,7 @@ const App = () => {
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [checked, setChecked] = useState(darkOS);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     // user login, logout, create user, etc..
     const unsubscribe = auth.onAuthStateChanged(authUser => {
@@ -36,16 +37,25 @@ const App = () => {
   });
 
   useEffect(() => {
-    const unsubscription = db
-      .collection('lectures')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot(snapshot => {
-        console.log('app/lectures');
-        setLectures(
-          snapshot.docs.map(doc => ({ id: doc.id, lecture: doc.data() }))
-        );
-      });
-    return () => unsubscription();
+    const getLectures = async () => {
+      try {
+        setLoading(true);
+        const result = db
+          .collection('lectures')
+          .orderBy('timestamp', 'desc')
+          .get();
+        const lectures = (await result).docs.map(doc => ({
+          id: doc.id,
+          lecture: doc.data(),
+        }));
+        setLectures(lectures);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getLectures();
   }, []);
 
   useEffect(() => {
@@ -140,7 +150,7 @@ const App = () => {
         />
         <Switch>
           <Route exact path='/'>
-            <Home lectures={lectures} />
+            <Home lectures={lectures} loading={loading} />
           </Route>
           <Route exact path='/board'>
             <Board />
