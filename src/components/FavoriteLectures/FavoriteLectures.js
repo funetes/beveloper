@@ -1,47 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './FavoriteLectures.css';
 import { Link } from 'react-router-dom';
-import db from '../../firebase/db';
 import Loading from '../Loading/Loading';
 
-const FavoriteLectures = ({ favorites }) => {
-  const [favoriteLectures, setFavoriteLectures] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    const favoriteLectuesFromFB = async () => {
-      if (favorites.length !== 0) {
-        try {
-          const favoritesPArr = favorites.map(async favorite => {
-            const result = await db.collection('lectures').doc(favorite).get();
-            return result.data();
-          });
-          const favoritesArr = await Promise.all(favoritesPArr);
-          setFavoriteLectures(
-            favoritesArr.map((favorite, i) => ({
-              id: favorites[i],
-              ...favorite,
-            }))
-          );
-        } catch (error) {
-          console.error(error.message);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    favoriteLectuesFromFB();
-  }, [favorites]);
+const FavoriteLectures = ({ favorites, loading }) => {
   return (
     <div className='FavoriteLectures'>
       <h1>즐겨찾기</h1>
       {loading ? (
         <Loading />
+      ) : favorites.length === 0 ? (
+        <div>
+          즐겨찾기가 없습니다.
+          <span role='img' aria-labelledby='emoji'>
+            😭
+          </span>
+        </div>
       ) : (
-        favoriteLectures.map(
-          ({ id, title, thumbnail, instructor, description }) => (
-            <div key={id}>
+        <div>
+          {favorites.map(
+            ({ id, title, thumbnail, instructor, description }) => (
               <Link
+                key={id}
                 to={{
                   pathname: `/lecture/${id}`,
                   state: {
@@ -53,9 +33,9 @@ const FavoriteLectures = ({ favorites }) => {
                 }}>
                 <span>∙</span> {title}
               </Link>
-            </div>
-          )
-        )
+            )
+          )}
+        </div>
       )}
     </div>
   );

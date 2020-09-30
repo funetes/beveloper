@@ -61,11 +61,12 @@
   font-size: 2.5rem;
   border: none;
   cursor: pointer;
-  color: yellow;
+  color: #e9a701;
+  transition: filter 0.5s;
 }
 
 .lecture__buttonContainer button:hover {
-  opacity: 0.8;
+  filter: brightness(1.2);
 }
 
 .lecture__buttonContainer button:last-child {

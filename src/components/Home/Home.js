@@ -1,13 +1,13 @@
 import React from 'react';
 import './Home.css';
 import LectureCard from '../LectureCard/LectureCard';
-import Loading from '../Loading/Loading';
+import Logo from '../Logo/Logo';
 function Home({ lectures, loading }) {
   return (
     <>
       {loading ? (
         <div className='loading'>
-          <Loading />
+          <Logo />
         </div>
       ) : (
         <div className='home'>

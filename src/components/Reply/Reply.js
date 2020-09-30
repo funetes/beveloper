@@ -106,7 +106,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
       )}
       <CSSTransition
         in={commentsOpen}
-        timeout={{ enter: 300, exit: 100 }}
+        timeout={{ enter: 300, exit: 300 }}
         classNames='reply__CommentTransition'
         unmountOnExit>
         <div className='reply__container'>

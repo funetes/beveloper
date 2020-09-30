@@ -74,7 +74,7 @@ const App = () => {
         email,
         password
       );
-      authUser.user.updateProfile({
+      await authUser.user.updateProfile({
         displayName: username,
       });
       // store to firestore

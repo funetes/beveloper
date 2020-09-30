@@ -9,7 +9,7 @@ import FavoriteLectures from '../FavoriteLectures/FavoriteLectures';
 
 const User = ({ user, history }) => {
   const [favorites, setFavorites] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     !user && history.push('/');
   }, [user, history]);
@@ -17,12 +17,26 @@ const User = ({ user, history }) => {
   useEffect(() => {
     if (user) {
       const favoriteFromFB = async () => {
+        setLoading(true);
         try {
           const result = await db.collection('users').doc(user?.uid).get();
-          const { favorites } = result.data();
-          setFavorites(favorites);
+          const { favorites = [] } = result.data();
+          const favoritesPArr = favorites.map(async favorite => {
+            const result = await db.collection('lectures').doc(favorite).get();
+            return result.data();
+          });
+          const favoritesArr = await Promise.all(favoritesPArr);
+          setFavorites(
+            favoritesArr.map((favorite, i) => ({
+              id: favorites[i],
+              ...favorite,
+            }))
+          );
+          // setFavorites(favorites);
         } catch (error) {
           console.error(error.message);
+        } finally {
+          setLoading(false);
         }
       };
       favoriteFromFB();
@@ -32,7 +46,7 @@ const User = ({ user, history }) => {
   return (
     <div className='User'>
       <UserInfo user={user} />
-      <FavoriteLectures favorites={favorites} />
+      <FavoriteLectures favorites={favorites} loading={loading} />
     </div>
   );
 };

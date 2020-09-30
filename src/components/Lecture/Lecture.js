@@ -9,8 +9,8 @@ import SidebarContent from '../SidebarContent/SidebarContent';
 import Video from '../Video/Video';
 import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
-import { FaRegStar, FaStar } from 'react-icons/fa';
-import { FaDonate } from 'react-icons/fa';
+import { FaRegStar, FaStar, FaDonate } from 'react-icons/fa';
+import Loading from '../Loading/Loading';
 
 const Lecture = ({
   user,
@@ -21,6 +21,7 @@ const Lecture = ({
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
   const [videoId, setVideoId] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const onClick = id => setVideoId(id);
 
@@ -40,21 +41,27 @@ const Lecture = ({
   }, [user, id]);
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection('lectures')
-      .doc(id)
-      .collection('videos')
-      .orderBy('serverTimestamp', 'asc')
-      .onSnapshot(snapshot => {
-        snapshot.docs.length !== 0 &&
-          setLecture(
-            snapshot.docs.map(doc => ({
-              id: doc.id,
-              caption: doc.data().caption,
-            }))
-          );
-      });
-    return () => unsubscribe();
+    setLoading(true);
+    const chapterFromFB = async () => {
+      try {
+        const result = db
+          .collection('lectures')
+          .doc(id)
+          .collection('videos')
+          .orderBy('serverTimestamp', 'asc')
+          .get();
+        const chapters = (await result).docs.map(doc => ({
+          id: doc.id,
+          caption: doc.data().caption,
+        }));
+        setLecture(chapters);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    chapterFromFB();
   }, [id]);
   const onFavoriteBtnClick = async () => {
     try {
@@ -80,7 +87,9 @@ const Lecture = ({
   return (
     <div className='lecture'>
       <div className='lecture__sidebar'>
-        {lecture.length === 0 ? (
+        {loading ? (
+          <Loading />
+        ) : lecture.length === 0 ? (
           <div>
             chapter가 없습니다.
             <span role='img' aria-labelledby='emoji'>

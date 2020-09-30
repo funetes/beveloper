@@ -36,7 +36,7 @@ const Nav = ({
         {user ? (
           <>
             <div className='nav__displayName'>
-              반갑습니다. <span>{user.displayName}</span> 님!
+              반갑습니다. <span>{user?.displayName}</span> 님!
             </div>
             {user && (
               <Link to='/user' className='nav__link'>
@@ -73,7 +73,7 @@ const Nav = ({
         </Link>
         {user && (
           <button className='nav__link' onClick={logOut}>
-            Log out
+            Log Out
           </button>
         )}
         {user?.uid === process.env.REACT_APP_ADMIN && (
