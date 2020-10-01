@@ -1,0 +1,23 @@
+.notion__container {
+  margin: 1rem;
+  height: 88vh;
+  padding: 0.7rem;
+  flex: 0.7;
+  overflow-y: scroll;
+}
+
+.notion__container::-webkit-scrollbar {
+  display: none;
+}
+
+.notion {
+  color: inherit !important;
+}
+
+.notion-hr {
+  border-color: lightgray;
+}
+
+.notion-row .notion-column span {
+  background-color: inherit;
+}

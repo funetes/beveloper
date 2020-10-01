@@ -162,7 +162,7 @@ const App = () => {
               <Board />
             </Route>
             <Route exact path='/contact'>
-              <Contact />
+              <Contact checked={checked} />
             </Route>
             <Route path='/lecture/:id'>
               <Lecture user={user} />
