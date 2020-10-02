@@ -43,7 +43,7 @@ const Nav = ({
                 {!user.photoURL ? (
                   <PersonIcon />
                 ) : (
-                  <img src={`${user.photoURL}`} alt='photoURL' />
+                  <img src={`${user.photoURL}`} alt='avatar' />
                 )}
               </Link>
             )}

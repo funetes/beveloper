@@ -7,7 +7,7 @@ import db from '../../firebase/db';
 import UserInfo from '../UserInfo/UserInfo';
 import FavoriteLectures from '../FavoriteLectures/FavoriteLectures';
 
-const User = ({ user, history }) => {
+const User = ({ user, history, setUser }) => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -45,10 +45,10 @@ const User = ({ user, history }) => {
   return (
     <>
       <Helmet>
-        <title>{`beveloper - user`}</title>
+        <title>{`beveloper | user`}</title>
       </Helmet>
       <div className='User'>
-        <UserInfo user={user} />
+        <UserInfo user={user} setUser={setUser} />
         <FavoriteLectures favorites={favorites} loading={loading} />
       </div>
     </>

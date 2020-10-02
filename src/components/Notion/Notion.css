@@ -6,6 +6,10 @@
   overflow-y: scroll;
 }
 
+.notion__container h1 {
+  width: 100%;
+}
+
 .notion__container::-webkit-scrollbar {
   display: none;
 }
@@ -20,4 +24,10 @@
 
 .notion-row .notion-column span {
   background-color: inherit;
+}
+
+@media screen and (max-width: 900px) {
+  .notion__container {
+    flex: 1;
+  }
 }

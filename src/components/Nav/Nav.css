@@ -61,9 +61,9 @@
 }
 
 .nav__link img {
-  object-fit: contain;
-  height: 50%;
-  border-radius: 999px;
+  height: 2.7rem;
+  width: 2.7rem;
+  border-radius: 50%;
 }
 
 .nav__link .MuiSvgIcon-root {

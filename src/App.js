@@ -15,6 +15,8 @@ import Board from './components/Board/Board';
 import Contact from './components/Contact/Contact';
 import User from './components/User/User';
 
+import { errorMsg } from './utils/errorMsg';
+
 const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const App = () => {
@@ -26,15 +28,14 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     // user login, logout, create user, etc..
-    const unsubscribe = auth.onAuthStateChanged(authUser => {
+    auth.onAuthStateChanged(authUser => {
       if (authUser) {
         return setUser(authUser);
       } else {
         return setUser(null);
       }
     });
-    return () => unsubscribe();
-  });
+  }, []);
 
   useEffect(() => {
     const getLectures = async () => {
@@ -109,16 +110,18 @@ const App = () => {
       const isInFireStore = await db.collection('users').doc(user.uid).get();
       !isInFireStore.data() && storeToFirestore(user.uid);
     } catch (error) {
+      if (error.message === errorMsg.closePopup) {
+        return;
+      }
       alert(error.message);
-    } finally {
-      setSignInOpen(false);
-      setSignUpOpen(false);
     }
   };
 
   const logOut = async () => {
     await auth.signOut();
     setUser(null);
+    setSignInOpen(false);
+    setSignUpOpen(false);
   };
 
   const storeToFirestore = async uid => {
@@ -174,7 +177,7 @@ const App = () => {
               <LectureUpload />
             </Route>
             <Route exact path='/user'>
-              <User user={user} />
+              <User user={user} setUser={setUser} />
             </Route>
           </Switch>
         </Router>

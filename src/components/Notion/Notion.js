@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'react-notion/src/styles.css';
 import { NotionRenderer } from 'react-notion';
 import './Notion.css';
+import { bgColor } from '../../utils/style';
 const Notion = ({ id, checked }) => {
   const [notionData, setNotionData] = useState(null);
   useEffect(() => {
@@ -13,18 +14,29 @@ const Notion = ({ id, checked }) => {
         setNotionData(data);
       } catch (error) {
         console.error(error.message);
+      } finally {
       }
     };
     getNotionData();
   }, [id]);
-  // rgba(51, 51, 51, 0.9);
+
   return (
     <div
       className='notion__container'
       style={{
-        backgroundColor: checked ? 'rgb(55, 55, 55)' : 'rgb(250,250,250)',
+        backgroundColor: checked ? bgColor.DARK : bgColor.LIGHT,
       }}>
-      {notionData && <NotionRenderer blockMap={notionData} />}
+      {notionData && (
+        <>
+          <h1>
+            hireable:{' '}
+            <span role='img' aria-label='checked emoji'>
+              ✅
+            </span>
+          </h1>
+          <NotionRenderer blockMap={notionData} />
+        </>
+      )}
     </div>
   );
 };
