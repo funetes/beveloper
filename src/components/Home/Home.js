@@ -10,7 +10,7 @@ function Home({ lectures, loading }) {
           <Logo />
         </div>
       ) : (
-        <div className='home'>
+        <main className='home'>
           {lectures.map(
             ({
               id,
@@ -27,7 +27,7 @@ function Home({ lectures, loading }) {
               />
             )
           )}
-        </div>
+        </main>
       )}
     </>
   );

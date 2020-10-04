@@ -11,7 +11,6 @@ import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
 import { FaRegStar, FaStar, FaDonate } from 'react-icons/fa';
 import Loading from '../Loading/Loading';
-
 const Lecture = ({
   user,
   location: {
@@ -89,8 +88,8 @@ const Lecture = ({
       <Helmet>
         <title>{`beveloper |${title}`}</title>
       </Helmet>
-      <div className='lecture'>
-        <div className='lecture__sidebar'>
+      <main className='lecture'>
+        <section className='lecture__sidebar'>
           {loading ? (
             <Loading />
           ) : lecture.length === 0 ? (
@@ -110,12 +109,12 @@ const Lecture = ({
               />
             ))
           )}
-        </div>
+        </section>
         <div className='lecture__videoAndComment'>
           {videoId ? (
             <Video videoId={videoId} lectureId={id} />
           ) : (
-            <div className='lecture__intro'>
+            <section className='lecture__intro'>
               <div className='lecture__introContainer'>
                 <img src={thumbnail} alt='thumbnail' />
                 <div className='lecture__buttonContainer'>
@@ -126,21 +125,30 @@ const Lecture = ({
                     <FaDonate />
                   </button>
                 </div>
+
+                {/* <div className='lecture__buttonContainer'>
+                  <button onClick={onFavoriteBtnClick}>
+                    {user && (isFavorite ? <FaStar /> : <FaRegStar />)}
+                  </button>
+                  <button onClick={onDonateBtnClick}>
+                    <FaDonate />
+                  </button>
+                </div> */}
                 <div className='lecture__info'>
                   <h1>{title}</h1>
                   <p>{description}</p>
                 </div>
               </div>
-            </div>
+            </section>
           )}
           {videoId && (
-            <div>
+            <section>
               <CommentAdder videoId={videoId} lectureId={id} user={user} />
               <Comment videoId={videoId} lectureId={id} user={user} />
-            </div>
+            </section>
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 };

@@ -10,3 +10,7 @@
   flex-direction: column;
   padding: 0.7rem;
 }
+
+.FavoriteLectures ul {
+  list-style: none;
+}

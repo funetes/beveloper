@@ -4,7 +4,7 @@ import db from '../../firebase/db';
 import storage from '../../firebase/storage';
 import firebase from 'firebase';
 import { Input, Button } from '@material-ui/core';
-function LectureCreator() {
+const LectureCreator = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -56,7 +56,7 @@ function LectureCreator() {
   };
 
   return (
-    <div className='lectureCreator'>
+    <section className='lectureCreator'>
       <div className='lectureCreator__uplodeContainer'>
         <Input
           onChange={e => setTitle(e.target.value)}
@@ -102,8 +102,8 @@ function LectureCreator() {
         disabled={disable ? true : false}>
         강의 만들기
       </Button>
-    </div>
+    </section>
   );
-}
+};
 
 export default LectureCreator;

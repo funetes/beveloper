@@ -1,9 +1,9 @@
 import React from 'react';
 import './LectureCard.css';
 import { Link } from 'react-router-dom';
-function LectureCard({ id, thumbnail, title, instructor, description }) {
+const LectureCard = ({ id, thumbnail, title, instructor, description }) => {
   return (
-    <div className='lectureCard'>
+    <section className='lectureCard'>
       <Link
         to={{
           pathname: `/lecture/${id}`,
@@ -20,8 +20,8 @@ function LectureCard({ id, thumbnail, title, instructor, description }) {
           <div>{instructor}</div>
         </div>
       </Link>
-    </div>
+    </section>
   );
-}
+};
 
 export default LectureCard;

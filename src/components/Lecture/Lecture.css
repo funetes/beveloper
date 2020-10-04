@@ -43,6 +43,8 @@
 
 .lecture img {
   width: 100%;
+  min-width: 30vw;
+  min-height: 47vh;
   object-fit: contain;
   border-radius: 12px;
 }

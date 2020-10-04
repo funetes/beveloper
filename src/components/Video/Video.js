@@ -15,7 +15,7 @@ const Video = ({ videoId, lectureId }) => {
   }, [videoId, lectureId]);
 
   return (
-    <div className='video'>
+    <section className='video'>
       <div className='video__container'>
         <video
           className='video__display'
@@ -28,7 +28,7 @@ const Video = ({ videoId, lectureId }) => {
         <div className='video__title'>{video?.caption}</div>
         <p className='video__description'>{video?.description}</p>
       </div>
-    </div>
+    </section>
   );
 };
 

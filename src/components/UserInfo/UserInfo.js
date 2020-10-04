@@ -62,7 +62,7 @@ const UserInfo = ({ user, setUser }) => {
   };
 
   return (
-    <div className='userInfo'>
+    <section className='userInfo'>
       <div className='userInfo__imgContainer'>
         {user?.photoURL ? (
           <div
@@ -131,7 +131,7 @@ const UserInfo = ({ user, setUser }) => {
           email: <span>{user?.email}</span>{' '}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -5,7 +5,7 @@ import Loading from '../Loading/Loading';
 
 const FavoriteLectures = ({ favorites, loading }) => {
   return (
-    <div className='FavoriteLectures'>
+    <section className='FavoriteLectures'>
       <h1>즐겨찾기</h1>
       {loading ? (
         <Loading />
@@ -17,27 +17,28 @@ const FavoriteLectures = ({ favorites, loading }) => {
           </span>
         </div>
       ) : (
-        <div>
+        <ul>
           {favorites.map(
             ({ id, title, thumbnail, instructor, description }) => (
-              <Link
-                key={id}
-                to={{
-                  pathname: `/lecture/${id}`,
-                  state: {
-                    thumbnail,
-                    title,
-                    instructor,
-                    description,
-                  },
-                }}>
-                <span>∙</span> {title}
-              </Link>
+              <li key={id}>
+                <Link
+                  to={{
+                    pathname: `/lecture/${id}`,
+                    state: {
+                      thumbnail,
+                      title,
+                      instructor,
+                      description,
+                    },
+                  }}>
+                  <span>∙</span> {title}
+                </Link>
+              </li>
             )
           )}
-        </div>
+        </ul>
       )}
-    </div>
+    </section>
   );
 };
 

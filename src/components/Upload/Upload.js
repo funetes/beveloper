@@ -11,9 +11,9 @@ const Upload = ({ lectures, user, history }) => {
   }, [user, history]);
 
   return (
-    <div className='upload'>
+    <main className='upload'>
       <LectureCreator />
-      <div className='upload__container'>
+      <section className='upload__container'>
         <h2>강의 list</h2>
         <ul className='upload__lectureList'>
           {lectures.reverse().map(({ id, lecture }, index) => (
@@ -32,8 +32,8 @@ const Upload = ({ lectures, user, history }) => {
             </div>
           ))}
         </ul>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

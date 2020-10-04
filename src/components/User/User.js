@@ -45,12 +45,12 @@ const User = ({ user, history, setUser }) => {
   return (
     <>
       <Helmet>
-        <title>{`beveloper | user`}</title>
+        <title>{`beveloper | ${user?.displayName}`}</title>
       </Helmet>
-      <div className='User'>
+      <main className='User'>
         <UserInfo user={user} setUser={setUser} />
         <FavoriteLectures favorites={favorites} loading={loading} />
-      </div>
+      </main>
     </>
   );
 };

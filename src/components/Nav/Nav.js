@@ -28,25 +28,22 @@ const Nav = ({
         <Switch
           color='primary'
           checked={checked}
-          onChange={toggleDarkmodeChecked}>
-          darkmode
-        </Switch>
+          onChange={toggleDarkmodeChecked}
+        />
       </div>
       <div className='nav__linkContainer'>
         {user ? (
           <>
             <div className='nav__displayName'>
-              반갑습니다. <span>{user?.displayName}</span> 님!
+              반갑습니다. <span>{user.displayName}</span> 님!
             </div>
-            {user && (
-              <Link to='/user' className='nav__link'>
-                {!user.photoURL ? (
-                  <PersonIcon />
-                ) : (
-                  <img src={`${user.photoURL}`} alt='avatar' />
-                )}
-              </Link>
-            )}
+            <Link to='/user' className='nav__link'>
+              {user.photoURL ? (
+                <img src={`${user.photoURL}`} alt='avatar' />
+              ) : (
+                <PersonIcon />
+              )}
+            </Link>
           </>
         ) : (
           <>
