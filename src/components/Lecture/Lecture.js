@@ -86,7 +86,7 @@ const Lecture = ({
   return (
     <>
       <Helmet>
-        <title>{`beveloper |${title}`}</title>
+        <title>{`beveloper | ${title}`}</title>
       </Helmet>
       <main className='lecture'>
         <section className='lecture__sidebar'>
@@ -118,22 +118,24 @@ const Lecture = ({
               <div className='lecture__introContainer'>
                 <img src={thumbnail} alt='thumbnail' />
                 <div className='lecture__buttonContainer'>
-                  <button onClick={onFavoriteBtnClick}>
-                    {user && (isFavorite ? <FaStar /> : <FaRegStar />)}
+                  <button
+                    onClick={onFavoriteBtnClick}
+                    disabled={!user ? true : false}
+                    style={{ color: !user && '#D3D3D3' }}>
+                    {user ? (
+                      isFavorite ? (
+                        <FaStar />
+                      ) : (
+                        <FaRegStar />
+                      )
+                    ) : (
+                      <FaRegStar />
+                    )}
                   </button>
                   <button onClick={onDonateBtnClick}>
                     <FaDonate />
                   </button>
                 </div>
-
-                {/* <div className='lecture__buttonContainer'>
-                  <button onClick={onFavoriteBtnClick}>
-                    {user && (isFavorite ? <FaStar /> : <FaRegStar />)}
-                  </button>
-                  <button onClick={onDonateBtnClick}>
-                    <FaDonate />
-                  </button>
-                </div> */}
                 <div className='lecture__info'>
                   <h1>{title}</h1>
                   <p>{description}</p>

@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.css';
 import LectureCard from '../LectureCard/LectureCard';
 import Logo from '../Logo/Logo';
-function Home({ lectures, loading }) {
+function Home({ lectures: { lectures, loading } }) {
   return (
     <>
       {loading ? (

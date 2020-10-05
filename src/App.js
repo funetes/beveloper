@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 import db from './firebase/db';
 import auth from './firebase/auth';
 import firebase from 'firebase';
@@ -17,47 +18,33 @@ import User from './components/User/User';
 
 import { errorMsg } from './utils/errorMsg';
 
+import { loginUser, signupUser } from './action/userAction';
+import { fatchLectures } from './action/lectureAction';
+
 const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-const App = () => {
+const App = ({ loginUser, signupUser, fatchLectures, lectures }) => {
   const [user, setUser] = useState(null);
-  const [lectures, setLectures] = useState([]);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [checked, setChecked] = useState(darkOS);
-  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     // user login, logout, create user, etc..
     auth.onAuthStateChanged(authUser => {
       if (authUser) {
+        // fire login action
         return setUser(authUser);
       } else {
+        // fire logout action
         return setUser(null);
       }
     });
   }, []);
 
   useEffect(() => {
-    const getLectures = async () => {
-      try {
-        setLoading(true);
-        const result = db
-          .collection('lectures')
-          .orderBy('timestamp', 'desc')
-          .get();
-        const lectures = (await result).docs.map(doc => ({
-          id: doc.id,
-          lecture: doc.data(),
-        }));
-        setLectures(lectures);
-      } catch (error) {
-        console.error(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getLectures();
-  }, []);
+    fatchLectures();
+  }, [fatchLectures]);
 
   useEffect(() => {
     if (checked) {
@@ -87,14 +74,9 @@ const App = () => {
     }
   };
 
-  const signIn = async (email, password) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setSignInOpen(false);
-    }
+  const signIn = (email, password) => {
+    loginUser(email, password);
+    setSignInOpen(false);
   };
 
   const onProviderLoginBtnClick = async provider => {
@@ -146,7 +128,7 @@ const App = () => {
             user={user}
             logOut={logOut}
             sign={{
-              signUp,
+              signupUser,
               signIn,
               signInOpen,
               signUpOpen,
@@ -159,7 +141,7 @@ const App = () => {
           />
           <Switch>
             <Route exact path='/'>
-              <Home lectures={lectures} loading={loading} />
+              <Home lectures={lectures} />
             </Route>
             <Route exact path='/board'>
               <Board />
@@ -185,5 +167,18 @@ const App = () => {
     </>
   );
 };
+const mapStateToProps = state => ({
+  user: state.user,
+  lectures: state.lectures,
+});
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  loginUser: (email, password) => dispatch(loginUser(email, password)),
+  fatchLectures: () => dispatch(fatchLectures()),
+  signupUser: (email, password, username) =>
+    dispatch(signupUser(email, password, username)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// export default App;

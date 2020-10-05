@@ -57,7 +57,7 @@ const Nav = ({
               open={sign.signUpOpen}
               setOpen={sign.setSignUpOpen}
               isSignUp
-              signUp={sign.signUp}
+              signUp={sign.signupUser}
               onProviderLoginBtnClick={onProviderLoginBtnClick}
             />
           </>

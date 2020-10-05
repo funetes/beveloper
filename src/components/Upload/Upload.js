@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import LectureCreator from '../LectureCreator/LectureCreator';
 import LectureCollcapse from '../LectureCollcapse/LectureCollcapse';
 
-const Upload = ({ lectures, user, history }) => {
+const Upload = ({ lectures: { lectures }, user, history }) => {
   useEffect(() => {
     !user && history.push('/');
   }, [user, history]);

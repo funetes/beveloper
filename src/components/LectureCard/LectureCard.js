@@ -14,7 +14,7 @@ const LectureCard = ({ id, thumbnail, title, instructor, description }) => {
             description,
           },
         }}>
-        <img className='lectureCard___image' src={thumbnail} alt='' />
+        <img className='lectureCard___image' src={thumbnail} alt='thumbnail' />
         <div className='lectureCard__container'>
           <h3>{title}</h3>
           <div>{instructor}</div>
