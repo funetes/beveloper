@@ -1,7 +1,8 @@
+import { createReducer } from '@reduxjs/toolkit';
 import {
-  FATCH_LECTURE_REQUEST,
-  FATCH_LECTURE_SUCCESS,
-  FATCH_LECTURE_ERROR,
+  fatchLectureRequest,
+  fatchLectureSuccess,
+  fatchLectureError,
 } from '../action/lectureAction';
 
 const initialState = {
@@ -10,29 +11,25 @@ const initialState = {
   error: null,
 };
 
-const lectureReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case FATCH_LECTURE_REQUEST:
-      return {
-        loading: true,
-        lectures: [],
-        error: null,
-      };
-    case FATCH_LECTURE_SUCCESS:
-      return {
-        loading: false,
-        lectures: action.payload,
-        error: null,
-      };
-    case FATCH_LECTURE_ERROR:
-      return {
-        loading: false,
-        lectures: [],
-        erorr: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const lectureReducer = createReducer(initialState, {
+  [fatchLectureRequest]: (state, _) => ({
+    ...state,
+    loading: false,
+    lectures: [],
+    error: null,
+  }),
+  [fatchLectureSuccess]: (state, action) => ({
+    ...state,
+    loading: false,
+    lectures: action.payload,
+    error: null,
+  }),
+  [fatchLectureError]: (state, action) => ({
+    ...state,
+    loading: false,
+    lectures: [],
+    erorr: action.payload,
+  }),
+});
 
 export default lectureReducer;

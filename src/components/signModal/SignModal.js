@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import './TModal.css';
-
+import './signModal.css';
+import { useDispatch } from 'react-redux';
 import Backdrop from '@material-ui/core/Backdrop';
 import { Button, Slide, Input, Modal } from '@material-ui/core';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { useStyles } from './style';
+import { providerLogin, login, signup } from '../../action/userAction';
+const provider = {
+  GOOGLE: 'google',
+  GITHUB: 'github',
+};
 
-const TransitionsModal = ({
-  open,
-  setOpen,
-  isSignUp,
-  signIn,
-  signUp,
-  onProviderLoginBtnClick,
-}) => {
+const SignModal = ({ isSignUp }) => {
+  const [open, setOpen] = useState(false);
   const { modal, paper } = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,6 +20,7 @@ const TransitionsModal = ({
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
 
+  const dispatch = useDispatch();
   const onSubmit = e => {
     e.preventDefault();
     if (isSignUp) {
@@ -30,10 +30,10 @@ const TransitionsModal = ({
           setError('');
         }, 2500);
       } else {
-        signUp(email, password, username);
+        dispatch(signup(email, password, username));
       }
     } else {
-      signIn(email, password);
+      dispatch(login(email, password));
     }
   };
   return (
@@ -68,7 +68,7 @@ const TransitionsModal = ({
                 />
               )}
               <Input
-                autoFocus={isSignUp ? false : true}
+                autoFocus={isSignUp !== true}
                 type='email'
                 value={email}
                 placeholder='email'
@@ -95,11 +95,11 @@ const TransitionsModal = ({
               </Button>
             </form>
             <div className='modal__buttonContainer'>
-              <Button onClick={() => onProviderLoginBtnClick('google')}>
+              <Button onClick={() => dispatch(providerLogin(provider.GOOGLE))}>
                 <FaGoogle />
                 google
               </Button>
-              <Button onClick={() => onProviderLoginBtnClick('github')}>
+              <Button onClick={() => dispatch(providerLogin(provider.GITHUB))}>
                 <FaGithub /> github
               </Button>
             </div>
@@ -110,4 +110,4 @@ const TransitionsModal = ({
   );
 };
 
-export default TransitionsModal;
+export default SignModal;

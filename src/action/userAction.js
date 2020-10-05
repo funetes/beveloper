@@ -1,25 +1,17 @@
+import { createAction } from '@reduxjs/toolkit';
 import auth from '../firebase/auth';
-export const LOGIN_USER_REQUEST = 'user/LOGIN_USER_REQUEST';
-export const LOGIN_USER_SUCCESS = 'user/LOGIN_USER_SUCCESS';
-export const LOGIN_USER_ERROR = 'user/LOGIN_USER_ERROR';
+import db from '../firebase/db';
+import firebase from 'firebase';
+import { errorMsg } from '../utils/errorMsg';
+export const loginUserRequest = createAction('user/LOGIN_USER_REQUEST');
+export const loginUserSuccess = createAction('user/LOGIN_USER_SUCCESS');
+export const loginUserError = createAction('user/LOGIN_USER_ERROR');
 
-export const loginUserRequest = () => ({
-  type: LOGIN_USER_REQUEST,
-});
-export const loginUserSuccess = () => ({
-  type: LOGIN_USER_REQUEST,
-});
-export const loginUserError = error => ({
-  type: LOGIN_USER_REQUEST,
-  payload: error,
-});
-
-export const loginUser = (email, password) => {
+export const login = (email, password) => {
   return async function (dispatch) {
     try {
       dispatch(loginUserRequest());
       await auth.signInWithEmailAndPassword(email, password);
-      // setSignInOpen(false);
       dispatch(loginUserSuccess());
     } catch (error) {
       dispatch(loginUserError(error.message));
@@ -27,16 +19,11 @@ export const loginUser = (email, password) => {
   };
 };
 
-export const SIGNUP_USER_REQUEST = 'user/SIGNUP_USER_REQUEST';
-export const SIGNUP_USER_SUCCESS = 'user/SIGNUP_USER_SUCCESS';
-export const SIGNUP_USER_ERROR = 'user/SIGNUP_USER_ERROR';
+export const signupUserRequest = createAction('user/SIGNUP_USER_REQUEST');
+export const signupUserSuccess = createAction('user/SIGNUP_USER_SUCCESS');
+export const signupUserError = createAction('user/SIGNUP_USER_ERROR');
 
-const signupUserRequest = () => ({ type: SIGNUP_USER_REQUEST });
-const signupUserSuccess = () => ({ type: SIGNUP_USER_SUCCESS });
-const signupUserError = error => ({ type: SIGNUP_USER_ERROR, payload: error });
-
-// firestore에 user정보를 따로 담아야 하는데, 방법을 찾아야겠음
-export const signupUser = (email, password, username) => {
+export const signup = (email, password, username) => {
   return async function (dispatch) {
     try {
       dispatch(signupUserRequest());
@@ -47,9 +34,54 @@ export const signupUser = (email, password, username) => {
       await authUser.user.updateProfile({
         displayName: username,
       });
+      await db.collection('users').doc(authUser.user.uid).set({
+        favorites: [],
+      });
       dispatch(signupUserSuccess());
     } catch (error) {
       dispatch(signupUserError(error.message));
     }
+  };
+};
+
+export const providerLoginRequest = createAction('user/PROVIDER_LOGIN_REQUEST');
+export const providerLoginSuccess = createAction('user/PROVIDER_LOGIN_SUCCESS');
+export const providerLoginError = createAction('user/PROVIDER_LOGIN_ERROR');
+
+export const providerLogin = provider => {
+  return async function (dispatch) {
+    try {
+      dispatch(providerLoginRequest());
+      let authProvider;
+      if (provider === 'google') {
+        authProvider = new firebase.auth.GoogleAuthProvider();
+      } else if (provider === 'github') {
+        authProvider = new firebase.auth.GithubAuthProvider();
+      }
+      const result = await firebase.auth().signInWithPopup(authProvider);
+      const {
+        user: { uid },
+      } = result;
+      const isInFireStore = await db.collection('users').doc(uid).get();
+      !isInFireStore.data() &&
+        (await db.collection('users').doc(uid).set({
+          favorites: [],
+        }));
+      dispatch(providerLoginSuccess());
+    } catch (error) {
+      if (error.message === errorMsg.closePopup) {
+        return;
+      }
+      dispatch(providerLoginError(error.message));
+    }
+  };
+};
+
+export const logOutSuccess = createAction('user/LOGOUT_SUCCESS');
+
+export const logOut = () => {
+  return async function (dispatch) {
+    await auth.signOut();
+    dispatch(logOutSuccess());
   };
 };

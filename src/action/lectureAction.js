@@ -1,21 +1,9 @@
 import db from '../firebase/db';
-export const FATCH_LECTURE_REQUEST = 'fatch/FATCH_LECTURE_REQUEST';
-export const FATCH_LECTURE_SUCCESS = 'fatch/FATCH_LECTURE_SUCCESS';
-export const FATCH_LECTURE_ERROR = 'fatch/FATCH_LECTURE_ERROR';
+import { createAction } from '@reduxjs/toolkit';
 
-const fatchLectureRequest = () => ({
-  type: FATCH_LECTURE_REQUEST,
-});
-
-const fatchLectureSuccess = data => ({
-  type: FATCH_LECTURE_SUCCESS,
-  payload: data,
-});
-
-const fatchLectureError = error => ({
-  type: FATCH_LECTURE_ERROR,
-  payload: error,
-});
+export const fatchLectureRequest = createAction('fatch/FATCH_LECTURE_REQUEST');
+export const fatchLectureSuccess = createAction('fatch/FATCH_LECTURE_SUCCESS');
+export const fatchLectureError = createAction('fatch/FATCH_LECTURE_ERROR');
 
 export const fatchLectures = () => {
   return async function (dispatch) {

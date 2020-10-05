@@ -1,24 +1,17 @@
 import React from 'react';
 import './Nav.css';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Logo from '../../assets/img/logo.png';
 import LinkIcon from '@material-ui/icons/Link';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import PersonIcon from '@material-ui/icons/Person';
 import Switch from '@material-ui/core/Switch';
-
-import TransitionsModal from '../TModal/TModal';
-
-const Nav = ({
-  user,
-  logOut,
-  sign,
-  checked,
-  toggleDarkmodeChecked,
-  onProviderLoginBtnClick,
-}) => {
+import { logOut } from '../../action/userAction';
+import SignModal from '../signModal/SignModal';
+const Nav = ({ user, checked, toggleDarkmodeChecked }) => {
+  const dispatch = useDispatch();
   return (
     <nav className='nav'>
       <div className='nav__linkContainer'>
@@ -47,19 +40,8 @@ const Nav = ({
           </>
         ) : (
           <>
-            <TransitionsModal
-              open={sign.signInOpen}
-              setOpen={sign.setSignInOpen}
-              signIn={sign.signIn}
-              onProviderLoginBtnClick={onProviderLoginBtnClick}
-            />
-            <TransitionsModal
-              open={sign.signUpOpen}
-              setOpen={sign.setSignUpOpen}
-              isSignUp
-              signUp={sign.signupUser}
-              onProviderLoginBtnClick={onProviderLoginBtnClick}
-            />
+            <SignModal />
+            <SignModal isSignUp />
           </>
         )}
         <Link to='/board' className='nav__link'>
@@ -69,7 +51,11 @@ const Nav = ({
           <LinkIcon />
         </Link>
         {user && (
-          <button className='nav__link' onClick={logOut}>
+          <button
+            className='nav__link'
+            onClick={() => {
+              dispatch(logOut());
+            }}>
             Log Out
           </button>
         )}
