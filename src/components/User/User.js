@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import './User.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import db from '../../firebase/db';
 
 import UserInfo from '../UserInfo/UserInfo';
 import FavoriteLectures from '../FavoriteLectures/FavoriteLectures';
 
-const User = ({ user, history, setUser }) => {
+const User = ({ history }) => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector(({ user }) => user);
+
   useEffect(() => {
     !user && history.push('/');
   }, [user, history]);
@@ -48,7 +52,7 @@ const User = ({ user, history, setUser }) => {
         <title>{`beveloper | ${user?.displayName}`}</title>
       </Helmet>
       <main className='User'>
-        <UserInfo user={user} setUser={setUser} />
+        <UserInfo user={user} />
         <FavoriteLectures favorites={favorites} loading={loading} />
       </main>
     </>

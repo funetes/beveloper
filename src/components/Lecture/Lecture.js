@@ -11,12 +11,13 @@ import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
 import { FaRegStar, FaStar, FaDonate } from 'react-icons/fa';
 import Loading from '../Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
 const Lecture = ({
-  user,
   location: {
     state: { thumbnail, title, description },
   },
 }) => {
+  const user = useSelector(({ user }) => user);
   const { id } = useParams();
   const [lecture, setLecture] = useState([]);
   const [videoId, setVideoId] = useState('');

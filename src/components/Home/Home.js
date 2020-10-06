@@ -2,7 +2,14 @@ import React from 'react';
 import './Home.css';
 import LectureCard from '../LectureCard/LectureCard';
 import Logo from '../Logo/Logo';
-function Home({ lectures: { lectures, loading } }) {
+import { useDispatch, useSelector } from 'react-redux';
+const Home = () => {
+  const { lectures, loading } = useSelector(
+    ({ lectures: { lectures, loading } }) => ({
+      lectures,
+      loading,
+    })
+  );
   return (
     <>
       {loading ? (
@@ -31,6 +38,6 @@ function Home({ lectures: { lectures, loading } }) {
       )}
     </>
   );
-}
+};
 
 export default Home;

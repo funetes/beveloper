@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import auth from '../firebase/auth';
 import db from '../firebase/db';
 import firebase from 'firebase';
-import { errorMsg } from '../utils/errorMsg';
+
 export const loginUserRequest = createAction('user/LOGIN_USER_REQUEST');
 export const loginUserSuccess = createAction('user/LOGIN_USER_SUCCESS');
 export const loginUserError = createAction('user/LOGIN_USER_ERROR');
@@ -27,14 +27,14 @@ export const signup = (email, password, username) => {
   return async function (dispatch) {
     try {
       dispatch(signupUserRequest());
-      const authUser = await auth.createUserWithEmailAndPassword(
+      const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      await authUser.user.updateProfile({
+      await user.updateProfile({
         displayName: username,
       });
-      await db.collection('users').doc(authUser.user.uid).set({
+      await db.collection('users').doc(user.uid).set({
         favorites: [],
         admin: false,
       });
@@ -71,9 +71,6 @@ export const providerLogin = provider => {
         }));
       dispatch(providerLoginSuccess());
     } catch (error) {
-      if (error.message === errorMsg.closePopup) {
-        return;
-      }
       dispatch(providerLoginError(error.message));
     }
   };
@@ -83,7 +80,23 @@ export const logOutAction = createAction('user/LOGOUT_ACTION');
 
 export const logOut = () => {
   return async function (dispatch) {
-    await auth.signOut();
-    dispatch(logOutAction());
+    try {
+      await auth.signOut();
+      dispatch(logOutAction());
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const userInfo = createAction('user/USER_INFO');
+
+export const userInfoFromFB = createAction('user/USER_INFO_FROM_FB');
+
+export const userInfoFB = uid => {
+  return async function (dispatch) {
+    const userInfoDoc = await db.collection('users').doc(uid).get();
+    const userInfo = userInfoDoc.data();
+    dispatch(userInfoFromFB(userInfo));
   };
 };

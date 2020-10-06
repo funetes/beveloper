@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import './Upload.css';
 import { Link, withRouter } from 'react-router-dom';
-
 import LectureCreator from '../LectureCreator/LectureCreator';
 import LectureCollcapse from '../LectureCollcapse/LectureCollcapse';
-
-const Upload = ({ lectures: { lectures }, user, history }) => {
+import { useDispatch, useSelector } from 'react-redux';
+const Upload = ({ history }) => {
+  const { user, lectures } = useSelector(
+    ({ user, lectures: { lectures } }) => ({
+      user,
+      lectures,
+    })
+  );
   useEffect(() => {
     !user && history.push('/');
   }, [user, history]);
@@ -16,8 +21,8 @@ const Upload = ({ lectures: { lectures }, user, history }) => {
       <section className='upload__container'>
         <h2>강의 list</h2>
         <ul className='upload__lectureList'>
-          {lectures.reverse().map(({ id, lecture }, index) => (
-            <div className='upload__lecture' key={id}>
+          {lectures?.map(({ id, lecture }, index) => (
+            <li className='upload__lecture' key={id}>
               <Link
                 to={{
                   pathname: `/upload/${id}`,
@@ -29,7 +34,7 @@ const Upload = ({ lectures: { lectures }, user, history }) => {
                 {`${index + 1}. ${lecture?.title}`}
               </Link>
               <LectureCollcapse lectureId={id} />
-            </div>
+            </li>
           ))}
         </ul>
       </section>

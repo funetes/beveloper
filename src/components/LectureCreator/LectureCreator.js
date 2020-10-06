@@ -57,7 +57,7 @@ const LectureCreator = () => {
 
   return (
     <section className='lectureCreator'>
-      <div className='lectureCreator__uplodeContainer'>
+      <div className='lectureCreator__uploadContainer'>
         <Input
           onChange={e => setTitle(e.target.value)}
           placeholder='title'

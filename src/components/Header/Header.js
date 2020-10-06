@@ -1,5 +1,5 @@
 import React from 'react';
-import './Nav.css';
+import './Header.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/img/logo.png';
@@ -13,12 +13,19 @@ import SignModal from '../signModal/SignModal';
 
 import { checkDarkmode } from '../../action/localAction';
 
-const Nav = ({ user }) => {
+const Header = () => {
   const dispatch = useDispatch();
-  const { darkmode } = useSelector(({ local }) => local);
+  const {
+    local: { darkmode },
+    user,
+  } = useSelector(({ local, user }) => ({
+    local,
+    user,
+  }));
   const onChange = () => {
     darkmode ? dispatch(checkDarkmode(false)) : dispatch(checkDarkmode(true));
   };
+  const onClick = () => dispatch(logOut());
   return (
     <header>
       <nav className='nav'>
@@ -29,7 +36,7 @@ const Nav = ({ user }) => {
           <Switch color='primary' checked={darkmode} onChange={onChange} />
         </div>
         <div className='nav__linkContainer'>
-          {user ? (
+          {user?.uid ? (
             <>
               <div className='nav__displayName'>
                 반갑습니다. <span>{user.displayName}</span> 님!
@@ -54,16 +61,12 @@ const Nav = ({ user }) => {
           <Link to='/contact' className='nav__link'>
             <LinkIcon />
           </Link>
-          {user && (
-            <button
-              className='nav__link'
-              onClick={() => {
-                dispatch(logOut());
-              }}>
+          {user?.uid && (
+            <button className='nav__link' onClick={onClick}>
               Log Out
             </button>
           )}
-          {user?.uid === process.env.REACT_APP_ADMIN && (
+          {user?.admin && (
             <Link to='/upload' className='nav__link'>
               <SupervisorAccountIcon />
             </Link>
@@ -74,4 +77,4 @@ const Nav = ({ user }) => {
   );
 };
 
-export default Nav;
+export default Header;

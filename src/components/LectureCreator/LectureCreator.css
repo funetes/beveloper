@@ -1,4 +1,4 @@
-.lectureCreator__uplodeContainer {
+.lectureCreator__uploadContainer {
   display: flex;
   flex-direction: column;
   background-color: lightgray;
@@ -6,11 +6,11 @@
   border-radius: 5px;
 }
 
-.lectureCreator__uplodeContainer input {
+.lectureCreator__uploadContainer input {
   margin-bottom: 5px;
 }
 
-.lectureCreator__uplodeContainer input::placeholder {
+.lectureCreator__uploadContainer input::placeholder {
   color: red;
 }
 

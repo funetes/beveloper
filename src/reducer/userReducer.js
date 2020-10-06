@@ -10,6 +10,8 @@ import {
   providerLoginSuccess,
   providerLoginError,
   logOutAction,
+  userInfo,
+  userInfoFromFB,
 } from '../action/userAction';
 
 const initialState = null;
@@ -53,6 +55,17 @@ const userReducer = createReducer(initialState, {
     ...state,
     loading: false,
     error: action.payload,
+  }),
+  [userInfo]: (state, action) => ({
+    ...state,
+    displayName: action.payload.displayName,
+    uid: action.payload.uid,
+    photoURL: action.payload.photoURL,
+    email: action.payload.email,
+  }),
+  [userInfoFromFB]: (state, action) => ({
+    ...state,
+    ...action.payload,
   }),
   [logOutAction]: () => null,
 });
