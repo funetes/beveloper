@@ -1,14 +1,14 @@
 import { createAction } from '@reduxjs/toolkit';
 import auth from '../firebase/auth';
 import db from '../firebase/db';
-import firebase from 'firebase';
+import firebase, { firestore } from 'firebase';
 
 export const loginUserRequest = createAction('user/LOGIN_USER_REQUEST');
 export const loginUserSuccess = createAction('user/LOGIN_USER_SUCCESS');
 export const loginUserError = createAction('user/LOGIN_USER_ERROR');
 
 export const login = (email, password) => {
-  return async function (dispatch) {
+  return async dispatch => {
     try {
       dispatch(loginUserRequest());
       await auth.signInWithEmailAndPassword(email, password);
@@ -24,7 +24,7 @@ export const signupUserSuccess = createAction('user/SIGNUP_USER_SUCCESS');
 export const signupUserError = createAction('user/SIGNUP_USER_ERROR');
 
 export const signup = (email, password, username) => {
-  return async function (dispatch) {
+  return async dispatch => {
     try {
       dispatch(signupUserRequest());
       const { user } = await auth.createUserWithEmailAndPassword(
@@ -50,7 +50,7 @@ export const providerLoginSuccess = createAction('user/PROVIDER_LOGIN_SUCCESS');
 export const providerLoginError = createAction('user/PROVIDER_LOGIN_ERROR');
 
 export const providerLogin = provider => {
-  return async function (dispatch) {
+  return async dispatch => {
     try {
       dispatch(providerLoginRequest());
       let authProvider;
@@ -79,7 +79,7 @@ export const providerLogin = provider => {
 export const logOutAction = createAction('user/LOGOUT_ACTION');
 
 export const logOut = () => {
-  return async function (dispatch) {
+  return async dispatch => {
     try {
       await auth.signOut();
       dispatch(logOutAction());
@@ -94,9 +94,36 @@ export const userInfo = createAction('user/USER_INFO');
 export const userInfoFromFB = createAction('user/USER_INFO_FROM_FB');
 
 export const userInfoFB = uid => {
-  return async function (dispatch) {
+  return async dispatch => {
     const userInfoDoc = await db.collection('users').doc(uid).get();
     const userInfo = userInfoDoc.data();
     dispatch(userInfoFromFB(userInfo));
+  };
+};
+
+export const userFavoriteUpdate = createAction('user/USER_FAVORITE_UPDATE');
+
+export const addFavorite = createAction('user/ADD_FAVORITE');
+export const deleteFavorite = createAction('user/DELETE_FAVORITE');
+export const updateFavoriteError = createAction('user/UPDATE_FAVORITE_ERROR');
+
+export const updateFavorite = (id, uid, isFavorite) => {
+  return async dispatch => {
+    try {
+      const favoriteRef = db.collection('users').doc(uid);
+      if (isFavorite) {
+        await favoriteRef.update({
+          favorites: firestore.FieldValue.arrayRemove(id),
+        });
+        dispatch(deleteFavorite(id));
+      } else {
+        await favoriteRef.update({
+          favorites: firestore.FieldValue.arrayUnion(id),
+        });
+        dispatch(addFavorite(id));
+      }
+    } catch (error) {
+      dispatch(updateFavoriteError(error.message));
+    }
   };
 };

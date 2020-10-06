@@ -12,6 +12,9 @@ import {
   logOutAction,
   userInfo,
   userInfoFromFB,
+  addFavorite,
+  deleteFavorite,
+  updateFavoriteError,
 } from '../action/userAction';
 
 const initialState = null;
@@ -66,6 +69,20 @@ const userReducer = createReducer(initialState, {
   [userInfoFromFB]: (state, action) => ({
     ...state,
     ...action.payload,
+  }),
+  [addFavorite]: (state, action) => ({
+    ...state,
+    favorites: [...state.favorites, action.payload],
+  }),
+  [deleteFavorite]: (state, action) => ({
+    ...state,
+    favorites: [...state.favorites].filter(
+      favorite => favorite !== action.payload
+    ),
+  }),
+  [updateFavoriteError]: (state, action) => ({
+    ...state,
+    error: action.payload,
   }),
   [logOutAction]: () => null,
 });

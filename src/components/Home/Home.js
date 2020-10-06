@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.css';
 import LectureCard from '../LectureCard/LectureCard';
 import Logo from '../Logo/Logo';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 const Home = () => {
   const { lectures, loading } = useSelector(
     ({ lectures: { lectures, loading } }) => ({

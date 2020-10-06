@@ -3,7 +3,6 @@ import './Lecture.css';
 import { useParams, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import db from '../../firebase/db';
-import { firestore } from 'firebase';
 
 import SidebarContent from '../SidebarContent/SidebarContent';
 import Video from '../Video/Video';
@@ -12,13 +11,15 @@ import CommentAdder from '../CommentAdder/CommentAdder';
 import { FaRegStar, FaStar, FaDonate } from 'react-icons/fa';
 import Loading from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateFavorite } from '../../action/userAction';
 const Lecture = ({
   location: {
     state: { thumbnail, title, description },
   },
 }) => {
-  const user = useSelector(({ user }) => user);
   const { id } = useParams();
+  const user = useSelector(({ user }) => user);
+  const dispatch = useDispatch();
   const [lecture, setLecture] = useState([]);
   const [videoId, setVideoId] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,18 +27,10 @@ const Lecture = ({
   const onClick = id => setVideoId(id);
 
   useEffect(() => {
-    const userFavoriteInfo = async () => {
-      try {
-        if (user) {
-          const result = await db.collection('users').doc(user?.uid).get();
-          const { favorites } = result.data();
-          setIsFavorite(favorites.some(favorite => favorite === id));
-        }
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-    userFavoriteInfo();
+    if (user) {
+      const favorites = user?.favorites;
+      setIsFavorite(favorites?.some(favorite => favorite === id));
+    }
   }, [user, id]);
 
   useEffect(() => {
@@ -64,22 +57,8 @@ const Lecture = ({
     chapterFromFB();
   }, [id]);
   const onFavoriteBtnClick = async () => {
-    try {
-      const favoriteRef = db.collection('users').doc(user?.uid);
-      if (isFavorite) {
-        await favoriteRef.update({
-          favorites: firestore.FieldValue.arrayRemove(id),
-        });
-        setIsFavorite(false);
-      } else {
-        await favoriteRef.update({
-          favorites: firestore.FieldValue.arrayUnion(id),
-        });
-        setIsFavorite(true);
-      }
-    } catch (error) {
-      alert(error.message);
-    }
+    const isFavorite = user.favorites.some(favorite => favorite === id);
+    dispatch(updateFavorite(id, user.uid, isFavorite));
   };
   const onDonateBtnClick = () => {
     console.log('onDonateBtnClick ==> moveto donate link');
@@ -87,7 +66,7 @@ const Lecture = ({
   return (
     <>
       <Helmet>
-        <title>{`beveloper | ${title}`}</title>
+        <title>{`Beveloper | ${title}`}</title>
       </Helmet>
       <main className='lecture'>
         <section className='lecture__sidebar'>
