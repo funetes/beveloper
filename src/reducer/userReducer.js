@@ -9,7 +9,7 @@ import {
   providerLoginRequest,
   providerLoginSuccess,
   providerLoginError,
-  logOutSuccess,
+  logOutAction,
 } from '../action/userAction';
 
 const initialState = null;
@@ -54,7 +54,7 @@ const userReducer = createReducer(initialState, {
     loading: false,
     error: action.payload,
   }),
-  [logOutSuccess]: () => null,
+  [logOutAction]: () => null,
 });
 
 export default userReducer;

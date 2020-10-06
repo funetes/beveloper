@@ -15,14 +15,31 @@ import Contact from './components/Contact/Contact';
 import User from './components/User/User';
 
 import { fatchLectures } from './action/lectureAction';
+import { checkDarkmode } from './action/localAction';
 
 const darkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+const getDarkModeFromLocalStorage = () => {
+  let darkmode = false;
+  if (localStorage.getItem('darkmode')) {
+    darkmode = JSON.parse(localStorage.getItem('darkmode'));
+  } else {
+    localStorage.setItem('darkmode', darkOS);
+    darkmode = darkOS;
+  }
+  return darkmode;
+};
+
 const App = () => {
   const [user, setUser] = useState(null);
-  const [checked, setChecked] = useState(darkOS);
-  const lectures = useSelector(state => state.lectures);
+  const { lectures, darkmode } = useSelector(
+    ({ lectures, local: { darkmode } }) => ({
+      lectures,
+      darkmode,
+    })
+  );
   const dispatch = useDispatch();
+
   useEffect(() => {
     // user login, logout, create user, etc..
     auth.onAuthStateChanged(authUser => {
@@ -38,17 +55,18 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fatchLectures());
+    dispatch(checkDarkmode(getDarkModeFromLocalStorage()));
   }, [dispatch]);
 
   useEffect(() => {
-    if (checked) {
+    if (darkmode) {
       document.body.classList.add('dark-mode');
       document.body.classList.remove('light-mode');
     } else {
       document.body.classList.add('light-mode');
       document.body.classList.remove('dark-mode');
     }
-  }, [checked]);
+  }, [darkmode]);
 
   return (
     <>
@@ -59,11 +77,7 @@ const App = () => {
       </Helmet>
       <div className='app'>
         <Router>
-          <Nav
-            user={user}
-            checked={checked}
-            toggleDarkmodeChecked={() => setChecked(prev => !prev)}
-          />
+          <Nav user={user} />
           <Switch>
             <Route exact path='/'>
               <Home lectures={lectures} />
@@ -72,7 +86,7 @@ const App = () => {
               <Board />
             </Route>
             <Route exact path='/contact'>
-              <Contact checked={checked} />
+              <Contact />
             </Route>
             <Route path='/lecture/:id'>
               <Lecture user={user} />

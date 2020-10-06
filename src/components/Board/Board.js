@@ -12,6 +12,7 @@ const Board = () => {
         4. Dash board 만들기 - Complete - watched
         5. Redux 사용하기
         6. typescript 적용하기
+        7. darkmode localstorage에 저장하기
         `}
       </pre>
     </main>

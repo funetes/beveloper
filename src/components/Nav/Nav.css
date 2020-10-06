@@ -1,17 +1,22 @@
+header {
+  height: 12vh;
+  padding: 0 4rem;
+  border-bottom: 1px solid lightgray;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 12vh;
-  padding: 0 2rem;
-  border-bottom: 1px solid lightgray;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  height: 100%;
 }
 
 .nav__linkContainer {
+  flex: 0.2;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
 }
@@ -20,15 +25,12 @@
   flex: 0.5 1;
   display: flex;
   justify-content: flex-end;
-}
-
-.nav__linkContainer a {
-  height: 90%;
+  align-items: center;
 }
 
 .nav__logo {
   object-fit: contain;
-  height: 100%;
+  height: 70px;
   transition: all 0.5s;
   border-radius: 50%;
 }

@@ -36,6 +36,7 @@ export const signup = (email, password, username) => {
       });
       await db.collection('users').doc(authUser.user.uid).set({
         favorites: [],
+        admin: false,
       });
       dispatch(signupUserSuccess());
     } catch (error) {
@@ -66,6 +67,7 @@ export const providerLogin = provider => {
       !isInFireStore.data() &&
         (await db.collection('users').doc(uid).set({
           favorites: [],
+          admin: false,
         }));
       dispatch(providerLoginSuccess());
     } catch (error) {
@@ -77,11 +79,11 @@ export const providerLogin = provider => {
   };
 };
 
-export const logOutSuccess = createAction('user/LOGOUT_SUCCESS');
+export const logOutAction = createAction('user/LOGOUT_ACTION');
 
 export const logOut = () => {
   return async function (dispatch) {
     await auth.signOut();
-    dispatch(logOutSuccess());
+    dispatch(logOutAction());
   };
 };
