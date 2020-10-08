@@ -13,6 +13,8 @@ import LectureUpload from './components/LectureUpload/LectureUpload';
 import Board from './components/Board/Board';
 import Contact from './components/Contact/Contact';
 import User from './components/User/User';
+import Admin from './components/Admin/Admin';
+import Authority from './components/Authority/Authority';
 
 import { fatchLectures } from './action/lectureAction';
 import { checkDarkmode } from './action/localAction';
@@ -64,8 +66,10 @@ const App = () => {
             <Route exact path='/board' component={Board} />
             <Route exact path='/contact' component={Contact} />
             <Route exact path='/lecture/:id' component={Lecture} />
-            <Route exact path='/upload' component={Upload} />
-            <Route exact path='/upload/:id' component={LectureUpload} />
+            <Route exact path='/admin' component={Admin} />
+            <Route exact path='/admin/authority' component={Authority} />
+            <Route exact path='/admin/upload/:id' component={LectureUpload} />
+            <Route exact path='/admin/upload' component={Upload} />
           </Switch>
         </Router>
       </div>

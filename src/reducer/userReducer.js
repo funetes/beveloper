@@ -15,6 +15,7 @@ import {
   addFavorite,
   deleteFavorite,
   updateFavoriteError,
+  editUserInfo,
 } from '../action/userAction';
 
 const initialState = null;
@@ -61,6 +62,7 @@ const userReducer = createReducer(initialState, {
   }),
   [userInfo]: (state, action) => ({
     ...state,
+    loading: false,
     displayName: action.payload.displayName,
     uid: action.payload.uid,
     photoURL: action.payload.photoURL,
@@ -83,6 +85,10 @@ const userReducer = createReducer(initialState, {
   [updateFavoriteError]: (state, action) => ({
     ...state,
     error: action.payload,
+  }),
+  [editUserInfo]: (state, action) => ({
+    ...state,
+    ...action.payload,
   }),
   [logOutAction]: () => null,
 });

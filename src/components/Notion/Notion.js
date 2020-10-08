@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'react-notion/src/styles.css';
 import './Notion.css';
 import { NotionRenderer } from 'react-notion';
-import { bgColor } from '../../utils/style';
+import { notionBgColor } from '../../utils/style';
 import api from '../../utils/api';
 import Logo from '../Logo/Logo';
 const Notion = ({ id, checked }) => {
@@ -25,7 +25,7 @@ const Notion = ({ id, checked }) => {
         <div
           className='notion__container'
           style={{
-            backgroundColor: checked ? bgColor.DARK : bgColor.LIGHT,
+            backgroundColor: checked ? notionBgColor.DARK : notionBgColor.LIGHT,
           }}>
           {notionData && (
             <>
@@ -43,6 +43,29 @@ const Notion = ({ id, checked }) => {
         <Logo />
       )}
     </>
+    // <>
+    //   {notionData ? (
+    //     <div
+    //       className='notion__container'
+    //       style={{
+    //         backgroundColor: checked ? bgColor.DARK : bgColor.LIGHT,
+    //       }}>
+    //       {notionData && (
+    //         <>
+    //           <h1>
+    //             hireable:{' '}
+    //             <span role='img' aria-label='checked emoji'>
+    //               ✅
+    //             </span>
+    //           </h1>
+    //           <NotionRenderer blockMap={notionData} />
+    //         </>
+    //       )}
+    //     </div>
+    //   ) : (
+    //     <Logo />
+    //   )}
+    // </>
   );
 };
 

@@ -1,0 +1,29 @@
+.admin {
+  padding: 1rem 4rem;
+  height: 88vh;
+}
+
+.admin__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.admin a {
+  margin: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s;
+  border-radius: 5px;
+}
+
+.admin a svg {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.admin a:hover {
+  filter: brightness(1.2);
+  background-color: rgba(200, 200, 200, 0.4);
+}

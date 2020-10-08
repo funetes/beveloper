@@ -38,9 +38,11 @@ const Header = () => {
         <div className='nav__linkContainer'>
           {user?.uid ? (
             <>
-              <div className='nav__displayName'>
-                반갑습니다. <span>{user.displayName}</span> 님!
-              </div>
+              {user.displayName && (
+                <div className='nav__displayName'>
+                  반갑습니다. <span>{user.displayName}</span> 님!
+                </div>
+              )}
               <Link to='/user' className='nav__link'>
                 {user.photoURL ? (
                   <img src={`${user.photoURL}`} alt='avatar' />
@@ -67,7 +69,7 @@ const Header = () => {
             </button>
           )}
           {user?.admin && (
-            <Link to='/upload' className='nav__link'>
+            <Link to='/admin' className='nav__link'>
               <SupervisorAccountIcon />
             </Link>
           )}

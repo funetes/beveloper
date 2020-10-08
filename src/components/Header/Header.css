@@ -53,14 +53,16 @@ header {
 }
 
 .nav__link {
-  width: 42px;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent;
   cursor: pointer;
   border: none;
-  transition: filter 0.5s;
+  border-radius: 50%;
+  transition: all 0.5s;
 }
 
 .nav__link img {
@@ -75,7 +77,7 @@ header {
 }
 
 .nav__link:hover {
-  filter: brightness(1.5);
+  background-color: rgba(200, 200, 200, 0.3);
 }
 
 @media screen and (max-width: 576px) {

@@ -22,6 +22,7 @@ export const login = (email, password) => {
 export const signupUserRequest = createAction('user/SIGNUP_USER_REQUEST');
 export const signupUserSuccess = createAction('user/SIGNUP_USER_SUCCESS');
 export const signupUserError = createAction('user/SIGNUP_USER_ERROR');
+export const editUserInfo = createAction('user/EDIT_USER_INFO');
 
 export const signup = (email, password, username) => {
   return async dispatch => {
@@ -34,9 +35,11 @@ export const signup = (email, password, username) => {
       await user.updateProfile({
         displayName: username,
       });
+      dispatch(editUserInfo({ displayName: username }));
       await db.collection('users').doc(user.uid).set({
         favorites: [],
         admin: false,
+        id: email,
       });
       dispatch(signupUserSuccess());
     } catch (error) {
@@ -62,12 +65,14 @@ export const providerLogin = provider => {
       const result = await firebase.auth().signInWithPopup(authProvider);
       const {
         user: { uid },
+        user,
       } = result;
       const isInFireStore = await db.collection('users').doc(uid).get();
       !isInFireStore.data() &&
         (await db.collection('users').doc(uid).set({
           favorites: [],
           admin: false,
+          id: user.email,
         }));
       dispatch(providerLoginSuccess());
     } catch (error) {
@@ -95,9 +100,9 @@ export const userInfoFromFB = createAction('user/USER_INFO_FROM_FB');
 
 export const userInfoFB = uid => {
   return async dispatch => {
-    const userInfoDoc = await db.collection('users').doc(uid).get();
-    const userInfo = userInfoDoc.data();
-    dispatch(userInfoFromFB(userInfo));
+    const userDoc = await db.collection('users').doc(uid).get();
+    const user = userDoc.data();
+    dispatch(userInfoFromFB(user));
   };
 };
 

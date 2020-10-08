@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import './UserInfo.css';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import auth from '../../firebase/auth';
 import storage from '../../firebase/storage';
 import PersonIcon from '@material-ui/icons/Person';
 
-const UserInfo = ({ user, setUser }) => {
+import { editUserInfo } from '../../action/userAction';
+import { color } from '../../utils/style';
+
+const UserInfo = ({ user }) => {
+  const dispatch = useDispatch();
+  const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const [avatar, setAvatar] = useState('');
   const [disable, setDisbale] = useState(false);
   const [username, setUsername] = useState('');
   const [avatarInputOpen, setAvatarInputOpen] = useState(false);
   const [usernameInputOpen, setUsernameInputOpen] = useState(false);
+
   const handleChange = e => e.target.files[0] && setAvatar(e.target.files[0]);
+
   const uploadAvatar = async () => {
     if (!avatar) {
       return;
@@ -32,7 +41,7 @@ const UserInfo = ({ user, setUser }) => {
           await user.updateProfile({
             photoURL: avatarUrl,
           });
-          setUser(prevUser => ({ ...prevUser, photoURL: avatarUrl }));
+          dispatch(editUserInfo({ photoURL: avatarUrl }));
         } catch (error) {
           alert(error.message);
         } finally {
@@ -52,7 +61,7 @@ const UserInfo = ({ user, setUser }) => {
       await user.updateProfile({
         displayName: username,
       });
-      setUser(prevUser => ({ ...prevUser, displayName: username }));
+      dispatch(editUserInfo({ displayName: username }));
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -89,9 +98,7 @@ const UserInfo = ({ user, setUser }) => {
         )}
         <Button
           color='primary'
-          onClick={() => {
-            setAvatarInputOpen(prev => !prev);
-          }}>
+          onClick={() => setAvatarInputOpen(prev => !prev)}>
           edit
         </Button>
         {avatarInputOpen && (
@@ -109,18 +116,15 @@ const UserInfo = ({ user, setUser }) => {
         username: <span>{user?.displayName}</span>{' '}
         <Button
           color='primary'
-          onClick={e => {
-            setUsernameInputOpen(prev => !prev);
-          }}>
+          onClick={() => setUsernameInputOpen(prev => !prev)}>
           edit
         </Button>
         {usernameInputOpen && (
           <div className='userInfo__usernameInputContainer'>
             <Input
               type='text'
-              onChange={e => {
-                setUsername(e.target.value);
-              }}
+              style={{ color: darkmode ? color.DARK : color.LIGHT }}
+              onChange={e => setUsername(e.target.value)}
               value={username}
               disabled={disable ? true : false}
             />
@@ -135,4 +139,4 @@ const UserInfo = ({ user, setUser }) => {
   );
 };
 
-export default UserInfo;
+export default memo(UserInfo);

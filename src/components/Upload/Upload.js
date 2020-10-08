@@ -25,7 +25,7 @@ const Upload = ({ history }) => {
             <li className='upload__lecture' key={id}>
               <Link
                 to={{
-                  pathname: `/upload/${id}`,
+                  pathname: `/admin/upload/${id}`,
                   state: {
                     title: lecture?.title,
                   },

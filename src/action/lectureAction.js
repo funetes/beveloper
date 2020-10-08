@@ -9,11 +9,11 @@ export const fatchLectures = () => {
   return async function (dispatch) {
     dispatch(fatchLectureRequest());
     try {
-      const result = db
+      const result = await db
         .collection('lectures')
         .orderBy('timestamp', 'desc')
         .get();
-      const lectures = (await result).docs.map(doc => ({
+      const lectures = result.docs.map(doc => ({
         id: doc.id,
         lecture: doc.data(),
       }));

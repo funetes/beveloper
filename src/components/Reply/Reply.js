@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import './Reply.css';
 
 import firebase from 'firebase';
@@ -114,7 +114,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
             <div key={id} className='reply__comment'>
               <div className='reply__commentUsername'>{username}</div>
               <pre>{text}</pre>
-              <div className='reply__date'>{toDate(timestamp.seconds)}</div>
+              <div className='reply__date'>{toDate(timestamp?.seconds)}</div>
             </div>
           ))}
         </div>
@@ -123,4 +123,4 @@ const Reply = ({ user, id, videoId, lectureId }) => {
   );
 };
 
-export default Reply;
+export default memo(Reply);
