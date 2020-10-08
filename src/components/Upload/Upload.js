@@ -3,7 +3,7 @@ import './Upload.css';
 import { Link, withRouter } from 'react-router-dom';
 import LectureCreator from '../LectureCreator/LectureCreator';
 import LectureCollcapse from '../LectureCollcapse/LectureCollcapse';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 const Upload = ({ history }) => {
   const { user, lectures } = useSelector(
     ({ user, lectures: { lectures } }) => ({

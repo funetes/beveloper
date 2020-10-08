@@ -1,0 +1,5 @@
+.authUser {
+  display: flex;
+  border: 1px solid;
+  border-radius: 5px;
+}
