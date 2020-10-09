@@ -1,0 +1,71 @@
+.lectureIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.lectureIntro__Container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  margin: auto;
+}
+
+.lectureIntro__Container img {
+  width: 100%;
+  min-width: 30vw;
+  min-height: 47vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.lectureIntro__buttonContainer {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+}
+
+.lectureIntro__buttonContainer button {
+  background-color: transparent;
+  font-size: 2.5rem;
+  border: none;
+  cursor: pointer;
+  color: #e9a701;
+  transition: filter 0.5s;
+}
+
+.lectureIntro__buttonContainer button:hover {
+  filter: brightness(1.2);
+}
+
+.lectureIntro__buttonContainer button:last-child {
+  margin-left: 1rem;
+}
+
+.lectureIntro__info {
+  width: 100%;
+}
+
+.lectureIntro__info div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lectureIntro__info p {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .lectureIntro__Container {
+    width: 90% !important;
+  }
+}

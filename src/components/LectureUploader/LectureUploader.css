@@ -1,0 +1,43 @@
+.lectureUploader__container {
+  width: 40%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.lectureUploader__container h2 {
+  margin-bottom: 5px;
+}
+
+.lectureUploader__lectureList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.lectureUploader__lecture {
+  background-color: lightgray;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: all 1s 1s;
+}
+
+.lectureUploader__link {
+  background-color: lightgray;
+  padding: 0.5rem;
+  border-radius: 5px;
+  min-width: 150px;
+  color: black;
+}
+
+.lectureUploader__link:hover {
+  background: #748ffc;
+  color: white;
+  transition: all 0.5s;
+}

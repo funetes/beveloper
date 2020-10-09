@@ -2,17 +2,25 @@ import React, { useState, useEffect } from 'react';
 import './Video.css';
 import db from '../../firebase/db';
 
-const Video = ({ videoId, lectureId }) => {
+const Video = ({ chapterId, lectureId }) => {
   const [video, setVideo] = useState(null);
   useEffect(() => {
-    const unsubscribe = db
-      .collection('lectures')
-      .doc(lectureId)
-      .collection('videos')
-      .doc(videoId)
-      .onSnapshot(snapshot => setVideo(snapshot.data()));
-    return () => unsubscribe();
-  }, [videoId, lectureId]);
+    const getVideoFromFB = async () => {
+      try {
+        const videoDoc = await db
+          .collection('lectures')
+          .doc(lectureId)
+          .collection('videos')
+          .doc(chapterId)
+          .get();
+        const video = videoDoc.data();
+        setVideo(video);
+      } catch (error) {
+        console.error(error.error);
+      }
+    };
+    getVideoFromFB();
+  }, [chapterId, lectureId]);
 
   return (
     <section className='video'>

@@ -15,7 +15,7 @@ export const fatchLectures = () => {
         .get();
       const lectures = result.docs.map(doc => ({
         id: doc.id,
-        lecture: doc.data(),
+        ...doc.data(),
       }));
       dispatch(fatchLectureSuccess(lectures));
     } catch (error) {

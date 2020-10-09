@@ -19,10 +19,7 @@ const Home = () => {
       ) : (
         <main className='home'>
           {lectures.map(
-            ({
-              id,
-              lecture: { thumbnail, title, instructor, price, description },
-            }) => (
+            ({ id, thumbnail, title, instructor, price, description }) => (
               <LectureCard
                 key={id}
                 id={id}

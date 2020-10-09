@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import './Reply.css';
-
+import { useSelector } from 'react-redux';
 import firebase from 'firebase';
 import db from '../../firebase/db';
 
@@ -12,7 +12,8 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import { CSSTransition } from 'react-transition-group';
 
-const Reply = ({ user, id, videoId, lectureId }) => {
+const Reply = ({ commentId, chapterId, lectureId }) => {
+  const user = useSelector(({ user }) => user);
   const [open, setOpen] = useState(false);
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [replyComment, setReplyComment] = useState('');
@@ -22,9 +23,9 @@ const Reply = ({ user, id, videoId, lectureId }) => {
     db.collection('lectures')
       .doc(lectureId)
       .collection('videos')
-      .doc(videoId)
+      .doc(chapterId)
       .collection('comments')
-      .doc(id)
+      .doc(commentId)
       .collection('replys')
       .orderBy('timestamp', 'desc')
       .onSnapshot(snapshot =>
@@ -32,19 +33,18 @@ const Reply = ({ user, id, videoId, lectureId }) => {
           snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         )
       );
-  }, [lectureId, videoId, id]);
+  }, [lectureId, chapterId, commentId]);
   const onAddReplyClick = () => setOpen(prev => !prev);
   const onReplyCountsClick = () => setCommentsOpen(prev => !prev);
   const onReplySendClick = async () => {
-    // add to comment in firebase
     try {
       await db
         .collection('lectures')
         .doc(lectureId)
         .collection('videos')
-        .doc(videoId)
+        .doc(chapterId)
         .collection('comments')
-        .doc(id)
+        .doc(commentId)
         .collection('replys')
         .add({
           username: user?.displayName,
@@ -73,7 +73,7 @@ const Reply = ({ user, id, videoId, lectureId }) => {
       )}
       <CSSTransition
         in={open}
-        timeout={{ enter: 300, exit: 100 }}
+        timeout={{ enter: 300, exit: 300 }}
         classNames='reply__transition'
         unmountOnExit>
         <div className='reply__commentContainer'>

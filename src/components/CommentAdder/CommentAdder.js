@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './CommentAdder.css';
+import { useSelector } from 'react-redux';
+
 import db from '../../firebase/db';
 import firebase from 'firebase';
 import Button from '@material-ui/core/Button';
-const CommentAdder = ({ videoId, lectureId, user }) => {
-  const [text, setText] = useState('');
 
+const CommentAdder = ({ chapterId, lectureId }) => {
+  const user = useSelector(({ user }) => user);
+  const [text, setText] = useState('');
   const onSubmit = async e => {
     e.preventDefault();
     if (text === '') {
@@ -17,7 +20,7 @@ const CommentAdder = ({ videoId, lectureId, user }) => {
         .collection('lectures')
         .doc(lectureId)
         .collection('videos')
-        .doc(videoId)
+        .doc(chapterId)
         .collection('comments')
         .add({
           username: user.displayName,

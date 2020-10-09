@@ -11,9 +11,10 @@ import PersonIcon from '@material-ui/icons/Person';
 import { editUserInfo } from '../../action/userAction';
 import { color } from '../../utils/style';
 
-const UserInfo = ({ user }) => {
+const UserInfo = () => {
   const dispatch = useDispatch();
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
+  const user = useSelector(({ user }) => user);
   const [avatar, setAvatar] = useState('');
   const [disable, setDisbale] = useState(false);
   const [username, setUsername] = useState('');
@@ -77,12 +78,12 @@ const UserInfo = ({ user }) => {
           <div
             className='userInfo__imgbg'
             style={{
-              backgroundImage: `url(${user?.photoURL})`,
+              backgroundImage: `url(${user.photoURL})`,
               backgroundPosition: '50% 50%',
               backgroundSize: 'cover',
             }}>
             <img
-              src={`${user?.photoURL}`}
+              src={`${user.photoURL}`}
               style={{ visibility: 'hidden' }}
               alt='avatar'
             />
