@@ -9,17 +9,17 @@ const LectureUploader = () => {
     <section className='lectureUploader__container'>
       <h2>강의 list</h2>
       <ul className='lectureUploader__lectureList'>
-        {lectures?.map(({ id, lecture }, index) => (
+        {lectures?.map(({ id, title }, index) => (
           <li className='lectureUploader__lecture' key={id}>
             <Link
               to={{
                 pathname: `/admin/upload/${id}`,
                 state: {
-                  title: lecture.title,
+                  title,
                 },
               }}
               className='lectureUploader__link'>
-              {`${index + 1}. ${lecture.title}`}
+              {`${index + 1}. ${title}`}
             </Link>
             <LectureCollcapse lectureId={id} />
           </li>
