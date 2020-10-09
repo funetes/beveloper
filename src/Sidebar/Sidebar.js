@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import './Sidebar.css';
+import db from '../firebase/db';
 import Loading from '../components/Loading/Loading';
 import SidebarContent from '../components/SidebarContent/SidebarContent';
-import db from '../firebase/db';
-import './Sidebar.css';
+
 const Sidebar = ({ onClick, lectureId }) => {
+  const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const [chapters, setChapters] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     const chapterFromFB = async () => {
@@ -29,8 +33,11 @@ const Sidebar = ({ onClick, lectureId }) => {
     };
     chapterFromFB();
   }, [lectureId]);
+
   return (
-    <section className='sidebar'>
+    <section
+      className='sidebar'
+      style={{ backgroundColor: darkmode ? '#2f3135' : 'inherit' }}>
       {loading ? (
         <Loading />
       ) : chapters.length === 0 ? (

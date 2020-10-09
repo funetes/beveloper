@@ -19,6 +19,7 @@
   border: none;
   width: 42px;
   transition: filter 0.5s;
+  margin: 3px;
 }
 
 .modal__button:hover {

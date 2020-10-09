@@ -1,5 +1,5 @@
 .lectureUploader__container {
-  width: 40%;
+  width: 35%;
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
@@ -25,7 +25,6 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  transition: all 1s 1s;
 }
 
 .lectureUploader__link {

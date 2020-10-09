@@ -9,6 +9,7 @@ import db from '../../firebase/db';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import ChapterCollapse from '../ChapterCollapse/ChapterCollapse';
+import Loading from '../Loading/Loading';
 const LectureUpload = ({
   location: {
     state: { title },
@@ -139,16 +140,16 @@ const LectureUpload = ({
       </div>
       <div className='lectureUpload__columns'>
         {title && <h2 className='lectureUpload__title'>{title}</h2>}
-        <ul className='lectureUpload__list'>
-          {chapters.length === 0 ? (
-            <div>
-              chatper가 없습니다{' '}
-              <span role='img' aria-labelledby='emoji'>
-                😭
-              </span>
-            </div>
-          ) : (
-            chapters.map(({ id, caption, description, serverTimestamp }) => (
+        {chapters.length === 0 ? (
+          <div>
+            chatper가 없습니다{' '}
+            <span role='img' aria-labelledby='emoji'>
+              😭
+            </span>
+          </div>
+        ) : (
+          <ul className='lectureUpload__list'>
+            {chapters.map(({ id, caption, description, serverTimestamp }) => (
               <li key={id} className='lectureUpload__item'>
                 <div className='lectureUpload__itemColumn'>
                   <div>{caption}</div>
@@ -160,15 +161,14 @@ const LectureUpload = ({
                     del
                   </Button>
                 </div>
-
                 <ChapterCollapse
                   description={description}
                   serverTimestamp={serverTimestamp}
                 />
               </li>
-            ))
-          )}
-        </ul>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

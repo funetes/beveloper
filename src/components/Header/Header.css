@@ -63,6 +63,7 @@ header {
   border: none;
   border-radius: 50%;
   transition: all 0.5s;
+  margin: 3px;
 }
 
 .nav__link img {
