@@ -23,9 +23,7 @@ const LectureIntro = ({ thumbnail, title, description, lectureId }) => {
   };
   return (
     <section className='lectureIntro'>
-      <div
-        className='lectureIntro__imgContainer'
-        style={{ backgroundImage: `url(${thumbnail})` }}>
+      <div className='lectureIntro__imgContainer'>
         <img src={thumbnail} alt='thumbnail' className='lectureIntro__image' />
         <div className='lectureIntro__buttonContainer'>
           <button
@@ -38,10 +36,10 @@ const LectureIntro = ({ thumbnail, title, description, lectureId }) => {
             <FaDonate />
           </button>
         </div>
-      </div>
-      <div className='lectureIntro__info'>
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <div className='lectureIntro__info'>
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </div>
       </div>
     </section>
   );

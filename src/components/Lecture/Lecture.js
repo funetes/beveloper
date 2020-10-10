@@ -38,7 +38,7 @@ const Lecture = ({
             />
           )}
           {chapterId && (
-            <section>
+            <section style={{ width: '100%' }}>
               <CommentAdder chapterId={chapterId} lectureId={lectureId} />
               <Comment chapterId={chapterId} lectureId={lectureId} />
             </section>

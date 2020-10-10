@@ -9,25 +9,23 @@
 }
 
 .lectureIntro__imgContainer {
-  position: relative;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center center;
+  width: 70%;
+  justify-content: space-between;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .lectureIntro__image {
+  margin: auto;
   width: 100%;
-  top: 0;
   object-fit: contain;
-  display: none;
 }
 .lectureIntro__buttonContainer {
   padding: 1rem;
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  top: 0;
 }
 
 .lectureIntro__buttonContainer button {
@@ -36,11 +34,15 @@
   border: none;
   cursor: pointer;
   color: #e9a701;
-  transition: filter 0.5s;
+  transition: all 0.5s;
 }
 
 .lectureIntro__buttonContainer button:hover {
   filter: brightness(1.2);
+}
+
+.lectureIntro__buttonContainer button:first-child:hover {
+  transform: rotate(75deg);
 }
 
 .lectureIntro__buttonContainer button:last-child {
@@ -49,7 +51,6 @@
 
 .lectureIntro__info {
   width: 100%;
-  height: 30%;
 }
 
 .lectureIntro__info div {
@@ -64,7 +65,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .lectureIntro__Container {
-    /* width: 90% !important; */
+  .lectureIntro__imgContainer {
+    width: 90% !important;
   }
 }
