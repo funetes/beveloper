@@ -11,4 +11,5 @@
   overflow-y: scroll;
   padding-bottom: 100px;
   height: 88vh;
+  align-items: center;
 }

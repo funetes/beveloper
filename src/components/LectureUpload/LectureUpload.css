@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  padding: 20px;
+  padding: 1rem 4rem;
   height: 88.4vh;
 }
 
@@ -11,13 +11,15 @@
   background-color: white;
   padding: 0.5rem;
   border-radius: 5px;
+  -webkit-box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
 }
 
 .lectureUpload__columns:last-child {
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px;
-  width: 50%;
+  width: 35%;
   overflow-y: scroll;
   height: 80vh;
 }
@@ -42,15 +44,12 @@
 }
 
 .lectureUpload__item {
-  padding: 0 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.lectureUpload__item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 0 0.5rem;
+  margin-bottom: 0.5rem;
   background-color: white;
   border-radius: 5px;
   color: black;

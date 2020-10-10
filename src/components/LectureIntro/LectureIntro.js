@@ -23,8 +23,10 @@ const LectureIntro = ({ thumbnail, title, description, lectureId }) => {
   };
   return (
     <section className='lectureIntro'>
-      <div className='lectureIntro__Container'>
-        <img src={thumbnail} alt='thumbnail' />
+      <div
+        className='lectureIntro__imgContainer'
+        style={{ backgroundImage: `url(${thumbnail})` }}>
+        <img src={thumbnail} alt='thumbnail' className='lectureIntro__image' />
         <div className='lectureIntro__buttonContainer'>
           <button
             onClick={onFavoriteBtnClick}
@@ -36,10 +38,10 @@ const LectureIntro = ({ thumbnail, title, description, lectureId }) => {
             <FaDonate />
           </button>
         </div>
-        <div className='lectureIntro__info'>
-          <h1>{title}</h1>
-          <p>{description}</p>
-        </div>
+      </div>
+      <div className='lectureIntro__info'>
+        <h1>{title}</h1>
+        <p>{description}</p>
       </div>
     </section>
   );
