@@ -1,7 +1,10 @@
 .sidebarContent {
   padding: 0.3rem;
   cursor: pointer;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: bold;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

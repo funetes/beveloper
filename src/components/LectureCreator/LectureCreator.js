@@ -4,7 +4,10 @@ import db from '../../firebase/db';
 import storage from '../../firebase/storage';
 import firebase from 'firebase';
 import { Input, Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { fatchLectures } from '../../action/lectureAction';
 const LectureCreator = () => {
+  const dispatch = useDispatch();
   const [thumbnail, setThumbnail] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -41,6 +44,7 @@ const LectureCreator = () => {
             title,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
+          dispatch(fatchLectures());
         } catch (error) {
           console.error(error.message);
         } finally {
