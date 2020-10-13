@@ -7,7 +7,7 @@
   height: 90%;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   margin: auto;
 }
 
@@ -55,7 +55,6 @@
 .rdw-editor-toolbar {
   width: 100%;
   margin: auto;
-  flex-wrap: nowrap;
   padding-bottom: 0.5rem !important;
   justify-content: center !important;
   border: none !important;
@@ -83,10 +82,11 @@
   height: 100% !important;
 }
 
-.rdw-option-wrapper .rdw-colorpicker-option {
-  height: 22px !important;
-}
 .boardEditor__submitBtn {
   flex: 0.1;
   margin-top: 1rem !important;
+}
+
+.rdw-colorpicker-option {
+  height: 22px !important;
 }

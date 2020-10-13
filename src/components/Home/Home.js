@@ -5,7 +5,7 @@ import Logo from '../Logo/Logo';
 import { useSelector } from 'react-redux';
 const Home = () => {
   const { lectures, loading } = useSelector(
-    ({ lectures: { lectures, loading } }) => ({
+    ({ lecture: { lectures, loading } }) => ({
       lectures,
       loading,
     })

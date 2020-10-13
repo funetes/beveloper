@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import user from './userReducer';
-import lectures from './lectureReducer';
+import lecture from './lectureReducer';
 import local from './localReducer';
+import board from './boardReducer';
 
 export default combineReducers({
   user,
-  lectures,
+  lecture,
   local,
+  board,
 });

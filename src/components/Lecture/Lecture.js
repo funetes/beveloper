@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Lecture.css';
-import { useParams, withRouter } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import Video from '../Video/Video';
@@ -9,11 +9,10 @@ import CommentAdder from '../CommentAdder/CommentAdder';
 import Sidebar from '../Sidebar/Sidebar';
 import LectureIntro from '../LectureIntro/LectureIntro';
 
-const Lecture = ({
-  location: {
+const Lecture = () => {
+  const {
     state: { thumbnail, title, description },
-  },
-}) => {
+  } = useLocation();
   const { id: lectureId } = useParams();
   const [chapterId, setChapterId] = useState('');
 
@@ -49,4 +48,4 @@ const Lecture = ({
   );
 };
 
-export default withRouter(Lecture);
+export default Lecture;

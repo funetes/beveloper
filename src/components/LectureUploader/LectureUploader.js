@@ -4,7 +4,7 @@ import './LectureUploader.css';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 const LectureUploader = () => {
-  const lectures = useSelector(({ lectures: { lectures } }) => lectures);
+  const lectures = useSelector(({ lecture: { lectures } }) => lectures);
   return (
     <section className='lectureUploader__container'>
       <h2>강의 list</h2>

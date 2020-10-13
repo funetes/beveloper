@@ -18,10 +18,12 @@ import Authority from './components/Authority/Authority';
 
 import { fatchLectures } from './action/lectureAction';
 import { checkDarkmode } from './action/localAction';
+import { fatchBoards } from './action/boardAction';
 import { userInfo, userInfoFB } from './action/userAction';
 
 import darkmodeInit from './utils/darkmodeInit';
 import BoardEditor from './components/BoardEditor/BoardEditor';
+import BoardContent from './components/BoardContent/BoardContent';
 
 const App = () => {
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
@@ -38,6 +40,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fatchLectures());
+    dispatch(fatchBoards());
     dispatch(checkDarkmode(darkmodeInit()));
   }, [dispatch]);
 
@@ -65,6 +68,7 @@ const App = () => {
             <Route exact path='/' component={Home} />
             <Route exact path='/user' component={User} />
             <Route exact path='/board' component={Board} />
+            <Route exact path='/board/:id' component={BoardContent} />
             <Route exact path='/contact' component={Contact} />
             <Route exact path='/lecture/:id' component={Lecture} />
             <Route exact path='/admin' component={Admin} />

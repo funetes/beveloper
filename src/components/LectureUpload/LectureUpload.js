@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './LectureUpload.css';
-import { useParams, withRouter } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import storage from '../../firebase/storage';
 import firebase from 'firebase';
@@ -10,12 +10,11 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import ChapterCollapse from '../ChapterCollapse/ChapterCollapse';
 import { BiArrowBack } from 'react-icons/bi';
-const LectureUpload = ({
-  location: {
+const LectureUpload = () => {
+  const history = useHistory();
+  const {
     state: { title },
-  },
-  history,
-}) => {
+  } = useLocation();
   const { id } = useParams();
   const [caption, setCaption] = useState('');
   const [description, setDescription] = useState('');
@@ -105,7 +104,7 @@ const LectureUpload = ({
           <BiArrowBack />
         </button>
       </div>
-      <div className='lectureUp__wrapper'>
+      <div className='lectureUpload__wrapper'>
         <div className='lectureUpload__columns'>
           <progress
             value={progress}
@@ -184,4 +183,4 @@ const LectureUpload = ({
   );
 };
 
-export default withRouter(LectureUpload);
+export default LectureUpload;

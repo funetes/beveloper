@@ -4,6 +4,6 @@ export default (seconds, option = {}) => {
   date.setSeconds(seconds);
   option.all
     ? (result = date.toLocaleString())
-    : (result = date.toLocaleString().substr(0, 11).trim());
+    : (result = date.toLocaleString().substr(0, 12).trim());
   return result;
 };

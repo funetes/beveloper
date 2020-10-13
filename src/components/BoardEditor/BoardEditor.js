@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import './BoardEditor.css';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { uploadBoard, fatchBoards } from '../../action/boardAction';
+
 import { EditorState, RichUtils, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { useSelector } from 'react-redux';
 import { bgColor } from '../../utils/style';
 import { Button } from '@material-ui/core';
-import db from '../../firebase/db';
+
 import firebase from 'firebase';
 import { BiArrowBack } from 'react-icons/bi';
-const BoardEditor = ({ history }) => {
+const BoardEditor = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const user = useSelector(({ user }) => user);
   const [editorState, setEditorState] = useState(() =>
@@ -40,19 +44,16 @@ const BoardEditor = ({ history }) => {
       creater: user.email,
       uid: user.uid,
       title: title,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timestamp: async () =>
+        await firebase.firestore.FieldValue.serverTimestamp(),
       description: markup,
       username: user.displayName,
+      counter: 0,
     };
-    try {
-      db.collection('boards').add(board);
-      // TODO: update store
-    } catch (error) {
-      console.error(error.message);
-    } finally {
-      setTitle('');
-      setEditorState(() => EditorState.createEmpty());
-    }
+    dispatch(uploadBoard(board));
+    dispatch(fatchBoards());
+    setTitle('');
+    setEditorState(() => EditorState.createEmpty());
   };
   return (
     <main className='boardEditor'>
@@ -97,4 +98,4 @@ const BoardEditor = ({ history }) => {
   );
 };
 
-export default withRouter(BoardEditor);
+export default BoardEditor;
