@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import db from '../../firebase/db';
 import './Authority.css';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,13 +15,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import AuthTableRow from './AuthTableRow';
 import { notionBgColor, color } from '../../utils/style';
+import { BiArrowBack } from 'react-icons/bi';
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
 
-const Authority = () => {
+const Authority = ({ history }) => {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,7 +50,12 @@ const Authority = () => {
 
   return (
     <main className='authority'>
-      <h1>유저 권한 설정</h1>
+      <div className='authority__titleWrapper'>
+        <h1>유저 권한 설정</h1>
+        <button onClick={history.goBack}>
+          <BiArrowBack />
+        </button>
+      </div>
       {loading ? (
         <Loading />
       ) : (
@@ -84,4 +91,4 @@ const Authority = () => {
   );
 };
 
-export default Authority;
+export default withRouter(Authority);

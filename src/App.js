@@ -21,6 +21,7 @@ import { checkDarkmode } from './action/localAction';
 import { userInfo, userInfoFB } from './action/userAction';
 
 import darkmodeInit from './utils/darkmodeInit';
+import BoardEditor from './components/BoardEditor/BoardEditor';
 
 const App = () => {
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
@@ -70,6 +71,7 @@ const App = () => {
             <Route exact path='/admin/authority' component={Authority} />
             <Route exact path='/admin/upload/:id' component={LectureUpload} />
             <Route exact path='/admin/upload' component={Upload} />
+            <Route exact path='/admin/board' component={BoardEditor} />
           </Switch>
         </Router>
       </div>

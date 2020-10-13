@@ -1,0 +1,92 @@
+.boardEditor {
+  padding: 1rem 4rem;
+  height: 84vh;
+  margin: 1rem auto;
+}
+.boardEditor form {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+}
+
+.boardEditor__title {
+  flex: 0.1;
+  width: 100%;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid;
+}
+
+.boardEditor h1 {
+  padding-right: 1rem;
+}
+.boardEditor__titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  margin-bottom: 1rem;
+}
+
+.boardEditor__titleWrapper button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(200, 200, 200, 0.3);
+  transition: all 0.5s;
+}
+
+.boardEditor__titleWrapper button:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.rdw-editor-wrapper {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+}
+
+.rdw-editor-toolbar {
+  width: 100%;
+  margin: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 0.5rem !important;
+  justify-content: center !important;
+  border: none !important;
+  color: black;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.rdw-editor-main {
+  margin-top: 1rem;
+  overflow-y: auto !important;
+}
+
+.DraftEditor-root {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 1rem !important;
+}
+
+.DraftEditor-editorContainer {
+  height: 100% !important;
+  overflow-y: auto;
+}
+
+.rdw-option-wrapper {
+  height: 100% !important;
+}
+
+.rdw-option-wrapper .rdw-colorpicker-option {
+  height: 22px !important;
+}
+.boardEditor__submitBtn {
+  flex: 0.1;
+  margin-top: 1rem !important;
+}

@@ -1,9 +1,39 @@
 .lectureUpload {
   display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+  /* align-items: flex-start; */
   padding: 1rem 4rem;
-  height: 88.4vh;
+  height: 88vh;
+}
+.lectureUpload h1 {
+  padding-right: 1rem;
+}
+.lectureUpload__titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  margin-bottom: 1rem;
+}
+
+.lectureUpload__titleWrapper button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(200, 200, 200, 0.3);
+  transition: all 0.5s;
+}
+
+.lectureUpload__titleWrapper button:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.lectureUp__wrapper {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .lectureUpload__columns:first-child {
@@ -21,7 +51,7 @@
   padding: 10px;
   width: 35%;
   overflow-y: scroll;
-  height: 80vh;
+  /* height: 80vh; */
 }
 
 .lectureUpload__title {
@@ -39,6 +69,20 @@
   display: flex;
   flex-direction: column;
 }
+
+.lectureUpload__input p {
+  font-size: 0.8rem;
+  color: brown;
+}
+
+.lectureUpload__input textarea {
+  resize: none;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
 .lectureUpload__list {
   list-style: none;
 }

@@ -24,3 +24,15 @@
   width: 100%;
   margin-top: 5px;
 }
+
+.lectureCreator textarea {
+  margin: 0.5rem 0 !important;
+  resize: none;
+  border: none;
+  border-bottom: 1px solid;
+}
+
+.lectureCreator p {
+  color: brown;
+  margin-top: 1rem;
+}

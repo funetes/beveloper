@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Admin.css';
 import { FaUpload, FaClipboard } from 'react-icons/fa';
 import { SiAuthy } from 'react-icons/si';
+import { useSelector } from 'react-redux';
 
-const Admin = () => {
+const Admin = ({ history }) => {
+  const user = useSelector(({ user }) => user);
+  useEffect(() => {
+    !user && history.push('/');
+  }, [user, history]);
   return (
     <main className='admin'>
       <h1>ADMIN</h1>

@@ -9,11 +9,12 @@ import db from '../../firebase/db';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import ChapterCollapse from '../ChapterCollapse/ChapterCollapse';
-import Loading from '../Loading/Loading';
+import { BiArrowBack } from 'react-icons/bi';
 const LectureUpload = ({
   location: {
     state: { title },
   },
+  history,
 }) => {
   const { id } = useParams();
   const [caption, setCaption] = useState('');
@@ -97,80 +98,89 @@ const LectureUpload = ({
   };
 
   return (
-    <div className='lectureUpload'>
-      <div className='lectureUpload__columns'>
-        <progress
-          value={progress}
-          max='100'
-          className='lectureUpload__progress'
-        />
-        <form className='lectureUpload__input' onSubmit={onSubmit}>
-          <p>확장자는 .mp4만 | 파일명은 (subject / chapter) 형식으로.</p>
-          <Input
-            type='file'
-            onChange={handleChange}
-            accept='video/*'
-            disabled={disbale ? true : false}
-            required
-          />
-          <Input
-            type='text'
-            onChange={e => setCaption(e.target.value)}
-            placeholder='caption'
-            value={caption}
-            disabled={disbale ? true : false}
-            required
-          />
-          <Input
-            type='text'
-            onChange={e => setDescription(e.target.value)}
-            placeholder='description'
-            value={description}
-            disabled={disbale ? true : false}
-            required
-          />
-          <Button
-            type='submit'
-            variant='contained'
-            color='primary'
-            disabled={disbale ? true : false}>
-            chapter upload
-          </Button>
-        </form>
+    <main className='lectureUpload'>
+      <div className='lectureUpload__titleWrapper'>
+        <h1>chapter 업로드</h1>
+        <button onClick={history.goBack}>
+          <BiArrowBack />
+        </button>
       </div>
-      <div className='lectureUpload__columns'>
-        {title && <h2 className='lectureUpload__title'>{title}</h2>}
-        {chapters.length === 0 ? (
-          <div>
-            chatper가 없습니다{' '}
-            <span role='img' aria-labelledby='emoji'>
-              😭
-            </span>
-          </div>
-        ) : (
-          <ul className='lectureUpload__list'>
-            {chapters.map(({ id, caption, description, serverTimestamp }) => (
-              <li key={id} className='lectureUpload__item'>
-                <div className='lectureUpload__itemColumn'>
-                  <div>{caption}</div>
-                  <Button
-                    color='secondary'
-                    onClick={() => {
-                      onClick(id);
-                    }}>
-                    del
-                  </Button>
-                </div>
-                <ChapterCollapse
-                  description={description}
-                  serverTimestamp={serverTimestamp}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className='lectureUp__wrapper'>
+        <div className='lectureUpload__columns'>
+          <progress
+            value={progress}
+            max='100'
+            className='lectureUpload__progress'
+          />
+          <form className='lectureUpload__input' onSubmit={onSubmit}>
+            <p>확장자는 .mp4만 | 파일명은 (subject / chapter) 형식으로.</p>
+            <Input
+              type='file'
+              onChange={handleChange}
+              accept='video/*'
+              disabled={disbale ? true : false}
+              required
+            />
+            <Input
+              type='text'
+              onChange={e => setCaption(e.target.value)}
+              placeholder='caption'
+              value={caption}
+              disabled={disbale}
+              required
+            />
+            <textarea
+              cols='30'
+              rows='5'
+              onChange={e => setDescription(e.target.value)}
+              placeholder='description'
+              value={description}
+              disabled={disbale}
+              required
+            />
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              disabled={disbale}>
+              chapter upload
+            </Button>
+          </form>
+        </div>
+        <div className='lectureUpload__columns'>
+          {title && <h2 className='lectureUpload__title'>{title}</h2>}
+          {chapters.length === 0 ? (
+            <div>
+              chatper가 없습니다{' '}
+              <span role='img' aria-labelledby='emoji'>
+                😭
+              </span>
+            </div>
+          ) : (
+            <ul className='lectureUpload__list'>
+              {chapters.map(({ id, caption, description, serverTimestamp }) => (
+                <li key={id} className='lectureUpload__item'>
+                  <div className='lectureUpload__itemColumn'>
+                    <div>{caption}</div>
+                    <Button
+                      color='secondary'
+                      onClick={() => {
+                        onClick(id);
+                      }}>
+                      del
+                    </Button>
+                  </div>
+                  <ChapterCollapse
+                    description={description}
+                    serverTimestamp={serverTimestamp}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

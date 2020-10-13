@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './Sidebar.css';
-import db from '../firebase/db';
-import Loading from '../components/Loading/Loading';
-import SidebarContent from '../components/SidebarContent/SidebarContent';
+import db from '../../firebase/db';
+import Loading from '../Loading/Loading';
+import SidebarContent from '../SidebarContent/SidebarContent';
 
 const Sidebar = ({ onClick, lectureId }) => {
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);

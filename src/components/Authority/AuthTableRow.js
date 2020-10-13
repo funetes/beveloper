@@ -17,24 +17,18 @@ const AuthTableRow = ({ user, darkmode }) => {
       admin: checked,
     }));
   };
-
+  const style = {
+    color: darkmode ? color.DARK : color.LIGHT,
+  };
   return (
     <TableRow key={userInfo.id}>
-      <TableCell
-        style={{ color: darkmode ? color.DARK : color.LIGHT }}
-        component='th'
-        scope='row'
-        align='center'>
+      <TableCell style={style} component='th' scope='row' align='center'>
         {userInfo.email}
       </TableCell>
-      <TableCell
-        style={{ color: darkmode ? color.DARK : color.LIGHT }}
-        align='center'>
+      <TableCell style={style} align='center'>
         {userInfo.id}
       </TableCell>
-      <TableCell
-        style={{ color: darkmode ? color.DARK : color.LIGHT }}
-        align='center'>
+      <TableCell style={style} align='center'>
         <input
           style={{ width: '20%' }}
           type='checkbox'

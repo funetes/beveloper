@@ -10,3 +10,28 @@
   flex-direction: column;
   align-items: center;
 }
+
+.authority h1 {
+  padding-right: 1rem;
+}
+.authority__titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  margin-bottom: 1rem;
+}
+
+.authority__titleWrapper button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(200, 200, 200, 0.3);
+  transition: all 0.5s;
+}
+
+.authority__titleWrapper button:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}

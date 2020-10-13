@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import Video from '../Video/Video';
 import Comment from '../Comment/Comment';
 import CommentAdder from '../CommentAdder/CommentAdder';
-import Sidebar from '../../Sidebar/Sidebar';
+import Sidebar from '../Sidebar/Sidebar';
 import LectureIntro from '../LectureIntro/LectureIntro';
 
 const Lecture = ({

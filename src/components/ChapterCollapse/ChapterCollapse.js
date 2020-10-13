@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import './ChapterCollapse.css';
 
 import toDate from '../../utils/toDate';
-
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowRight from '@material-ui/icons/ArrowRight';
+import { GoIssueOpened, GoIssueClosed } from 'react-icons/go';
 const ChapterCollapse = ({ description, serverTimestamp }) => {
   const [open, setOpen] = useState(false);
   const onClick = () => setOpen(prev => !prev);
@@ -12,13 +10,14 @@ const ChapterCollapse = ({ description, serverTimestamp }) => {
   return (
     <div className='chaperCollapse'>
       <button onClick={onClick}>
-        {open ? <ArrowDropUpIcon /> : <ArrowRight />}
+        {open ? <GoIssueClosed /> : <GoIssueOpened />}
       </button>
       {open && (
         <div className='chaperCollapse__itemCollapse'>
-          <div>description : {description}</div>
-          <div>
-            upload시간 : {toDate(serverTimestamp?.seconds, { all: true })}
+          <h4>description</h4>
+          <span>{description}</span>
+          <div className='chaperCollapse__time'>
+            {toDate(serverTimestamp?.seconds, { all: true })}
           </div>
         </div>
       )}

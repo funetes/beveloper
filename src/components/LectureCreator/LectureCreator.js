@@ -66,21 +66,23 @@ const LectureCreator = () => {
           onChange={e => setTitle(e.target.value)}
           placeholder='title'
           required
-          disabled={disable ? true : false}
+          disabled={disable}
           value={title}
         />
-        <Input
+        <textarea
+          cols='30'
+          rows='5'
           onChange={e => setDescription(e.target.value)}
           placeholder='description'
           required
-          disabled={disable ? true : false}
+          disabled={disable}
           value={description}
         />
         <Input
           onChange={e => setInstructor(e.target.value)}
           placeholder='instructor'
           required
-          disabled={disable ? true : false}
+          disabled={disable}
           value={instructor}
         />
         <Input
@@ -88,7 +90,7 @@ const LectureCreator = () => {
           onChange={e => setPrice(e.target.value)}
           placeholder='price'
           required
-          disabled={disable ? true : false}
+          disabled={disable}
           value={price}
         />
         <p>upload Thumbnail only .png</p>
@@ -96,7 +98,7 @@ const LectureCreator = () => {
           type='file'
           onChange={handleChange}
           required
-          disabled={disable ? true : false}
+          disabled={disable}
         />
       </div>
       <Button

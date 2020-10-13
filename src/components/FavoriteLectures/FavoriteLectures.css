@@ -12,4 +12,12 @@
 
 .FavoriteLectures ul {
   list-style: none;
+  padding: 1rem;
+}
+.FavoriteLectures li {
+  transition: all 0.5s;
+}
+
+.FavoriteLectures li:hover {
+  filter: brightness(1.2);
 }

@@ -1,6 +1,37 @@
 .upload {
   display: flex;
   padding: 1rem 4rem;
-  justify-content: space-evenly;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
   height: 88vh;
+}
+
+.upload h1 {
+  padding-right: 1rem;
+}
+.upload__titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  margin-bottom: 1rem;
+}
+
+.upload__titleWrapper button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(200, 200, 200, 0.3);
+  transition: all 0.5s;
+}
+
+.upload__titleWrapper button:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.upload__wrapper {
+  display: flex;
+  justify-content: space-evenly;
 }
