@@ -30,6 +30,14 @@ const BoardEditor = () => {
     }
     return 'not-handled';
   };
+  const handleReturn = e => {
+    const newState = RichUtils.insertSoftNewline(editorState);
+    if (e.shiftKey) {
+      setEditorState(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  };
   const onSubmit = e => {
     e.preventDefault();
     if (title === '') {
@@ -74,6 +82,7 @@ const BoardEditor = () => {
           editorState={editorState}
           onEditorStateChange={setEditorState}
           handleKeyCommand={handleKeyCommand}
+          handleReturn={handleReturn}
           placeholder='add content'
           toolbarStyle={{
             backgroundColor: darkmode ? bgColor.DARK : bgColor.LIGHT,

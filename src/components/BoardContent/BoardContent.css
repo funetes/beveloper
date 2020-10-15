@@ -1,0 +1,33 @@
+.boardContent {
+  width: 70%;
+  padding: 1rem 4rem;
+  margin: 0 auto;
+}
+
+.boardContent__title {
+  padding: 2rem;
+  font-size: 3rem;
+}
+
+.boardContent__content {
+  margin-top: 3rem;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.boardContent__content p {
+  margin-bottom: 0.3rem;
+}
+
+.boardContent__time {
+  display: block;
+  padding: 0 2rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 576px) {
+  .boardContent {
+    width: 100%;
+  }
+}
