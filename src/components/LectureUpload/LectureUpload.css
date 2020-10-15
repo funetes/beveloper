@@ -1,10 +1,7 @@
 .lectureUpload {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-evenly; */
-  /* align-items: flex-start; */
   padding: 1rem 4rem;
-  height: 88vh;
 }
 .lectureUpload h1 {
   padding-right: 1rem;
@@ -38,8 +35,6 @@
 
 .lectureUpload__columns:first-child {
   width: 30%;
-  background-color: white;
-  padding: 0.5rem;
   border-radius: 5px;
   -webkit-box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
@@ -66,8 +61,16 @@
   width: 100%;
 }
 .lectureUpload__input {
+  border-radius: 5px;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
+  background-color: white;
+}
+
+.lectureUpload__columns:first-child .MuiButton-root {
+  width: 100%;
+  margin-top: 5px;
 }
 
 .lectureUpload__input p {

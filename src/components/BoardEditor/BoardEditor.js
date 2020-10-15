@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import './BoardEditor.css';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { uploadBoard, fatchBoards } from '../../action/boardAction';
+import { uploadBoard } from '../../action/boardAction';
 
 import { EditorState, RichUtils, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { bgColor } from '../../utils/style';
 import { Button } from '@material-ui/core';
-
-import firebase from 'firebase';
 import { BiArrowBack } from 'react-icons/bi';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import firebase from 'firebase';
+
 const BoardEditor = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -43,15 +43,15 @@ const BoardEditor = () => {
     const board = {
       creater: user.email,
       uid: user.uid,
-      title: title,
-      timestamp: async () =>
-        await firebase.firestore.FieldValue.serverTimestamp(),
+      title,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       description: markup,
       username: user.displayName,
       counter: 0,
     };
+
     dispatch(uploadBoard(board));
-    dispatch(fatchBoards());
+
     setTitle('');
     setEditorState(() => EditorState.createEmpty());
   };

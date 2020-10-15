@@ -1,3 +1,10 @@
 .board {
   padding: 1rem 4rem;
 }
+
+.MuiTableBody-root .MuiTableRow-root {
+  cursor: pointer;
+}
+.MuiTableBody-root .MuiTableRow-root:hover {
+  opacity: 0.7;
+}

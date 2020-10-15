@@ -1,10 +1,11 @@
 import React from 'react';
 import './Upload.css';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import LectureCreator from '../LectureCreator/LectureCreator';
 import LectureUploader from '../LectureUploader/LectureUploader';
 import { BiArrowBack } from 'react-icons/bi';
-const Upload = ({ history }) => {
+const Upload = () => {
+  const history = useHistory();
   return (
     <main className='upload'>
       <div className='upload__titleWrapper'>
@@ -21,4 +22,4 @@ const Upload = ({ history }) => {
   );
 };
 
-export default withRouter(Upload);
+export default Upload;

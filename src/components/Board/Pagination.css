@@ -1,0 +1,7 @@
+.MuiPagination-ul {
+  justify-content: center;
+}
+
+.MuiPaginationItem-page {
+  color: inherit !important;
+}

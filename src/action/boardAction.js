@@ -11,6 +11,7 @@ export const uploadBoard = board => {
       dispatch(uploadBoardRequest());
       await db.collection('boards').add(board);
       dispatch(uploadBoardSuccess());
+      dispatch(fatchBoards());
     } catch (error) {
       dispatch(uploadBoardError(error.message));
     }
@@ -25,11 +26,10 @@ export const fatchBoards = () => {
   return async dispatch => {
     dispatch(fatchBoardRequest());
     try {
-      const result = await db
-        .collection('boards')
-        .orderBy('timestamp', 'desc')
-        .get();
-      const boards = result.docs.map(doc => ({
+      const firstboards = db.collection('boards').orderBy('timestamp', 'desc');
+      const documentSnapshots = await firstboards.get();
+
+      const boards = documentSnapshots.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
       }));

@@ -106,12 +106,12 @@ const LectureUpload = () => {
       </div>
       <div className='lectureUpload__wrapper'>
         <div className='lectureUpload__columns'>
-          <progress
-            value={progress}
-            max='100'
-            className='lectureUpload__progress'
-          />
-          <form className='lectureUpload__input' onSubmit={onSubmit}>
+          <div className='lectureUpload__input'>
+            <progress
+              value={progress}
+              max='100'
+              className='lectureUpload__progress'
+            />
             <p>확장자는 .mp4만 | 파일명은 (subject / chapter) 형식으로.</p>
             <Input
               type='file'
@@ -137,14 +137,15 @@ const LectureUpload = () => {
               disabled={disbale}
               required
             />
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              disabled={disbale}>
-              chapter upload
-            </Button>
-          </form>
+          </div>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            disabled={disbale}
+            onClick={onSubmit}>
+            chapter upload
+          </Button>
         </div>
         <div className='lectureUpload__columns'>
           {title && <h2 className='lectureUpload__title'>{title}</h2>}

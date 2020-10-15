@@ -2,8 +2,6 @@
   display: flex;
   padding: 1rem 4rem;
   flex-direction: column;
-  /* justify-content: space-evenly; */
-  height: 88vh;
 }
 
 .upload h1 {

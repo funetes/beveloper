@@ -20,7 +20,7 @@ const BoardTableRow = ({ board, darkmode, index, onRowClick }) => {
         align='left'>
         {index}
       </TableCell>
-      <TableCell style={{ ...darkmodSstyle, width: '60%' }} align='center'>
+      <TableCell style={{ ...darkmodSstyle, width: '40%' }} align='center'>
         {board.title}
       </TableCell>
       <TableCell style={{ ...darkmodSstyle, width: '13%' }} align='right'>

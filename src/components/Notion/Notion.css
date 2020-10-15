@@ -1,17 +1,12 @@
 .notion__container {
-  margin: 1rem;
-  height: 88vh;
   padding: 0.7rem;
   flex: 0.7;
   overflow-y: scroll;
+  border-radius: 10px;
 }
 
 .notion__container h1 {
   width: 100%;
-}
-
-.notion__container::-webkit-scrollbar {
-  display: none;
 }
 
 .notion {

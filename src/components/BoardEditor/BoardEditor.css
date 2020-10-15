@@ -1,6 +1,5 @@
 .boardEditor {
   padding: 1rem 4rem;
-  height: 84vh;
   margin: 1rem auto;
 }
 .boardEditor form {
@@ -71,6 +70,7 @@
   border: 1px solid;
   border-radius: 5px;
   padding: 1rem !important;
+  min-height: 400px;
 }
 
 .DraftEditor-editorContainer {
