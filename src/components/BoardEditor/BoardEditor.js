@@ -13,15 +13,28 @@ import { BiArrowBack } from 'react-icons/bi';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import firebase from 'firebase';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 const BoardEditor = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const user = useSelector(({ user }) => user);
+  const boardsError = useSelector(({ board: { error } }) => error);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+  console.log(boardsError);
   const [title, setTitle] = useState('');
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -56,10 +69,12 @@ const BoardEditor = () => {
       description: markup,
       username: user.displayName,
       counter: 0,
+      likes: 0,
     };
 
     dispatch(uploadBoard(board));
 
+    setOpen(true);
     setTitle('');
     setEditorState(() => EditorState.createEmpty());
   };
@@ -103,6 +118,24 @@ const BoardEditor = () => {
           글쓰기
         </Button>
       </form>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={open}
+        autoHideDuration={2500}
+        onClose={handleClose}>
+        {boardsError !== null ? (
+          <MuiAlert onClose={handleClose} severity='error'>
+            {`error 발생 : ${boardsError}`}
+          </MuiAlert>
+        ) : (
+          <MuiAlert onClose={handleClose} severity='success'>
+            공지사항이 업로드 되었습니다.
+          </MuiAlert>
+        )}
+      </Snackbar>
     </main>
   );
 };

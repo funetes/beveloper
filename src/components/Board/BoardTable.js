@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TableContainer from '@material-ui/core/TableContainer';
 import { Paper, Table, TableBody } from '@material-ui/core';
@@ -7,9 +7,11 @@ import { useStyles } from './style';
 import BoardTableRow from './BoardTableRow';
 import { notionBgColor } from '../../utils/style';
 import BoardTableHead from './BoardTableHead';
+import { addBoardCount } from '../../action/boardAction';
 const BoardTable = ({ boards }) => {
   const history = useHistory();
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
+  const dispatch = useDispatch();
   const style = {
     margin: '2rem',
     width: 'auto',
@@ -17,6 +19,7 @@ const BoardTable = ({ boards }) => {
   };
   const { table } = useStyles();
   const onRowClick = board => {
+    dispatch(addBoardCount(board));
     history.push({
       pathname: `/board/${board.id}`,
       state: {

@@ -1,41 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './CommentAdder.css';
 import { useSelector } from 'react-redux';
-
-import db from '../../firebase/db';
-import firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 
-const CommentAdder = ({ chapterId, lectureId }) => {
+const CommentAdder = ({ text, setText, onSubmit, formStyle }) => {
   const user = useSelector(({ user }) => user);
-  const [text, setText] = useState('');
-  const onSubmit = async e => {
-    e.preventDefault();
-    if (text === '') {
-      return;
-    }
-
-    try {
-      await db
-        .collection('lectures')
-        .doc(lectureId)
-        .collection('videos')
-        .doc(chapterId)
-        .collection('comments')
-        .add({
-          username: user.displayName,
-          text: text,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          creator: user.uid,
-        });
-      setText('');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
   return (
     <div className='commentAdder'>
-      <form className='commentAdder__form' onSubmit={onSubmit}>
+      <form
+        className='commentAdder__form'
+        onSubmit={onSubmit}
+        style={formStyle}>
         <textarea
           className='commentAdder__textarea'
           value={text}

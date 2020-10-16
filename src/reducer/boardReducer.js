@@ -6,6 +6,9 @@ import {
   fatchBoardRequest,
   fatchBoardSuccess,
   fatchBoardError,
+  addBoardCountRequest,
+  addBoardCountSuccess,
+  addBoardCountError,
 } from '../action/boardAction';
 
 const initialState = {
@@ -37,6 +40,21 @@ const boardReducer = createReducer(initialState, {
     loading: false,
   }),
   [fatchBoardError]: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: false,
+  }),
+  [addBoardCountRequest]: (state, _) => ({
+    ...state,
+    loading: true,
+  }),
+  [addBoardCountSuccess]: (state, action) => ({
+    ...state,
+    boards: state.boards.map(board =>
+      board.id === action.payload.id ? action.payload : board
+    ),
+  }),
+  [addBoardCountError]: (state, action) => ({
     ...state,
     error: action.payload,
     loading: false,

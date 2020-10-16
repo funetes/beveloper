@@ -20,6 +20,7 @@
   -webkit-box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.35);
   border-radius: 5px;
+  margin: 1rem 0;
 }
 
 .video__title {

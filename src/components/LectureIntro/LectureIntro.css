@@ -52,6 +52,10 @@
   width: 100%;
 }
 
+.lectureIntro__info h1 {
+  margin-bottom: 0.5rem;
+}
+
 .lectureIntro__info div {
   display: flex;
   justify-content: flex-end;

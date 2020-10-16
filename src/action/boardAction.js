@@ -39,3 +39,28 @@ export const fatchBoards = () => {
     }
   };
 };
+
+export const addBoardCountRequest = createAction(
+  'board/ADD_BORAD_COUNT_REQUEST'
+);
+export const addBoardCountSuccess = createAction(
+  'board/ADD_BORAD_COUNT_SUCCESS'
+);
+export const addBoardCountError = createAction('board/ADD_BORAD_COUNT_ERROR');
+
+export const addBoardCount = board => {
+  return async dispatch => {
+    try {
+      dispatch(addBoardCountRequest());
+      await db
+        .collection('boards')
+        .doc(board.id)
+        .update({
+          counter: board.counter + 1,
+        });
+      dispatch(addBoardCountSuccess({ ...board, counter: board.counter + 1 }));
+    } catch (error) {
+      dispatch(addBoardCountError(error.message));
+    }
+  };
+};
