@@ -48,6 +48,10 @@
   overflow-y: scroll;
 }
 
+.lectureUpload__columns:last-child::-webkit-scrollbar {
+  display: none;
+}
+
 .lectureUpload__title {
   margin-bottom: 5px;
 }

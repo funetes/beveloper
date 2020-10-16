@@ -15,7 +15,9 @@
   overflow-y: scroll;
   height: 100%;
 }
-
+.lectureUploader__lectureList::-webkit-scrollbar {
+  display: none;
+}
 .lectureUploader__lecture {
   background-color: lightgray;
   border-radius: 5px;

@@ -13,3 +13,7 @@
   height: 90vh;
   align-items: center;
 }
+
+.lecture__videoAndComment::-webkit-scrollbar {
+  display: none;
+}
