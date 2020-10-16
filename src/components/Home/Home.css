@@ -7,7 +7,6 @@
   align-items: center;
   row-gap: 20px;
   width: 100%;
-  overflow-y: scroll;
 }
 .loading {
   width: 100vw;

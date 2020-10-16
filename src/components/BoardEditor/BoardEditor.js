@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import './BoardEditor.css';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,10 +21,10 @@ const BoardEditor = () => {
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const user = useSelector(({ user }) => user);
   const boardsError = useSelector(({ board: { error } }) => error);
+
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  console.log(boardsError);
   const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
 

@@ -1,7 +1,6 @@
 .notion__container {
   padding: 0.7rem;
   flex: 0.7;
-  overflow-y: scroll;
   border-radius: 10px;
 }
 
