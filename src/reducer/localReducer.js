@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { checkDarkmode } from '../action/localAction';
 const intitalState = {
-  darkmode: false,
+  darkmode: true,
 };
 
 const localReducer = createReducer(intitalState, {

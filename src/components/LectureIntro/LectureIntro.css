@@ -5,7 +5,7 @@
   justify-content: center;
   height: 100%;
   width: 90%;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .lectureIntro__imgContainer {
@@ -22,7 +22,6 @@
   object-fit: contain;
 }
 .lectureIntro__buttonContainer {
-  padding: 1rem;
   width: 100%;
   display: flex;
   justify-content: flex-end;
