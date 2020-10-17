@@ -1,66 +1,49 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {
-  loginUserRequest,
-  loginUserSuccess,
-  loginUserError,
-  signupUserRequest,
-  signupUserSuccess,
-  signupUserError,
-  providerLoginRequest,
-  providerLoginSuccess,
-  providerLoginError,
-  logOutAction,
-  userInfo,
-  userInfoFromFB,
-  addFavorite,
-  deleteFavorite,
-  updateFavoriteError,
-  editUserInfo,
-} from '../action/userAction';
+import * as userAction from '../action/userAction';
 
 const initialState = null;
 
 const userReducer = createReducer(initialState, {
-  [loginUserRequest]: (state, _) => ({
+  [userAction.loginUserRequest]: (state, _) => ({
     ...state,
     loading: true,
   }),
-  [loginUserSuccess]: (state, _) => ({
+  [userAction.loginUserSuccess]: (state, _) => ({
     ...state,
     loading: false,
   }),
-  [loginUserError]: (state, action) => ({
+  [userAction.loginUserError]: (state, action) => ({
     ...state,
     loading: false,
     error: action.payload,
   }),
-  [signupUserRequest]: (state, _) => ({
+  [userAction.signupUserRequest]: (state, _) => ({
     ...state,
     loading: true,
   }),
-  [signupUserSuccess]: (state, _) => ({
+  [userAction.signupUserSuccess]: (state, _) => ({
     ...state,
     loading: false,
   }),
-  [signupUserError]: (state, action) => ({
+  [userAction.signupUserError]: (state, action) => ({
     ...state,
     loading: false,
     error: action.payload,
   }),
-  [providerLoginRequest]: (state, _) => ({
+  [userAction.providerLoginRequest]: (state, _) => ({
     ...state,
     loading: true,
   }),
-  [providerLoginSuccess]: (state, _) => ({
+  [userAction.providerLoginSuccess]: (state, _) => ({
     ...state,
     loading: false,
   }),
-  [providerLoginError]: (state, action) => ({
+  [userAction.providerLoginError]: (state, action) => ({
     ...state,
     loading: false,
     error: action.payload,
   }),
-  [userInfo]: (state, action) => ({
+  [userAction.userInfo]: (state, action) => ({
     ...state,
     loading: false,
     displayName: action.payload.displayName,
@@ -68,29 +51,29 @@ const userReducer = createReducer(initialState, {
     photoURL: action.payload.photoURL,
     email: action.payload.email,
   }),
-  [userInfoFromFB]: (state, action) => ({
+  [userAction.userInfoFromFB]: (state, action) => ({
     ...state,
     ...action.payload,
   }),
-  [addFavorite]: (state, action) => ({
+  [userAction.addFavorite]: (state, action) => ({
     ...state,
     favorites: [...state.favorites, action.payload],
   }),
-  [deleteFavorite]: (state, action) => ({
+  [userAction.deleteFavorite]: (state, action) => ({
     ...state,
     favorites: [...state.favorites].filter(
       favorite => favorite !== action.payload
     ),
   }),
-  [updateFavoriteError]: (state, action) => ({
+  [userAction.updateFavoriteError]: (state, action) => ({
     ...state,
     error: action.payload,
   }),
-  [editUserInfo]: (state, action) => ({
+  [userAction.editUserInfo]: (state, action) => ({
     ...state,
     ...action.payload,
   }),
-  [logOutAction]: () => null,
+  [userAction.logOutAction]: () => null,
 });
 
 export default userReducer;

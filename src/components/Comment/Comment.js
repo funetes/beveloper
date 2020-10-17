@@ -25,7 +25,8 @@ const Comment = ({
             <Button
               className='comment_button'
               onClick={() => onDeleteClick(id)}
-              color='secondary'>
+              color='secondary'
+              variant='outlined'>
               del
             </Button>
           )}

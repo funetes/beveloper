@@ -20,6 +20,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 body.light-mode {
   background-color: var(--bg-color-light);
   color: var(--color-light);

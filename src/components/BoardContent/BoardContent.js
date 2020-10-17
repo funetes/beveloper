@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './BoardContent.css';
 import db from '../../firebase/db';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';

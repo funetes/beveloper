@@ -1,2 +1,2 @@
-import firebase from './config';
-export default firebase.auth();
+import { auth } from './config';
+export default auth;

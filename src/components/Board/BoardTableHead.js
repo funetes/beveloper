@@ -9,12 +9,12 @@ const BoardTableHead = () => {
     <TableHead>
       <TableRow>
         <TableCell style={{ ...style, width: '10%' }} align='left'>
-          번호
+          No.
         </TableCell>
         <TableCell style={{ ...style, width: '40%' }} align='center'>
           제목
         </TableCell>
-        <TableCell style={{ ...style, width: '13%' }} align='right'>
+        <TableCell style={{ ...style, width: '13%' }} align='center'>
           글쓴이
         </TableCell>
         <TableCell style={{ ...style, width: '10%' }} align='center'>

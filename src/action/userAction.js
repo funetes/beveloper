@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import auth from '../firebase/auth';
 import db from '../firebase/db';
-import firebase, { firestore } from 'firebase';
+import firebase from 'firebase/app';
 
 export const loginUserRequest = createAction('user/LOGIN_USER_REQUEST');
 export const loginUserSuccess = createAction('user/LOGIN_USER_SUCCESS');
@@ -118,12 +118,12 @@ export const updateFavorite = (id, uid, isFavorite) => {
       const favoriteRef = db.collection('users').doc(uid);
       if (isFavorite) {
         await favoriteRef.update({
-          favorites: firestore.FieldValue.arrayRemove(id),
+          favorites: firebase.firestore.FieldValue.arrayRemove(id),
         });
         dispatch(deleteFavorite(id));
       } else {
         await favoriteRef.update({
-          favorites: firestore.FieldValue.arrayUnion(id),
+          favorites: firebase.firestore.FieldValue.arrayUnion(id),
         });
         dispatch(addFavorite(id));
       }

@@ -14,7 +14,7 @@ const BoardTableRow = ({ board, darkmode, index, onRowClick }) => {
         onRowClick(board);
       }}>
       <TableCell
-        style={{ ...darkmodSstyle, width: '10%' }}
+        style={{ ...darkmodSstyle, width: '10%', paddingLeft: '1.3rem' }}
         component='th'
         scope='row'
         align='left'>
@@ -23,13 +23,13 @@ const BoardTableRow = ({ board, darkmode, index, onRowClick }) => {
       <TableCell style={{ ...darkmodSstyle, width: '40%' }} align='center'>
         {board.title}
       </TableCell>
-      <TableCell style={{ ...darkmodSstyle, width: '13%' }} align='right'>
+      <TableCell style={{ ...darkmodSstyle, width: '13%' }} align='center'>
         {board.username}
       </TableCell>
-      <TableCell style={{ ...darkmodSstyle, width: '10%' }} align='right'>
+      <TableCell style={{ ...darkmodSstyle, width: '10%' }} align='center'>
         {toDate(board.timestamp?.seconds)}
       </TableCell>
-      <TableCell style={{ ...darkmodSstyle, width: '7%' }} align='right'>
+      <TableCell style={{ ...darkmodSstyle, width: '7%' }} align='center'>
         {board.counter}
       </TableCell>
     </TableRow>

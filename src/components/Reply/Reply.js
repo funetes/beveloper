@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import './Reply.css';
 import { useSelector } from 'react-redux';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import db from '../../firebase/db';
 
 import toDate from '../../utils/toDate';

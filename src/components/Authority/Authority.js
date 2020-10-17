@@ -16,6 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import AuthTableRow from './AuthTableRow';
 import { notionBgColor, color } from '../../utils/style';
 import { BiArrowBack } from 'react-icons/bi';
+import IconButton from '../IconButton/IconButton';
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -28,7 +29,6 @@ const Authority = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   useEffect(() => {
-    console.log('ue');
     const getUsersFromFB = async () => {
       try {
         setLoading(true);
@@ -52,9 +52,7 @@ const Authority = ({ history }) => {
     <main className='authority'>
       <div className='authority__titleWrapper'>
         <h1>유저 권한 설정</h1>
-        <button onClick={history.goBack}>
-          <BiArrowBack />
-        </button>
+        <IconButton Icon={BiArrowBack} onClick={history.goBack} />
       </div>
       {loading ? (
         <Loading />

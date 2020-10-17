@@ -1,9 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {
-  fatchLectureRequest,
-  fatchLectureSuccess,
-  fatchLectureError,
-} from '../action/lectureAction';
+import * as lectureAction from '../action/lectureAction';
 
 const initialState = {
   loading: false,
@@ -12,19 +8,19 @@ const initialState = {
 };
 
 const lectureReducer = createReducer(initialState, {
-  [fatchLectureRequest]: (state, _) => ({
+  [lectureAction.fatchLectureRequest]: (state, _) => ({
     ...state,
     loading: false,
     lectures: [],
     error: null,
   }),
-  [fatchLectureSuccess]: (state, action) => ({
+  [lectureAction.fatchLectureSuccess]: (state, action) => ({
     ...state,
     loading: false,
     lectures: action.payload,
     error: null,
   }),
-  [fatchLectureError]: (state, action) => ({
+  [lectureAction.fatchLectureError]: (state, action) => ({
     ...state,
     loading: false,
     lectures: [],

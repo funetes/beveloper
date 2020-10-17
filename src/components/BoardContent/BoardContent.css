@@ -4,6 +4,10 @@
   margin: 0 auto;
 }
 
+.boardContent::-webkit-scrollbar {
+  display: none;
+}
+
 .boardContent__title {
   padding: 2rem;
   font-size: 3rem;

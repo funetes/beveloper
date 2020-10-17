@@ -8,3 +8,9 @@
 .MuiTableBody-root .MuiTableRow-root:hover {
   opacity: 0.7;
 }
+
+@media screen and (max-width: 576px) {
+  .board {
+    padding: 0 0;
+  }
+}

@@ -1,2 +1,2 @@
-import initFirebase from './config';
-export default initFirebase.firestore();
+import { db } from './config';
+export default db;

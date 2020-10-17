@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState } from 'react';
 import './BoardEditor.css';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,10 +11,11 @@ import { bgColor } from '../../utils/style';
 import { Button } from '@material-ui/core';
 import { BiArrowBack } from 'react-icons/bi';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import IconButton from '../IconButton/IconButton';
 const BoardEditor = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -82,9 +83,7 @@ const BoardEditor = () => {
     <main className='boardEditor'>
       <div className='boardEditor__titleWrapper'>
         <h1>공지사항 업로드</h1>
-        <button onClick={history.goBack}>
-          <BiArrowBack />
-        </button>
+        <IconButton Icon={BiArrowBack} onClick={history.goBack} />
       </div>
       <form onSubmit={onSubmit}>
         <input

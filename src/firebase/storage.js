@@ -1,2 +1,2 @@
-import firebase from './config';
-export default firebase.storage();
+import { storage } from './config';
+export default storage;

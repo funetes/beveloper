@@ -17,9 +17,9 @@
 }
 
 .comment__username {
-  /* flex: 0.1; */
   width: 100%;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 .comment__text {
@@ -32,7 +32,7 @@
 }
 
 .comment_button {
-  flex: 0.1;
+  margin: 0.3rem !important;
 }
 
 .comment__reply {
@@ -43,4 +43,5 @@
   width: 90px;
   margin-left: auto;
   font-size: 0.7rem;
+  text-align: center;
 }

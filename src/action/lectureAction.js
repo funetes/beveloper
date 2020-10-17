@@ -6,7 +6,7 @@ export const fatchLectureSuccess = createAction('fatch/FATCH_LECTURE_SUCCESS');
 export const fatchLectureError = createAction('fatch/FATCH_LECTURE_ERROR');
 
 export const fatchLectures = () => {
-  return async function (dispatch) {
+  return async dispatch => {
     dispatch(fatchLectureRequest());
     try {
       const result = await db

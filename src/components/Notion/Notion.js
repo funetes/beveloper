@@ -3,20 +3,21 @@ import 'react-notion/src/styles.css';
 import './Notion.css';
 import { NotionRenderer } from 'react-notion';
 import { notionBgColor } from '../../utils/style';
-import api from '../../utils/api';
+import axios from 'axios';
 import Logo from '../Logo/Logo';
 const Notion = ({ id, checked }) => {
   const [notionData, setNotionData] = useState(null);
   useEffect(() => {
-    const getNotionData = async () => {
-      try {
-        const data = await api.getNotionPage(id);
-        setNotionData(data);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-    getNotionData();
+    let cancel;
+    axios
+      .get(`https://notion-api.splitbee.io/v1/page/${id}`, {
+        cancelToken: new axios.CancelToken(c => (cancel = c)),
+      })
+      .then(({ data }) => setNotionData(data))
+      .catch(e => {
+        if (axios.isCancel(e)) return;
+      });
+    return () => cancel();
   }, [id]);
 
   return (

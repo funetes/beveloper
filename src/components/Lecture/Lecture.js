@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Lecture.css';
 import db from '../../firebase/db';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { useParams, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';

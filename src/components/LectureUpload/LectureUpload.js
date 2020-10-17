@@ -3,7 +3,7 @@ import './LectureUpload.css';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import storage from '../../firebase/storage';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import db from '../../firebase/db';
 
 import Input from '@material-ui/core/Input';

@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { checkDarkmode } from '../action/localAction';
+import * as localAction from '../action/localAction';
 const intitalState = {
   darkmode: true,
 };
 
 const localReducer = createReducer(intitalState, {
-  [checkDarkmode]: (state, action) => {
+  [localAction.checkDarkmode]: (state, action) => {
     localStorage.setItem('darkmode', action.payload);
     return { ...state, darkmode: action.payload };
   },
