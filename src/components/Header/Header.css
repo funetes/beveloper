@@ -121,11 +121,12 @@ header {
     opacity: 0;
     display: flex;
     flex-direction: column;
+    z-index: 999;
   }
   .nav__mobile button {
     margin: 10px 0;
   }
-  .active {
+  .navbarActive {
     margin-top: 1px;
     opacity: 1;
     transform: translateX(0%);

@@ -16,7 +16,7 @@ import { checkDarkmode } from '../../action/localAction';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [hamburger, setHamburger] = useState(true);
+  const [hamburger, setHamburger] = useState(false);
   const [open, setOpen] = useState(false);
   const {
     local: { darkmode },
@@ -42,11 +42,7 @@ const Header = () => {
     window.addEventListener('resize', showButton);
     return () => window.removeEventListener('resize', showButton);
   }, []);
-  const onHamburgerBtnClick = e => {
-    console.log('clicked');
-    setOpen(prev => !prev);
-  };
-
+  const onHamburgerBtnClick = e => setOpen(prev => !prev);
   return (
     <header>
       <nav className='nav'>
@@ -104,7 +100,7 @@ const Header = () => {
       </nav>
       {hamburger && (
         <>
-          <div className={open ? 'nav__mobile active' : 'nav__mobile'}>
+          <div className={open ? 'nav__mobile navbarActive' : 'nav__mobile'}>
             {user?.uid ? (
               <>
                 {user.displayName && (

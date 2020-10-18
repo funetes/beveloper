@@ -7,8 +7,44 @@
   align-items: flex-start;
   overflow-y: scroll;
   height: 90vh;
+  transition: all 0.3s ease-out;
 }
 
 .sidebar::-webkit-scrollbar {
   display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .sidebar {
+    position: absolute;
+    transform: translateX(-100%);
+    z-index: 900;
+  }
+  .active {
+    display: block;
+    position: absolute;
+    width: 50%;
+    transform: translateX(0%);
+  }
+  .sidebar__hide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.5rem 0 0;
+  }
+  .sidebar__hide svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .active {
+    width: 100%;
+  }
 }

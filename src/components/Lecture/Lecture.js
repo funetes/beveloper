@@ -12,12 +12,13 @@ import CommentAdder from '../CommentAdder/CommentAdder';
 import Sidebar from '../Sidebar/Sidebar';
 import LectureIntro from '../LectureIntro/LectureIntro';
 import Reply from '../Reply/Reply';
+import { BsListCheck } from 'react-icons/bs';
 
 const Lecture = () => {
   const [chapterId, setChapterId] = useState('');
   const [text, setText] = useState('');
   const [comments, setComments] = useState([]);
-
+  const [sidebarIcon, setSidebarIcon] = useState(false);
   const {
     state: { thumbnail, title, description },
   } = useLocation();
@@ -59,7 +60,9 @@ const Lecture = () => {
       alert(error.message);
     }
   };
-
+  const onLectureIconClick = () => {
+    setSidebarIcon(prev => !prev);
+  };
   const onSubmit = async e => {
     e.preventDefault();
     if (text === '') {
@@ -83,14 +86,23 @@ const Lecture = () => {
       alert(error.message);
     }
   };
-
   return (
     <>
       <Helmet>
         <title>{`Beveloper | ${title}`}</title>
       </Helmet>
       <main className='lecture'>
-        <Sidebar onClick={onClick} lectureId={lectureId} />
+        <div
+          className='lecture__icon'
+          style={{ display: sidebarIcon ? 'none' : 'block' }}>
+          <BsListCheck onClick={onLectureIconClick} />
+        </div>
+        <Sidebar
+          onClick={onClick}
+          lectureId={lectureId}
+          isSidebarIcon={sidebarIcon}
+          onLectureIconClick={onLectureIconClick}
+        />
         <div className='lecture__videoAndComment'>
           {chapterId ? (
             <Video chapterId={chapterId} lectureId={lectureId} />

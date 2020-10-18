@@ -4,8 +4,8 @@ import './Sidebar.css';
 import db from '../../firebase/db';
 import Loading from '../Loading/Loading';
 import SidebarContent from '../SidebarContent/SidebarContent';
-
-const Sidebar = ({ onClick, lectureId }) => {
+import { ImCancelCircle } from 'react-icons/im';
+const Sidebar = ({ onClick, lectureId, isSidebarIcon, onLectureIconClick }) => {
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const [chapters, setChapters] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,10 +33,9 @@ const Sidebar = ({ onClick, lectureId }) => {
     };
     chapterFromFB();
   }, [lectureId]);
-
   return (
     <section
-      className='sidebar'
+      className={isSidebarIcon ? 'sidebar active' : 'sidebar'}
       style={{ backgroundColor: darkmode ? '#2f3135' : 'inherit' }}>
       {loading ? (
         <Loading />
@@ -56,6 +55,11 @@ const Sidebar = ({ onClick, lectureId }) => {
             onclick={onClick}
           />
         ))
+      )}
+      {isSidebarIcon && (
+        <button className='sidebar__hide'>
+          <ImCancelCircle onClick={onLectureIconClick} />
+        </button>
       )}
     </section>
   );
