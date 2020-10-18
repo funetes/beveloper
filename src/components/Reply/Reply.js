@@ -64,7 +64,7 @@ const Reply = ({ commentId, chapterId, lectureId }) => {
   };
   return (
     <>
-      {user && (
+      {user?.uid && (
         <div className='reply'>
           <button className='reply__button' onClick={onAddReplyClick}>
             답글

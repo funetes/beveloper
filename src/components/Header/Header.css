@@ -115,6 +115,7 @@ header {
     position: absolute;
     background-color: rgb(47, 49, 53);
     left: 0;
+    margin-top: 1px;
     height: 90vh;
     transform: translateX(-100%);
     transition: all 0.3s ease-out;
@@ -127,7 +128,6 @@ header {
     margin: 10px 0;
   }
   .navbarActive {
-    margin-top: 1px;
     opacity: 1;
     transform: translateX(0%);
     transition: all 0.3s ease-out;

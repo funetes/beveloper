@@ -12,37 +12,41 @@ import { logOut } from '../../action/userAction';
 import SignModal from '../signModal/SignModal';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
-import { checkDarkmode } from '../../action/localAction';
-
+import {
+  checkDarkmode,
+  hamburgerIcon,
+  navOpen,
+} from '../../action/localAction';
 const Header = () => {
   const dispatch = useDispatch();
-  const [hamburger, setHamburger] = useState(false);
-  const [open, setOpen] = useState(false);
-  const {
-    local: { darkmode },
-    user,
-  } = useSelector(({ local, user }) => ({
-    local,
-    user,
-  }));
+  const smallNav = useSelector(({ local: { smallNav } }) => smallNav);
+  const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
+  const hamburger = useSelector(({ local: { hamburger } }) => hamburger);
+  const user = useSelector(({ user }) => user);
   const onChange = () => {
     darkmode ? dispatch(checkDarkmode(false)) : dispatch(checkDarkmode(true));
   };
   const onClick = () => dispatch(logOut());
 
-  const showButton = () => {
-    if (window.innerWidth <= 576) {
-      setHamburger(true);
+  useEffect(() => {
+    const showButton = () => {
+      if (window.innerWidth <= 576) {
+        dispatch(hamburgerIcon(true));
+      } else {
+        dispatch(hamburgerIcon(false));
+      }
+    };
+    window.addEventListener('resize', showButton);
+    showButton();
+    return () => window.removeEventListener('resize', showButton);
+  }, [dispatch]);
+  const onHamburgerBtnClick = () => {
+    if (smallNav) {
+      dispatch(navOpen(false));
     } else {
-      setHamburger(false);
+      dispatch(navOpen(true));
     }
   };
-
-  useEffect(() => {
-    window.addEventListener('resize', showButton);
-    return () => window.removeEventListener('resize', showButton);
-  }, []);
-  const onHamburgerBtnClick = e => setOpen(prev => !prev);
   return (
     <header>
       <nav className='nav'>
@@ -100,7 +104,8 @@ const Header = () => {
       </nav>
       {hamburger && (
         <>
-          <div className={open ? 'nav__mobile navbarActive' : 'nav__mobile'}>
+          <div
+            className={smallNav ? 'nav__mobile navbarActive' : 'nav__mobile'}>
             {user?.uid ? (
               <>
                 {user.displayName && (

@@ -30,7 +30,7 @@
     padding: 0.5rem 0 0 0.5rem;
     width: fit-content;
     height: fit-content;
-    z-index: 900;
+    z-index: 1;
   }
   .lecture__icon svg {
     width: 2rem;

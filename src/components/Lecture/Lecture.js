@@ -3,7 +3,8 @@ import './Lecture.css';
 import db from '../../firebase/db';
 import firebase from 'firebase/app';
 import { useParams, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { sidebarIcon } from '../../action/localAction';
 import { Helmet } from 'react-helmet';
 
 import Video from '../Video/Video';
@@ -18,13 +19,14 @@ const Lecture = () => {
   const [chapterId, setChapterId] = useState('');
   const [text, setText] = useState('');
   const [comments, setComments] = useState([]);
-  const [sidebarIcon, setSidebarIcon] = useState(false);
   const {
     state: { thumbnail, title, description },
   } = useLocation();
   const { id: lectureId } = useParams();
+  const dispatch = useDispatch();
   const user = useSelector(({ user }) => user);
-
+  const sidebar = useSelector(({ local: { sidebar } }) => sidebar);
+  const smallNav = useSelector(({ local: { smallNav } }) => smallNav);
   const onClick = chapterId => setChapterId(chapterId);
 
   useEffect(() => {
@@ -46,6 +48,10 @@ const Lecture = () => {
     };
   }, [chapterId, lectureId]);
 
+  useEffect(() => {
+    dispatch(sidebarIcon(false));
+  }, [lectureId, chapterId, dispatch]);
+
   const onDeleteClick = async id => {
     try {
       await db
@@ -61,7 +67,11 @@ const Lecture = () => {
     }
   };
   const onLectureIconClick = () => {
-    setSidebarIcon(prev => !prev);
+    if (sidebar) {
+      dispatch(sidebarIcon(false));
+    } else {
+      dispatch(sidebarIcon(true));
+    }
   };
   const onSubmit = async e => {
     e.preventDefault();
@@ -94,13 +104,16 @@ const Lecture = () => {
       <main className='lecture'>
         <div
           className='lecture__icon'
-          style={{ display: sidebarIcon ? 'none' : 'block' }}>
+          style={{
+            display: sidebar ? 'none' : 'block',
+            visibility: smallNav ? 'hidden' : 'visible',
+          }}>
           <BsListCheck onClick={onLectureIconClick} />
         </div>
         <Sidebar
           onClick={onClick}
           lectureId={lectureId}
-          isSidebarIcon={sidebarIcon}
+          isSidebarIcon={sidebar}
           onLectureIconClick={onLectureIconClick}
         />
         <div className='lecture__videoAndComment'>
