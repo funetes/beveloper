@@ -17,9 +17,9 @@ const CommentAdder = ({ text, setText, onSubmit, formStyle }) => {
           cols='90'
           rows='5'
           required
-          disabled={user ? false : true}
+          disabled={user?.uid ? false : true}
           placeholder={
-            user ? '댓글달기' : '로그인하시면 댓글을 달 수 있습니다.'
+            user?.uid ? '댓글달기' : '로그인하시면 댓글을 달 수 있습니다.'
           }
           onChange={e => setText(e.target.value)}
         />
@@ -27,7 +27,7 @@ const CommentAdder = ({ text, setText, onSubmit, formStyle }) => {
           type='submit'
           variant='contained'
           color='primary'
-          disabled={user ? false : true}>
+          disabled={user?.uid ? false : true}>
           add
         </Button>
       </form>
