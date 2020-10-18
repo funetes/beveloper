@@ -5,7 +5,6 @@
 
 .lecture__videoAndComment {
   flex: 1 1;
-  border-left: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

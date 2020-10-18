@@ -30,3 +30,10 @@
 .lectureCard__container div {
   text-align: right;
 }
+
+@media screen and (max-width: 576px) {
+  .lectureCard___image {
+    height: 164px;
+    min-width: 300px;
+  }
+}
