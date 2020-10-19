@@ -7,7 +7,7 @@
   align-items: flex-start;
   overflow-y: scroll;
   height: 90vh;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .sidebar::-webkit-scrollbar {

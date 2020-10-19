@@ -6,13 +6,13 @@ import { notionKey } from '../../utils/notionKey';
 import { navToggle } from '../../action/localAction';
 const Contact = () => {
   const dispatch = useDispatch();
-  const { darkmode } = useSelector(({ local }) => local);
+  const { darkmode, smallNav } = useSelector(({ local }) => local);
   useEffect(() => {
     dispatch(navToggle(false));
   }, [dispatch]);
 
   return (
-    <main className='contact'>
+    <main className='contact' style={{ zIndex: smallNav ? '-1' : '0' }}>
       <Notion id={notionKey} checked={darkmode} />
     </main>
   );

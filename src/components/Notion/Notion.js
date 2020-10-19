@@ -7,6 +7,7 @@ import axios from 'axios';
 import Logo from '../Logo/Logo';
 const Notion = ({ id, checked }) => {
   const [notionData, setNotionData] = useState(null);
+
   useEffect(() => {
     let cancel;
     axios

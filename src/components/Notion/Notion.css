@@ -1,9 +1,7 @@
 .notion__container {
-  /* padding: 0.7rem; */
+  padding: 0.7rem;
   flex: 0.7;
   border-radius: 10px;
-  height: 88vh;
-  overflow-y: scroll;
 }
 
 .notion__container h1 {

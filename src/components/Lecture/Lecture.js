@@ -116,7 +116,9 @@ const Lecture = () => {
           isSidebarIcon={sidebar}
           onLectureIconClick={onLectureIconClick}
         />
-        <div className='lecture__videoAndComment'>
+        <div
+          className='lecture__videoAndComment'
+          style={{ zIndex: smallNav ? '-1' : '0' }}>
           {chapterId ? (
             <Video chapterId={chapterId} lectureId={lectureId} />
           ) : (
