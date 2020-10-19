@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Header.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import {
   checkDarkmode,
   hamburgerIcon,
-  navOpen,
+  navToggle,
 } from '../../action/localAction';
 const Header = () => {
   const dispatch = useDispatch();
@@ -42,9 +42,9 @@ const Header = () => {
   }, [dispatch]);
   const onHamburgerBtnClick = () => {
     if (smallNav) {
-      dispatch(navOpen(false));
+      dispatch(navToggle(false));
     } else {
-      dispatch(navOpen(true));
+      dispatch(navToggle(true));
     }
   };
   return (
@@ -52,7 +52,12 @@ const Header = () => {
       <nav className='nav'>
         <div className='nav__linkContainer'>
           <Link to='/'>
-            <img className='nav__logo' src={Logo} alt='logo' />
+            <img
+              className='nav__logo'
+              src={Logo}
+              alt='logo'
+              style={{ backgroundColor: darkmode ? 'darkgray' : 'transparent' }}
+            />
           </Link>
           <Switch color='primary' checked={darkmode} onChange={onChange} />
         </div>
@@ -103,48 +108,47 @@ const Header = () => {
         )}
       </nav>
       {hamburger && (
-        <>
-          <div
-            className={smallNav ? 'nav__mobile navbarActive' : 'nav__mobile'}>
-            {user?.uid ? (
-              <>
-                {user.displayName && (
-                  <div className='nav__displayName'>
-                    반갑습니다. <span>{user.displayName}</span> 님!
-                  </div>
+        <div
+          className={smallNav ? 'nav__mobile navbarActive' : 'nav__mobile'}
+          style={{ backgroundColor: darkmode ? '#2f3135' : '#E6E6E6' }}>
+          {user?.uid ? (
+            <>
+              {user.displayName && (
+                <div className='nav__displayName'>
+                  반갑습니다. <span>{user.displayName}</span> 님!
+                </div>
+              )}
+              <Link to='/user' className='nav__link'>
+                {user.photoURL ? (
+                  <img src={`${user.photoURL}`} alt='avatar' />
+                ) : (
+                  <PersonIcon />
                 )}
-                <Link to='/user' className='nav__link'>
-                  {user.photoURL ? (
-                    <img src={`${user.photoURL}`} alt='avatar' />
-                  ) : (
-                    <PersonIcon />
-                  )}
-                </Link>
-              </>
-            ) : (
-              <>
-                <SignModal />
-                <SignModal isSignUp />
-              </>
-            )}
-            <Link to='/board' className='nav__link'>
-              <AssignmentIcon />
-            </Link>
-            <Link to='/contact' className='nav__link'>
-              <LinkIcon />
-            </Link>
-            {user?.uid && (
-              <button className='nav__link' onClick={onClick}>
-                Log Out
-              </button>
-            )}
-            {user?.admin && (
-              <Link to='/admin' className='nav__link'>
-                <SupervisorAccountIcon />
               </Link>
-            )}
-          </div>
-        </>
+            </>
+          ) : (
+            <>
+              <SignModal />
+              <SignModal isSignUp />
+            </>
+          )}
+          <Link to='/board' className='nav__link'>
+            <AssignmentIcon />
+          </Link>
+          <Link to='/contact' className='nav__link'>
+            <LinkIcon />
+          </Link>
+          {user?.uid && (
+            <button className='nav__link' onClick={onClick}>
+              Log Out
+            </button>
+          )}
+          {user?.admin && (
+            <Link to='/admin' className='nav__link'>
+              <SupervisorAccountIcon />
+            </Link>
+          )}
+        </div>
       )}
     </header>
   );

@@ -36,7 +36,7 @@ const Sidebar = ({ onClick, lectureId, isSidebarIcon, onLectureIconClick }) => {
   return (
     <section
       className={isSidebarIcon ? 'sidebar active' : 'sidebar'}
-      style={{ backgroundColor: darkmode ? '#2f3135' : 'inherit' }}>
+      style={{ backgroundColor: darkmode ? '#2f3135' : '#E6E6E6' }}>
       {loading ? (
         <Loading />
       ) : chapters.length === 0 ? (

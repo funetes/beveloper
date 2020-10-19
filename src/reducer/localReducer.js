@@ -20,7 +20,7 @@ const localReducer = createReducer(intitalState, {
     ...state,
     hamburger: action.payload,
   }),
-  [localAction.navOpen]: (state, action) => ({
+  [localAction.navToggle]: (state, action) => ({
     ...state,
     smallNav: action.payload,
   }),

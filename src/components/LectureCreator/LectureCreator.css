@@ -36,3 +36,10 @@
   color: brown;
   margin-top: 1rem;
 }
+
+@media screen and (max-width: 768px) {
+  .lectureCreator {
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+}

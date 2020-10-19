@@ -3,13 +3,20 @@ import { Link } from 'react-router-dom';
 import './Admin.css';
 import { FaUpload, FaClipboard } from 'react-icons/fa';
 import { SiAuthy } from 'react-icons/si';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { navToggle } from '../../action/localAction';
 
 const Admin = ({ history }) => {
+  const dispatch = useDispatch();
   const user = useSelector(({ user }) => user);
   useEffect(() => {
     !user && history.push('/');
   }, [user, history]);
+
+  useEffect(() => {
+    dispatch(navToggle(false));
+  }, [dispatch]);
+
   return (
     <main className='admin'>
       <h1>ADMIN</h1>

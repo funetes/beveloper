@@ -28,8 +28,8 @@ const LectureIntro = ({ thumbnail, title, description, lectureId }) => {
         <div className='lectureIntro__buttonContainer'>
           <button
             onClick={onFavoriteBtnClick}
-            disabled={!user ? true : false}
-            style={{ color: !user && '#D3D3D3' }}>
+            disabled={!user?.uid ? true : false}
+            style={{ color: !user?.uid && '#D3D3D3' }}>
             {user ? isFavorite ? <FaStar /> : <FaRegStar /> : <FaRegStar />}
           </button>
           <button onClick={onDonateBtnClick}>

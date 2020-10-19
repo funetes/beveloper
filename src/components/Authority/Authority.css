@@ -35,3 +35,9 @@
 .authority__titleWrapper button:hover {
   background-color: rgba(200, 200, 200, 0.5);
 }
+
+@media screen and (max-width: 576px) {
+  .authority {
+    padding: 1rem 2rem;
+  }
+}

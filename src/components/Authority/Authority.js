@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import db from '../../firebase/db';
 import './Authority.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 
@@ -17,6 +17,7 @@ import AuthTableRow from './AuthTableRow';
 import { notionBgColor, color } from '../../utils/style';
 import { BiArrowBack } from 'react-icons/bi';
 import IconButton from '../IconButton/IconButton';
+import { navToggle } from '../../action/localAction';
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -25,9 +26,11 @@ const useStyles = makeStyles({
 
 const Authority = ({ history }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
+  const { darkmode } = useSelector(({ local }) => local);
+
   useEffect(() => {
     const getUsersFromFB = async () => {
       try {
@@ -47,6 +50,9 @@ const Authority = ({ history }) => {
     };
     getUsersFromFB();
   }, []);
+  useEffect(() => {
+    dispatch(navToggle(false));
+  }, [dispatch]);
 
   return (
     <main className='authority'>

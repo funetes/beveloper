@@ -13,7 +13,7 @@ const BoardTable = ({ boards }) => {
   const darkmode = useSelector(({ local: { darkmode } }) => darkmode);
   const dispatch = useDispatch();
   const style = {
-    margin: '2rem',
+    margin: '2rem 0',
     width: 'auto',
     backgroundColor: darkmode ? '#424242' : notionBgColor.LIGHT,
   };
