@@ -106,12 +106,17 @@ const BoardContent = () => {
         text={text}
         setText={setText}
         formStyle={formStyle}
+        style={{
+          width: '100%',
+          marginTop: '1rem',
+        }}
       />
       {/* 댓글 */}
       <Comment
         comments={comments}
         onDeleteClick={onDeleteClick}
         containerStyle={containerStyle}
+        style={{ width: '100%' }}
       />
     </main>
   );

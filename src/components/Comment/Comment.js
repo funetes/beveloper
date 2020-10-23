@@ -11,11 +11,12 @@ const Comment = ({
   lectureId,
   chapterId,
   containerStyle,
+  style,
 }) => {
   const user = useSelector(({ user }) => user);
 
   return (
-    <div className='comment'>
+    <div className='comment' style={{ ...style }}>
       {comments?.map(({ id, username, text, timestamp, creator }) => (
         <div className='comment__container' key={id} style={containerStyle}>
           <span className='comment__username'>{username}</span>

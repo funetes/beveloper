@@ -131,7 +131,12 @@ const Lecture = () => {
           {/* comment component */}
           {chapterId && (
             <section className='lecture__comment'>
-              <CommentAdder onSubmit={onSubmit} text={text} setText={setText} />
+              <CommentAdder
+                onSubmit={onSubmit}
+                text={text}
+                setText={setText}
+                style={{ width: '100%' }}
+              />
               <Comment
                 comments={comments}
                 onDeleteClick={onDeleteClick}

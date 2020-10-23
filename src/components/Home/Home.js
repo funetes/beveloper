@@ -30,7 +30,7 @@ const Home = () => {
                 <div className='home__bannerTextContainer'>
                   <h1>Beveloper</h1>
                   <p>
-                    this is stroy that a man who wnat to be a web developer.
+                    this is story that a man who wnat to be a web developer.
                   </p>
                   <p>웹개발을 좋아하는 한 사람의 이야기</p>
                 </div>

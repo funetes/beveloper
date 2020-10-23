@@ -3,10 +3,10 @@ import './CommentAdder.css';
 import { useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
-const CommentAdder = ({ text, setText, onSubmit, formStyle }) => {
+const CommentAdder = ({ text, setText, onSubmit, formStyle, style }) => {
   const user = useSelector(({ user }) => user);
   return (
-    <div className='commentAdder'>
+    <div className='commentAdder' style={{ ...style }}>
       <form
         className='commentAdder__form'
         onSubmit={onSubmit}

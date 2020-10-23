@@ -7,6 +7,8 @@
   -webkit-box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
   transition: all 0.5s;
+  display: flex;
+  justify-content: center;
 }
 
 .lectureCard:hover {
@@ -15,23 +17,20 @@
 
 .lectureCard___image {
   object-fit: contain;
-  height: 227px;
-  min-width: 350px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  height: 75%;
+  width: 100%;
 }
 
 .lectureCard__container {
-  padding: 0.5rem;
+  padding: 0.65rem;
 }
 
 .lectureCard__container div {
   text-align: right;
 }
 
-@media screen and (max-width: 576px) {
-  .lectureCard___image {
-    height: 230px;
-    min-width: 300px;
+@media screen and (max-width: 768px) {
+  .lectureCard {
+    width: 100%;
   }
 }

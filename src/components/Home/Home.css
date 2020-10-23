@@ -20,14 +20,15 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0px 3px 14px -1px rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
 }
 .home__bannerContainer {
   display: flex;
   align-items: flex-start;
 }
 .home__bannerImg {
-  width: 200px;
-  height: 150px;
+  width: 245px;
+  height: 140px;
   margin-right: 3rem;
 }
 .home__bannerTextContainer {
@@ -47,6 +48,9 @@
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
+.home__bannerTextContainer p:nth-child(3) {
+  font-size: 1rem;
+}
 
 .loading {
   width: 100vw;
@@ -61,6 +65,45 @@
   .home__lecture {
     grid-template-columns: repeat(2, 1fr);
   }
+  .home__bannerImg {
+    width: 170px;
+    height: 100px;
+    margin-right: 2rem;
+  }
+  .home__bannerTextContainer h1 {
+    font-size: 6rem;
+  }
+  .home__bannerTextContainer p {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .home__bannerTextContainer p:nth-child(3) {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* .home__bannerImg {
+    width: 169px;
+    height: 100px;
+    margin-right: 2rem;
+  } */
+  .home__banner {
+    height: 55vh;
+  }
+  .home__bannerTextContainer h1 {
+    font-size: 4.5rem;
+  }
+  .home__bannerTextContainer p {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+  .home__bannerTextContainer p:nth-child(3) {
+    font-size: 0.6rem;
+  }
+  .home__lecture {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -69,5 +112,14 @@
   }
   .home {
     padding: 2rem 2rem;
+  }
+  .home__bannerContainer {
+    flex-direction: column;
+  }
+  .home__banner {
+    height: 45vh;
+  }
+  .home__bannerTextContainer h1 {
+    font-size: 3.5rem;
   }
 }
