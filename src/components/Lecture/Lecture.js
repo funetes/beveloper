@@ -25,8 +25,7 @@ const Lecture = () => {
   const { id: lectureId } = useParams();
   const dispatch = useDispatch();
   const user = useSelector(({ user }) => user);
-  const sidebar = useSelector(({ local: { sidebar } }) => sidebar);
-  const smallNav = useSelector(({ local: { smallNav } }) => smallNav);
+  const { sidebar, smallNav } = useSelector(({ local }) => local);
   const onClick = chapterId => setChapterId(chapterId);
 
   useEffect(() => {
@@ -129,8 +128,9 @@ const Lecture = () => {
               lectureId={lectureId}
             />
           )}
+          {/* comment component */}
           {chapterId && (
-            <section style={{ width: '100%' }}>
+            <section className='lecture__comment'>
               <CommentAdder onSubmit={onSubmit} text={text} setText={setText} />
               <Comment
                 comments={comments}

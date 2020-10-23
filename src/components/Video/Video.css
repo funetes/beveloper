@@ -3,13 +3,13 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 1.5rem;
   border-bottom: 1px solid lightgray;
   min-height: -webkit-fit-content;
 }
 
 .video__container {
-  width: 100%;
+  width: 80%;
 }
 
 .video__display {
@@ -30,4 +30,10 @@
 
 .video__description {
   margin: 1rem;
+}
+
+@media screen and (max-width: 576px) {
+  .video__container {
+    width: 100%;
+  }
 }
