@@ -48,7 +48,7 @@ const Header = () => {
     }
   };
   return (
-    <header>
+    <header style={{ backgroundColor: darkmode ? '#333333' : 'inherit' }}>
       <nav className='nav'>
         <div className='nav__linkContainer'>
           <Link to='/'>
